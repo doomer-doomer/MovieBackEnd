@@ -40,7 +40,7 @@ export function thistoggle (title,logo,img,ep,rating){
 
 
 
-export default function FetchData(){
+export default function FetchData(props){
 
     let myrandomImg
     let starttitle
@@ -103,11 +103,6 @@ export default function FetchData(){
         setsinglepic(pic)
         setsingleepisodedes(myep)
         window.scrollTo(0, 0);
-       
-        
-        
-        
-        
       }
 
 

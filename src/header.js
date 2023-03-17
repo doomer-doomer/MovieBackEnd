@@ -2,14 +2,15 @@ import FetchData from "./Data"
 import datas from "./datas"
 import React, { useState,useEffect } from "react"
 import SingleLay from "./SingleLayout"
-import { BrowserRouter as Router,Link,Route,Routes } from 'react-router-dom';
+import { Sendemail } from "./login"
+import { BrowserRouter as Router,Link,Route,Routes, useNavigate } from 'react-router-dom';
 
 export default function PageHeader(){
     const run = true
     let base_random
     let base_text
     
-   
+   const navigate = useNavigate();
     
     var cnum=1
     const myref = React.useRef(0)
@@ -27,7 +28,39 @@ export default function PageHeader(){
     }
    
     //document.querySelector("input[name='theme']").forEach(input => input.onChange = e => document.querySelector(":root").style.setProperty("--theme-color",'var(--${value})'));
-    
+      
+      function getCookie(cname) {
+        if(cname== ""){
+            console.log("Error")
+        }else{
+            let name = cname + "=";
+            let ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+            }
+            return "";
+        }
+        
+      }
+      
+      function checkCookie() {
+        let user = getCookie("username");
+        if (user != "") {
+          alert("Welcome again " + user);
+        } else {
+            navigate('/Login');
+        }
+      }
+
+      useEffect(()=>{
+        checkCookie();
+      },[]);
 
     return(
         <div className="root_head">
@@ -35,10 +68,7 @@ export default function PageHeader(){
                     <div className="navAlign">
                         <div className="navbar">
                             <img src="logo.png" className="logo"></img>
-                            <Link to="/login"><h3>Login</h3></Link>
-                    
-
-
+                            <h3>{getCookie("username")}</h3>
                         </div>
                     </div>
                     

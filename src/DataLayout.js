@@ -7,16 +7,7 @@ export default function Layout(items){
     const visibleRef = React.useRef()
     const [visible, setVisible] = useState(false);
     const [visible2, setVisible2] = useState(true);
-    const {id} = useParams()
-
-    const Category = ({ title }) => {
-        console.log(title)
-        return (
-          <Link to={{ pathname: "/Seinfled", state: { title } }}>
-            {title}
-          </Link>
-        );
-      };
+    const {id} = useParams();
     
 
     const showElement = () => {

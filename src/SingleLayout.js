@@ -36,10 +36,13 @@ export default function SingleLay(items){
                         <p>{items.id}</p>
                         
                         <p>{items.cast.map(kkk=>kkk=kkk.split(","))}</p>
+                       
                     </div>
                     
 
+                    
                     <div className="parentobj">
+                        
 
                             <div className="objects">
                                 <img src={items.pic[0]}></img>

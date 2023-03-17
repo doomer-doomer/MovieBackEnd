@@ -39,16 +39,24 @@
     z-index: 1;
     box-shadow: 0px 7px 3px rgba(0,0,0,0.5);
     background-color: white;
+    overflow: hidden;
     
 }
 
 .objects img{
     border-radius: 10px 0px 0px 10px;
-    width: 400px;
+    width: 25vmax;
+    transform: scale(1.2);
+    transition: all 0.5s;
+}
+
+.objects img:hover{
+    transform: scale(1.1);
 }
 
 .objects .episodedata{
     padding: 20px;
+    margin-left: 40px;
     display: block;
 }
 

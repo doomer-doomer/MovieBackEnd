@@ -16,6 +16,7 @@ import Login from './login';
 import './login.css'
 import { useState } from 'react';
 import Signup from './signup';
+import AdminPage from './Admin';
 
 let newTitle = new Array()
 export function Mytoggle (title,logo,img,ep,rating,isvisible){
@@ -48,7 +49,8 @@ function App() {
             <Routes>
               <Route path='/Homepage' element={<FinalLayout/>}></Route> 
               <Route path='/Login' element={<Login/>}></Route> 
-              <Route path='/Signup' element={<Signup/>}></Route>  
+              <Route path='/Signup' element={<Signup/>}></Route>
+              <Route path='/Admin' element={<AdminPage/>}></Route>    
             </Routes>
 
             
