@@ -58,9 +58,7 @@ export default function PageHeader(){
         }
       }
 
-      useEffect(()=>{
-        checkCookie();
-      },[]);
+      
 
     return(
         <div className="root_head">

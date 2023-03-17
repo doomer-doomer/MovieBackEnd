@@ -66,9 +66,6 @@ export default function Login(){
         
     }
 
-      useEffect(()=>{
-        handleSubmit();
-      },[]);
 
     
 

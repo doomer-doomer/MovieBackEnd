@@ -5,6 +5,9 @@ const bcrypt = require('bcrypt');
 const cors = require('cors');
 const pool = require('./db');
 const jwtGenerator = require('./jwtGenerator');
+const validate = require('./validate');
+const authorize = require('./authorize');
+const { Navigate } = require('react-router-dom');
 
 //Middleware
 app.use(cors())
@@ -13,7 +16,7 @@ app.use(express.json());
 
 
 //SIGN UP
-app.post("/signup",async(req,res)=>{
+app.post("/signup",validate,async(req,res)=>{
     try{
 
         const {email,password} = req.body;
@@ -27,25 +30,54 @@ app.post("/signup",async(req,res)=>{
         //res.json(data.rows[0])
 
         const jwtToken = jwtGenerator(data.rows[0].user_id);
-        console.log(jwtToken);
-        res.json({jwtToken});
+        //console.log(jwtToken);
+        //res.json({jwtToken});
+        return res.json("Success")
     }catch(err){
         console.log(err.message);
     }
 })
 
 //LOGIN
-app.post("/login",async(req,res)=>{
+app.post("/login",validate,async(req,res)=>{
     try{
 
         const {email,password} = req.body;
         
         const data = await pool.query("SELECT email FROM MyUser4 WHERE email = $1",
-        [email,bcryptpassword]);
+        [email]);
 
-        res.json(data.rows[0])
+        if(data.rows.length ===0){
+            return res.status(401).json("Invalid Credentials");
+        }
+
+        const alldata = await pool.query("SELECT email,password FROM MyUser4 WHERE email = $1",[email]); 
+
+        //res.json(alldata.rows[0].password);
+
+        const validPassword = await bcrypt.compare(
+            password,
+            alldata.rows[0].password
+        );
+
+        if(!validPassword){
+            return res.status(401).json("Invalid Credentials");
+        }
+
+        const jwtToken = jwtGenerator(data.rows[0].user_id);
+        return res.json({jwtToken});
+
+       
     }catch(err){
         console.log(err.message);
+    }
+})
+
+app.post("/check",authorize,async(req,res)=>{
+    try {
+        res.json(true);
+    } catch (error) {
+        console.error(error.message);
     }
 })
 

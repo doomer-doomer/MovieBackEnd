@@ -1,4 +1,4 @@
-import { BrowserRouter as Router,Link,Route,Routes } from 'react-router-dom';
+import { BrowserRouter as Router,Link,Route,Routes, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 export default function Signup(){
@@ -10,6 +10,7 @@ export default function Signup(){
         {}
     )
 
+    const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -22,7 +23,10 @@ export default function Signup(){
                 body:JSON.stringify(body)
             });
 
-            console.log(response)
+            const res = response.json();
+            if(res == "Success"){
+                navigate('/Homepage');
+            }
         } catch (err) {
             console.error(err.message)
         }
