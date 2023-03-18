@@ -23,6 +23,7 @@ import Middle from './MiddlePage';
 import StartPage from './StartPage';
 import './errorPage.css'
 import './middle.css'
+import './startpage.css'
 
 let newTitle = new Array()
 export function Mytoggle (title,logo,img,ep,rating,isvisible){

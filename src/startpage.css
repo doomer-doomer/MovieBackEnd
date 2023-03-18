@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap');
+
+
+.starpgbody{
+    overflow: hidden;
+    margin: 0;
+    height: 100%;
+}
+.headerstartpg{
+    width: 100%;
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.headerstartpg img{
+    width: 130px;
+    margin-left: 100px;
+    
+}
+
+.headerstartpg button{
+    margin-left: auto;
+    color: white;
+    margin-right: 100px;
+    border: none;
+    background: transparent;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1vw;
+}
+
+.startpgLay img{
+    height: 100vh;
+    overflow: hidden;
+    background-position: center;
+}
+
+.slogan{
+    display: flex;
+    position: absolute;
+    top: 10%;
+    width: 90%;
+}
+
+.slogan h1{
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Manrope', sans-serif;
+    font-size: 6vw;
+    margin-left: 100px;
+    color: white;
+}
+
+.emailForm p{
+    font-family: 'Manrope', sans-serif;
+    color: white;
+    margin-left: 8px;
+    font-size: 1vw;
+}
+
+.emailBox{
+    display: flex;
+    width: 100%;
+    position: absolute;
+    top: 75%;
+    
+}
+
+.emailForm{
+    
+    display: block;
+    margin-left: 100px;
+    margin-right: auto;
+    
+}
+
+.innerForm{
+    display: flex;
+    width: 100%;
+    
+   
+}
+
+.innerForm input{
+    padding: 20px;
+    width: 20vmax;
+    box-shadow: 3px 0px 7px rgba(0,0,0,0.5);
+    border: none;
+    border-radius: 15px 0px 0px 15px;
+    font-family: 'Manrope', sans-serif;
+    outline: none;
+}
+
+.emailForm button{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border: none;
+    background-color: #191919;
+    color:white;
+    border-radius: 0px 15px 15px 0px;
+    
+    font-family: 'Manrope', sans-serif;
+}

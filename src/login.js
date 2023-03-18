@@ -85,37 +85,47 @@ export default function Login(){
     return(
         <div className="LoginMain">
            
+           <div className="imageLogin">
+                <img src="redbg.jpg"></img>
+            </div>
+           
             <div className="LoginLayout">
-               
-                <h1>Login</h1>
-                <div className="LoginContent">
-                <form onSubmit={handleSubmit}>
-                    <label>Email:
-                        <input
-                        type="email" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </label>
-                    <label>Password:
-                        <input
-                        type="password" 
-                        value={password}
-                        onChange={(e) => setPass(e.target.value)}
-                        />
-                        
-                    </label>
-                    <img src="hide.png"></img>
-                    <img src="view.png"></img>
+                <div className="loginlayalign">
 
-                    <button type="submit">Submit</button>
-                    <p>Create a new account?<Link to="/Signup">Signup</Link></p>
-                    
-                </form>
+                    <h1>Login</h1>
+                    <div className="LoginContent">
+                    <form onSubmit={handleSubmit}>
+                        <label>Email:
+                            <input
+                            type="email" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </label>
+                        <label>Password:
+                            <input
+                            type="password" 
+                            value={password}
+                            onChange={(e) => setPass(e.target.value)}
+                            />
+                            
+                        </label>
+                        
+
+                        <button type="submit">Submit</button>
+                        <p>Create a new account?<Link to="/Signup">Signup</Link></p>
+                        
+                    </form>
+
+                    </div>
 
                 </div>
+               
+                
 
             </div>
+
+           
         </div>
     )
 }
