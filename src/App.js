@@ -20,6 +20,9 @@ import Signup from './signup';
 import AdminPage from './Admin';
 import ErrorPage from './404Page';
 import Middle from './MiddlePage';
+import StartPage from './StartPage';
+import './errorPage.css'
+import './middle.css'
 
 let newTitle = new Array()
 export function Mytoggle (title,logo,img,ep,rating,isvisible){
@@ -92,6 +95,8 @@ function App() {
               <Route path='/Login' element={!isAuthorized ? <Login/> : <Middle/>}></Route> 
               <Route path='/Signup' element={!isAuthorized ? <Signup/> : <Middle/>}></Route>
               <Route path='/Admin' element={<AdminPage/>}></Route>    
+              <Route path='/' element={!isAuthorized ? <StartPage/> : <Middle/>}/>
+              <Route path='/middle' element={<Middle/>}></Route>
             </Routes>
 
             

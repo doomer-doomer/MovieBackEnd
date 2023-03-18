@@ -1,0 +1,47 @@
+#sparkles > path {
+	animation: sparklyBits 1000ms infinite;
+	position: absolute;
+}
+
+#message {
+	margin-top: 20px;
+	text-align: center;
+}
+
+@for $i from 1 through 29 {
+	#sparkles > path:nth-child(#{$i}) {
+		animation-delay: (35ms * $i);
+	}
+}
+
+@keyframes sparklyBits {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.mid{
+	display: flex;
+	background-color: rgb(255, 54, 54);
+	width: 100%;
+}
+.middleBody {
+	display: block;
+	width: 100%;
+	height: 100vh;
+	
+}
+.middleBody svg{
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20%;
+	
+}
+
+.middleBody #message{
+	font-style: italic;
+}
