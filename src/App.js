@@ -90,7 +90,7 @@ function App() {
             <Routes>
               <Route path='/Homepage' element={isAuthorized ? <FinalLayout/> : <ErrorPage status= "Login Required" err="Token has expired!"/>}></Route> 
               <Route path='/Login' element={!isAuthorized ? <Login/> : <Middle/>}></Route> 
-              <Route path='/Signup' element={!isAuthorized ? <Signup/> : <FinalLayout/>}></Route>
+              <Route path='/Signup' element={!isAuthorized ? <Signup/> : <Middle/>}></Route>
               <Route path='/Admin' element={<AdminPage/>}></Route>    
             </Routes>
 
