@@ -18,6 +18,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Signup from './signup';
 import AdminPage from './Admin';
+import ErrorPage from './404Page';
+import Middle from './MiddlePage';
 
 let newTitle = new Array()
 export function Mytoggle (title,logo,img,ep,rating,isvisible){
@@ -86,8 +88,8 @@ function App() {
         <div className="Root">
           <div className="Contents">
             <Routes>
-              <Route path='/Homepage' element={isAuthorized ? <FinalLayout/> : <Login/>}></Route> 
-              <Route path='/Login' element={!isAuthorized ? <Login/> : <FinalLayout/>}></Route> 
+              <Route path='/Homepage' element={isAuthorized ? <FinalLayout/> : <ErrorPage status= "Login Required" err="Token has expired!"/>}></Route> 
+              <Route path='/Login' element={!isAuthorized ? <Login/> : <Middle/>}></Route> 
               <Route path='/Signup' element={!isAuthorized ? <Signup/> : <FinalLayout/>}></Route>
               <Route path='/Admin' element={<AdminPage/>}></Route>    
             </Routes>
