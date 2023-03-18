@@ -15,6 +15,7 @@ import './singleLayout.css'
 import Login from './login';
 import './login.css'
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Signup from './signup';
 import AdminPage from './Admin';
 
@@ -35,8 +36,6 @@ export function Mytoggle (title,logo,img,ep,rating,isvisible){
   myimage = {img}
   title="Tejas"/>
   
-  
-  
 }
 
 
@@ -44,18 +43,28 @@ export function Mytoggle (title,logo,img,ep,rating,isvisible){
 
 function App() {
 
+  
+  const [isAuthorized,setIsAuthenticated] = useState(false);
+
   const checkAuthentication = async()=>{
     try {
-      const res = await fetch("http://localhost:5000/check",{
+      const token = localStorage.getItem('jwt_token');
+      if (!token) return;
+      const res = await fetch("http://localhost:5000/checkauth",{
         method:"POST",
-        headers:{jwtToken:localStorage.jwtToken}
+        headers: { Authorization: `Bearer ${token}`,
+          jwt_token: token
+      },
       });
+
+      if (!res.ok) throw new Error('Unauthorized');
 
       const parseRes = await res.json();
 
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false); 
     } catch (error) {
       console.log(error.message);
+      // localStorage.removeItem('jwt_token');
     };
 
     
@@ -66,8 +75,8 @@ function App() {
     
   },[]);
 
-  const [isAuthorized,setIsAuthenticated] = useState(false);
-
+  
+  const navigate = useNavigate();
   
   const setAuth = boolean => {
     setIsAuthenticated(boolean);
@@ -77,27 +86,9 @@ function App() {
         <div className="Root">
           <div className="Contents">
             <Routes>
-              <Route path='/Homepage' render={
-                isAuthorized ? (
-                  <Navigate to="/Login"></Navigate>
-                ) : (
-                  <Navigate to="/Homepage"></Navigate>
-                )
-              }element={<FinalLayout/>}></Route> 
-              <Route path='/Login' render={props =>
-                !isAuthorized ? (
-                  <Login {...props} setAuth={setAuth} />
-                ) : (
-                  <Navigate to="/Homepage"></Navigate>
-                )
-              }element={<Login/>}></Route> 
-              <Route path='/Signup' render={props =>
-                !isAuthorized ? (
-                  <Login {...props} setAuth={setAuth} />
-                ) : (
-                  <Navigate to="/Homepage"></Navigate>
-                )
-              }element={<Signup/>}></Route>
+              <Route path='/Homepage' element={isAuthorized ? <FinalLayout/> : <Login/>}></Route> 
+              <Route path='/Login' element={!isAuthorized ? <Login/> : <FinalLayout/>}></Route> 
+              <Route path='/Signup' element={!isAuthorized ? <Signup/> : <FinalLayout/>}></Route>
               <Route path='/Admin' element={<AdminPage/>}></Route>    
             </Routes>
 

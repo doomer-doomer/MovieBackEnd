@@ -14,8 +14,8 @@ export default function Login(){
 
     const [firstName,setFirstName] = useState("")
     const [lastName,setLAstName] = useState("")
-    const [myemail,setEmail] = useState("")
-    const [mypassword,setPass] = useState("")
+    const [email,setEmail] = useState("")
+    const [password,setPass] = useState("")
     const [formData,setformData] = useState(
         {}
     )
@@ -33,12 +33,21 @@ export default function Login(){
     }
 
     const handleSubmit = async e => {
-        
 
+        // e.preventDefault();
         try { 
-            const response = await fetch("http://localhost:5000/login");
-            responseData = await response.json();
-            console.log(responseData);
+            const body = {email,password};  
+            const response = await fetch("http://localhost:5000/login",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(body)
+            });
+
+            const res = await response.json();
+            console.log(res);
+            
+            localStorage.setItem('jwt_token',res.jwtToken);
+            
         } catch (err) {
             console.error(err.message);
             console.log("Error in Server")
@@ -48,21 +57,25 @@ export default function Login(){
 
     const submitForm = (event) =>{
         event.preventDefault();
-        let i
-        for(i in responseData){
-            console.log(responseData[i].email);
-            if(myemail == 'admin@gmail.com' && mypassword == 'admin'){
-                navigate('/Admin');
-                break;
-            }else if(responseData[i].email == myemail && responseData[i].password == mypassword){
-                setCookie("username",myemail,1);
-                navigate('/Homepage');
-                break;
-            }else{
-                console.log("User Not Found!")
-            }
+        const x = handleSubmit();
+        console.log(x)
+        
+        // for(i in responseData){
+        //     console.log(responseData[i].email);
+        //     if(myemail == 'admin@gmail.com' && mypassword == 'admin'){
+        //         navigate('/Admin');
+        //         break;
+        //     }else if(responseData[i].email == myemail && responseData[i].password == mypassword){
+        //         setCookie("username",myemail,1);
+        //         navigate('/Homepage');
+        //         break;
+        //     }else{
+        //         console.log("User Not Found!")
+        //     }
+
             
-        }
+        //}
+        console.log(responseData);
         
     }
 
@@ -76,18 +89,18 @@ export default function Login(){
                
                 <h1>Login</h1>
                 <div className="LoginContent">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <label>Email:
                         <input
                         type="email" 
-                        value={myemail}
+                        value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         />
                     </label>
                     <label>Password:
                         <input
                         type="password" 
-                        value={mypassword}
+                        value={password}
                         onChange={(e) => setPass(e.target.value)}
                         />
                         
@@ -95,7 +108,7 @@ export default function Login(){
                     <img src="hide.png"></img>
                     <img src="view.png"></img>
 
-                    <button type="button" onClick={submitForm}>Submit</button>
+                    <button type="submit">Submit</button>
                     <p>Create a new account?<Link to="/Signup">Signup</Link></p>
                     
                 </form>

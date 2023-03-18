@@ -29,36 +29,40 @@ export default function PageHeader(){
    
     //document.querySelector("input[name='theme']").forEach(input => input.onChange = e => document.querySelector(":root").style.setProperty("--theme-color",'var(--${value})'));
       
-      function getCookie(cname) {
-        if(cname== ""){
-            console.log("Error")
-        }else{
-            let name = cname + "=";
-            let ca = document.cookie.split(';');
-            for(let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-            }
-            return "";
-        }
+    //   function getCookie(cname) {
+    //     if(cname== ""){
+    //         console.log("Error")
+    //     }else{
+    //         let name = cname + "=";
+    //         let ca = document.cookie.split(';');
+    //         for(let i = 0; i < ca.length; i++) {
+    //         let c = ca[i];
+    //         while (c.charAt(0) == ' ') {
+    //             c = c.substring(1);
+    //         }
+    //         if (c.indexOf(name) == 0) {
+    //             return c.substring(name.length, c.length);
+    //         }
+    //         }
+    //         return "";
+    //     }
         
-      }
+    //   }
       
-      function checkCookie() {
-        let user = getCookie("username");
-        if (user != "") {
-          alert("Welcome again " + user);
-        } else {
-            navigate('/Login');
-        }
-      }
+    //   function checkCookie() {
+    //     let user = getCookie("username");
+    //     if (user != "") {
+    //       alert("Welcome again " + user);
+    //     } else {
+    //         navigate('/Login');
+    //     }
+    //   }
 
-      
+    const logout = ()=>{
+        localStorage.removeItem('jwt_token');
+        // window.location.reload();
+        
+    }
 
     return(
         <div className="root_head">
@@ -66,7 +70,7 @@ export default function PageHeader(){
                     <div className="navAlign">
                         <div className="navbar">
                             <img src="logo.png" className="logo"></img>
-                            <h3>{getCookie("username")}</h3>
+                            <button onClick={logout}>Logout</button>
                         </div>
                     </div>
                     

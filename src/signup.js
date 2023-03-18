@@ -23,10 +23,11 @@ export default function Signup(){
                 body:JSON.stringify(body)
             });
 
-            const res = response.json();
-            if(res == "Success"){
-                navigate('/Homepage');
-            }
+            const res = await response.json();
+            console.log(res);
+            const token = response.jwtToken;
+            localStorage.setItem('jwt_token',res.jwtToken);
+            
         } catch (err) {
             console.error(err.message)
         }

@@ -15,6 +15,18 @@ app.use(cors())
 app.use(express.json());
 
 
+app.post("/",authorize,async(req,res)=>{
+    try {
+        const user = await pool.query("SELECT email FROM MyUser4 WHERE id=$1",
+        [req.user.id]);
+
+        res.json(user.rows[0])
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Server Error");
+    }
+})
+
 //SIGN UP
 app.post("/signup",validate,async(req,res)=>{
     try{
@@ -28,11 +40,11 @@ app.post("/signup",validate,async(req,res)=>{
         [email,bcryptpassword]);
 
         //res.json(data.rows[0])
-
         const jwtToken = jwtGenerator(data.rows[0].user_id);
+        
         //console.log(jwtToken);
-        //res.json({jwtToken});
-        return res.json("Success")
+        res.json({jwtToken});
+        
     }catch(err){
         console.log(err.message);
     }
@@ -65,7 +77,9 @@ app.post("/login",validate,async(req,res)=>{
         }
 
         const jwtToken = jwtGenerator(data.rows[0].user_id);
-        return res.json({jwtToken});
+       
+        
+        res.status(200).json({jwtToken});
 
        
     }catch(err){
@@ -73,7 +87,7 @@ app.post("/login",validate,async(req,res)=>{
     }
 })
 
-app.post("/check",authorize,async(req,res)=>{
+app.post("/checkauth",authorize,async(req,res)=>{
     try {
         res.json(true);
     } catch (error) {
@@ -82,11 +96,11 @@ app.post("/check",authorize,async(req,res)=>{
 })
 
 //SELECT
-app.get("/myurl",async(req,res)=>{
+app.get("/getuser",async(req,res)=>{
     try{
         //const {email,password} = req.body;
         
-        const data = await pool.query("SELECT * FROM MyUser2");
+        const data = await pool.query("SELECT * FROM MyUser4");
 
         res.json(data.rows)
     }catch(err){
