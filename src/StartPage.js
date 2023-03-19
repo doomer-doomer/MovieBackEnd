@@ -38,7 +38,7 @@ export default function StartPage(){
                     <p>Enter your email to create or subscribe for updates</p>
                     <div className="innerForm">
 
-                                <form>
+                                    <form>
                                         <label>
                                             <input
                                             type="email" 
