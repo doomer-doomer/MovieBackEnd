@@ -6,6 +6,8 @@ export default function StartPage(){
     const navigate = useNavigate();
     const [email,setemail] = useState("");
 
+    const subject = "Mysubject";
+    const body = "this is body";
     const handleSubmit = (e)=>{
         e.preventDefault();
         alert(email);
@@ -48,7 +50,7 @@ export default function StartPage(){
                                         
                                         
                                     </form>
-                                    <button type="button" onClick={handleSubmit}>Submit</button>
+                                    <button type="button" href="mailto:`{email}`?subject={subject}&body={body}">Submit</button>
                     </div>
                     
 

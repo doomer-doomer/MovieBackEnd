@@ -56,10 +56,11 @@ export default function Signup(){
                         />
                         
                     </label>
-                    <img src="hide.png"></img>
-                    <img src="view.png"></img>
-
+                   
+                    <br></br>
                     <button type="submit">Submit</button>
+                    <br></br>
+                    <p>Already have an account? <Link to="/login">Login</Link></p>
                     
                     
                 </form>

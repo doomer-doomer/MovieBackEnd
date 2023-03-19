@@ -85,24 +85,28 @@ export default function Login(){
     return(
         <div className="LoginMain">
            
+          
            <div className="imageLogin">
                 <img src="redbg.jpg"></img>
             </div>
-           
             <div className="LoginLayout">
+                
                 <div className="loginlayalign">
 
-                    <h1>Login</h1>
+                    
                     <div className="LoginContent">
+                    <h1>Welcome Back!</h1>
+                    
                     <form onSubmit={handleSubmit}>
-                        <label>Email:
+                        <label>Email
                             <input
                             type="email" 
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             />
                         </label>
-                        <label>Password:
+                        <br></br>
+                        <label>Password
                             <input
                             type="password" 
                             value={password}
@@ -111,7 +115,7 @@ export default function Login(){
                             
                         </label>
                         
-
+                        <br></br><br></br>
                         <button type="submit">Submit</button>
                         <p>Create a new account?<Link to="/Signup">Signup</Link></p>
                         

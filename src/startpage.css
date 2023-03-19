@@ -12,6 +12,7 @@
     position: absolute;
     z-index: 2;
     background-color: rgba(0,0,0,0.5);
+
 }
 
 .headerstartpg img{
@@ -34,7 +35,11 @@
     height: 100vh;
     overflow: hidden;
     background-position: center;
+    animation: movingbg 5s ease-in-out both;
+    
 }
+
+
 
 .slogan{
     display: flex;
@@ -44,12 +49,14 @@
 }
 
 .slogan h1{
+    display: flex;
     margin-left: auto;
     margin-right: auto;
     font-family: 'Manrope', sans-serif;
     font-size: 6vw;
-    margin-left: 100px;
+    margin-left: 200px;
     color: white;
+    text-align: center;
 }
 
 .emailForm p{
@@ -70,21 +77,23 @@
 .emailForm{
     
     display: block;
-    margin-left: 100px;
+    margin-left: auto;
     margin-right: auto;
+    margin-top: 10px;
     
 }
 
 .innerForm{
     display: flex;
     width: 100%;
-    
+    margin-left: 40px;
    
 }
 
 .innerForm input{
+
     padding: 20px;
-    width: 20vmax;
+    width: 130%;
     box-shadow: 3px 0px 7px rgba(0,0,0,0.5);
     border: none;
     border-radius: 15px 0px 0px 15px;
@@ -94,6 +103,7 @@
 
 .emailForm button{
     display: flex;
+    width: 20%;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
@@ -104,3 +114,61 @@
     
     font-family: 'Manrope', sans-serif;
 }
+
+@keyframes movingbg {
+    from{
+        transform: scale(1);
+        
+    }75%{
+        transform: scale(2);
+    }
+    to {
+        transform: scale(1.5);
+    }
+  }
+
+@media screen and (max-width:1200px) {
+    .slogan h1{
+        font-size: 80px;
+        text-align: center;
+        margin-left: 50px;
+    }
+
+   
+
+    .slogan{
+        
+        top: 20%;
+        
+    }
+
+    .emailForm p{
+        
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width:900px) {
+    .slogan h1{
+        font-size: 60px;
+        text-align: center;
+        margin-left: 50px;
+    }
+
+    .emailForm button{
+        width: 25%;
+    }
+
+
+    .slogan{
+        
+        top: 20%;
+        
+    }
+
+    .emailForm p{
+        margin-top: 10px;
+        font-size: 15px;
+    }
+}
+
