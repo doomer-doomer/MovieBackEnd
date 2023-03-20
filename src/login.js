@@ -34,7 +34,7 @@ export default function Login(){
 
     const handleSubmit = async e => {
 
-        // e.preventDefault();
+         e.preventDefault();
         try { 
             const body = {email,password};  
             const response = await fetch("http://localhost:5000/login",{
@@ -46,7 +46,12 @@ export default function Login(){
             const res = await response.json();
             console.log(res);
             
+            
             localStorage.setItem('jwt_token',res.jwtToken);
+            if(res.jwtToken.length>10){
+                window.location.reload();
+            }
+            
             
         } catch (err) {
             console.error(err.message);
