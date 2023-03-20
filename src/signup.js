@@ -13,7 +13,7 @@ export default function Signup(){
     const navigate = useNavigate();
 
     const handleSubmit = async e => {
-
+        e.preventDefault();
         try {
             const body = {email,password};  
             const response = await fetch("http://localhost:5000/signup",{
@@ -24,8 +24,13 @@ export default function Signup(){
 
             const res = await response.json();
             console.log(res);
-            const token = response.jwtToken;
+            //const token = response.jwtToken;
             localStorage.setItem('jwt_token',res.jwtToken);
+            if(res.jwtToken.length>10){
+                window.location.reload();
+            }
+                
+            
             
         } catch (err) {
             console.error(err.message)

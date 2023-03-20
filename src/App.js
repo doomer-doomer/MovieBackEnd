@@ -70,7 +70,7 @@ function App() {
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false); 
     } catch (error) {
       console.log(error.message);
-      // localStorage.removeItem('jwt_token');
+      //localStorage.removeItem('jwt_token');
     };
 
     
