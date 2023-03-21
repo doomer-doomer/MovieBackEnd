@@ -62,7 +62,7 @@ export default function FetchData(props){
     const scroll14 = React.useRef()
     const scroll15 = React.useRef()
 
-    const [indata,newdata] = useState({})
+    const [infovisible,setinfovisible] = useState(false);
 
     const [visbile,setVisible]=useState(false)
     const [visbile2,setVisible2]=useState(true)
@@ -1202,34 +1202,37 @@ const mystry = Mysteries.map(titles=>{
             <div className="parentContent">
 
                 <div className="content_info">
-                    <button onClick={back} className="leftbtn"><img src="right-arrow3.png" width="100%"></img></button>
+                    
+                    {!infovisible && <button onClick={back} className="leftbtn"><img src="right-arrow3.png" width="100%"></img></button>}
+                    <button>Watch Now</button>
                         <div className="PageLogo">
                             
-                            <img src={title} className="basetitle"></img>
+                            {!infovisible && <img src={title} className="basetitle"></img>}
                         
-                        <div className="imageSection">
+                        <div className="imageSection" onMouseEnter={()=> setinfovisible(true)} onMouseLeave={()=> setinfovisible(false)}>
                             
                             
-                            <img onMouseEnter={()=> unzoom("100")} onMouseLeave={()=> unzoom("200")} className="backimg" src={loadimg} width="100%" ></img>
+                            <img  className="backimg" src={loadimg} width="100%" ></img>
                             
                         </div>
                         
                                 
                             
                         </div>
+                        
 
-                        <div className="Info">
-                            <h1><LongText content={text} limit={12}></LongText></h1>
+                        {infovisible && <div className="Info">
+                            <h1>{text}</h1>
                             <h2>{zzseason}</h2>
                             <div className="subInfo">
                                 <p>{genrez}</p>
                                 <p>{ratingz}</p>
                             </div>
-                            
-                            
                             <p>{desk}</p>
-                        </div>
-                        <button onClick={next} className="rightbtn"><img src="right-arrow2.png" width="100%"></img></button>
+                            
+                        </div>}
+                        
+                        {!infovisible && <button onClick={next} className="rightbtn"><img src="right-arrow2.png" width="100%"></img></button>}
 
 
                     </div>

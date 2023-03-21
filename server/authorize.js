@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const pool = require('./db');
-require('dotenv').config();
+require('dotenv').config({path:'C:/Users/Dell/Documents/Tejas/MoviesApp/.env'});
 
 module.exports = function(req,res,next){
     //get token
@@ -13,8 +13,8 @@ module.exports = function(req,res,next){
 
     //Verify
     try {
-        const verify = jwt.verify(token,""+process.env.JWT_KEY);
-        req.user = verify.user;
+        const payload = jwt.verify(token,""+process.env.JWT_KEY);
+        req.user = payload.user;
         next();
     } catch (error) {
         res.status(401).json({msg:"Token is not Valid!"});
