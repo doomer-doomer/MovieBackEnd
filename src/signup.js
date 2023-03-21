@@ -56,10 +56,10 @@ export default function Signup(){
                     });
                     return;
             }
-            //const token = response.jwtToken;
+            
             localStorage.setItem('jwt_token',res.jwtToken);
             if(res.jwtToken.length>10){
-                toast.success('Registeration Successful!', {
+                toast.success("Registration Successful!", {
                     position: "top-center",
                     autoClose: 3000,
                     hideProgressBar: false,

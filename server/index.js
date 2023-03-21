@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-require('dotenv').config();
+require('dotenv').config({path:'C:/Users/Dell/Documents/Tejas/MoviesApp/.env'});
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const pool = require('./db');
@@ -8,6 +8,9 @@ const jwtGenerator = require('./jwtGenerator');
 const validate = require('./validate');
 const authorize = require('./authorize');
 const { Navigate } = require('react-router-dom');
+
+const nodemailer = require('nodemailer');
+const mailgen = require('mailgen');
 
 //Middleware
 app.use(cors())
@@ -99,6 +102,77 @@ app.post("/login",validate,async(req,res)=>{
 app.post("/checkauth",authorize,async(req,res)=>{
     try {
         res.json(true);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+//EMAIL
+app.post("/email",async(req,res)=>{
+    try {
+        const {email} = req.body;
+
+        let config = {
+            service : "gmail",
+            auth:{
+                user:"gotavadetejas2122@ternaengg.ac.in",
+                pass:"kitbrfxpzcfgnzpv"
+            }
+        }
+
+        let transporter = nodemailer.createTransport(config);
+
+        let mailGenerator = new mailgen({
+            theme:"default",
+            product:{
+                name:"Chillax",
+                link:"https://mailgen.js/"
+            }
+        })
+
+        let response = {
+            body:{
+                name:"Subscriber",
+                intro:"Check out the limited deals!",
+                table:{
+                    data:[
+                        {
+                            item:"Saving Pack",
+                            description:"Quality upto 720p",
+                            price:"₹199"
+                        },
+                        {
+                            item:"Standard Pack",
+                            description:"Quality upto 1080p",
+                            price:"₹399"
+                        },{
+                            item:"Premium Pack",
+                            description:"Quality upto 4K",
+                            price:"₹999"
+                        }
+                    ]
+                },
+                outro:"*Terms and Conditions"
+               
+            }
+        }
+
+        let mail = mailGenerator.generate(response);
+
+        let message = {
+            from:process.env.EMAIL,
+            to:email,
+            subject:"💥Chillax Deals!💥",
+            html:mail
+        }
+
+        transporter.sendMail(message).then(()=>{
+            return res.status(201).json({
+                msg:"Email sent!"
+            });
+        }).catch(err=>{
+            return res.status(500).json({err})
+        })
     } catch (error) {
         console.error(error.message);
     }

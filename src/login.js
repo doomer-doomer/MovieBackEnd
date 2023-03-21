@@ -57,11 +57,16 @@ export default function Login(){
          }
         try { 
             const body = {email,password};  
-            const response = await fetch("http://localhost:5000/login",{
+            const response = await toast.promise(fetch("http://localhost:5000/login",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(body)
-            });
+            }),{
+                
+                pending:"Verifying credentials",
+                success:"Login Successful!",
+                error:"Something went wrong!"
+            })
 
             const res = await response.json();
             console.log(res);
@@ -83,16 +88,6 @@ export default function Login(){
             
             localStorage.setItem('jwt_token',res.jwtToken);
             if(res.jwtToken.length>10){
-                toast.success('Login Successful!', {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    });
                 setTimeout(reloadFun,3000);
             }
             
@@ -101,7 +96,7 @@ export default function Login(){
             console.error(err.message);
             console.log("Error in Server")
             toast.error(err.message, {
-                position: "top-center",
+                position: "bottom-left",
                 autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
