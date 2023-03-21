@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-require('dotenv').config;
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const pool = require('./db');
@@ -11,33 +11,38 @@ const { Navigate } = require('react-router-dom');
 
 //Middleware
 app.use(cors())
-
 app.use(express.json());
 
+//DATABASE LAYOUT
 
-app.post("/",authorize,async(req,res)=>{
+// create extension if not exists "uuid-ossp"; 
+//CREATE TABLE AuthUsers(user_id uuid PRIMARY KEY uuid_generate_v4(),user_name VARCHAR(255),email VARCHAR(255),password VARCHAR(255));
+
+app.get("/",authorize,async(req,res)=>{
     try {
-        const user = await pool.query("SELECT email FROM MyUser4 WHERE id=$1",
-        [req.user.id]);
+        const user = await pool.query("SELECT user_name FROM AuthUsers WHERE user_id= $1",
+        [req.user]);
 
-        res.json(user.rows[0])
+        res.json(user.rows[0]);
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Server Error");
     }
 })
 
+//app.use("/dashboard", require("./server/dashboard"));
+
 //SIGN UP
 app.post("/signup",validate,async(req,res)=>{
     try{
 
-        const {email,password} = req.body;
+        const {user_name,email,password} = req.body;
         const salt = await bcrypt.genSalt(10);
         const bcryptpassword = await bcrypt.hash(password,salt);
 
         
-        const data = await pool.query("INSERT INTO MyUser4 (email,password) VALUES($1,$2) RETURNING *",
-        [email,bcryptpassword]);
+        const data = await pool.query("INSERT INTO AuthUsers (user_name,email,password) VALUES($1,$2,$3) RETURNING *",
+        [user_name,email,bcryptpassword]);
 
         //res.json(data.rows[0])
         const jwtToken = jwtGenerator(data.rows[0].user_id);
@@ -56,20 +61,18 @@ app.post("/login",validate,async(req,res)=>{
 
         const {email,password} = req.body;
         
-        const data = await pool.query("SELECT email FROM MyUser4 WHERE email = $1",
+        const data = await pool.query("SELECT email,password,user_id FROM AuthUsers WHERE email = $1",
         [email]);
 
         if(data.rows.length ===0){
             return res.status(401).json("Invalid Credentials");
         }
 
-        const alldata = await pool.query("SELECT email,password FROM MyUser4 WHERE email = $1",[email]); 
-
         //res.json(alldata.rows[0].password);
 
         const validPassword = await bcrypt.compare(
             password,
-            alldata.rows[0].password
+            data.rows[0].password
         );
 
         if(!validPassword){
@@ -79,7 +82,7 @@ app.post("/login",validate,async(req,res)=>{
         const jwtToken = jwtGenerator(data.rows[0].user_id);
        
         
-        res.status(200).json({jwtToken});
+        res.json({jwtToken});
 
        
     }catch(err){

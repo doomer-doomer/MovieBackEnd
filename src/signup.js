@@ -2,20 +2,19 @@ import { BrowserRouter as Router,Link,Route,Routes, useNavigate } from 'react-ro
 import { useState } from 'react';
 
 export default function Signup(){
-    const [firstName,setFirstName] = useState("")
-    const [lastName,setLAstName] = useState("")
-    const [email,setEmail] = useState("")
-    const [password,setPass] = useState("")
+    const [user_name,setusername] = useState("");
+    const [email,setEmail] = useState("");
+    const [password,setPass] = useState("");
     const [formData,setformData] = useState(
         {}
-    )
+    );
 
     const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
         try {
-            const body = {email,password};  
+            const body = {user_name,email,password};  
             const response = await fetch("http://localhost:5000/signup",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
@@ -46,6 +45,13 @@ export default function Signup(){
                 <h1>Sign up</h1>
                 <div className="LoginContent">
                 <form onSubmit={handleSubmit}>
+                    <label>Name:
+                        <input
+                        type="text" 
+                        value={user_name}
+                        onChange={(e) => setusername(e.target.value)}
+                        />
+                    </label>
                     <label>Email:
                         <input
                         type="email" 

@@ -10,6 +10,9 @@ export default function PageHeader(){
     let base_random
     let base_text
     
+    const [username,set_user_name] = useState("");
+    const [greet,setgreet] = useState("");
+
    const navigate = useNavigate();
     
     var cnum=1
@@ -26,6 +29,52 @@ export default function PageHeader(){
         
         console.log(val.target.value)
     }
+
+
+    function greeting(){
+        var today = new Date();
+        var curHr = today.getHours();
+        let greet;
+
+        if (curHr < 12) {
+            greet = "Good Morning";
+        } else if (curHr < 18) {
+            greet = "Good Afternoon";
+        } else {
+            greet = "Good Evening";
+        }
+
+        return greet;
+    }
+    
+
+
+    useEffect(()=>{
+        async function myusername(){
+        
+            try {
+                const token = localStorage.getItem('jwt_token');
+                if (!token) return;
+                const res = await fetch("http://localhost:5000/",{
+                    method:"GET",
+                    headers: { Authorization: `Bearer ${token}`,
+                    jwt_token: token
+                },
+                });
+    
+                if (!res.ok) throw new Error('Unauthorized');
+    
+                const parseRes = await res.json();
+                set_user_name(parseRes.user_name);
+            } catch (error) {
+                console.error(error.message);
+            }
+            
+        }
+
+        myusername();
+        setgreet(greeting);
+    },[]);
    
     //document.querySelector("input[name='theme']").forEach(input => input.onChange = e => document.querySelector(":root").style.setProperty("--theme-color",'var(--${value})'));
       
@@ -69,7 +118,8 @@ export default function PageHeader(){
                 <div className="head">
                     <div className="navAlign">
                         <div className="navbar">
-                            <img src="logo.png" className="logo"></img>
+                            <img src="chillax.png" className="logo"></img>
+                            <h3>{greet}, {username}</h3>
                             <button onClick={logout}>Logout</button>
                         </div>
                     </div>
