@@ -3,6 +3,8 @@ import { BrowserRouter as Router,Link,Route,Routes } from 'react-router-dom';
 import FinalLayout from "./FinalLayout";
 import { useNavigate } from "react-router-dom";
 import FetchData from "./Data";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Sendemail(prop){
     return(
@@ -19,6 +21,7 @@ export default function Login(){
     const [formData,setformData] = useState(
         {}
     )
+    
     const navigate = useNavigate();
 
     const [success,setsuccess]= useState(false)
@@ -32,9 +35,26 @@ export default function Login(){
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 
+    function reloadFun(){
+        window.location.reload();
+    }
+
     const handleSubmit = async e => {
 
          e.preventDefault();
+         if(email==="" || password===""){
+            toast.warn('Insufficient Credentials!', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+                return;
+         }
         try { 
             const body = {email,password};  
             const response = await fetch("http://localhost:5000/login",{
@@ -45,51 +65,63 @@ export default function Login(){
 
             const res = await response.json();
             console.log(res);
+
+            if(!response.ok){
+                toast.warn(res, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                    return;
+            }
             
             
             localStorage.setItem('jwt_token',res.jwtToken);
             if(res.jwtToken.length>10){
-                window.location.reload();
+                toast.success('Login Successful!', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                setTimeout(reloadFun,3000);
             }
             
             
         } catch (err) {
             console.error(err.message);
             console.log("Error in Server")
+            toast.error(err.message, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+            
         }
         
       }
-
-    const submitForm = (event) =>{
-        event.preventDefault();
-        const x = handleSubmit();
-        console.log(x)
-        
-        // for(i in responseData){
-        //     console.log(responseData[i].email);
-        //     if(myemail == 'admin@gmail.com' && mypassword == 'admin'){
-        //         navigate('/Admin');
-        //         break;
-        //     }else if(responseData[i].email == myemail && responseData[i].password == mypassword){
-        //         setCookie("username",myemail,1);
-        //         navigate('/Homepage');
-        //         break;
-        //     }else{
-        //         console.log("User Not Found!")
-        //     }
-
-            
-        //}
-        console.log(responseData);
-        
-    }
-
 
     
 
     return(
         <div className="LoginMain">
+           <ToastContainer
            
+           />
           
            <div className="imageLogin">
                 <img src="redbg.jpg"></img>

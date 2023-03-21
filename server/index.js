@@ -16,7 +16,7 @@ app.use(express.json());
 //DATABASE LAYOUT
 
 // create extension if not exists "uuid-ossp"; 
-//CREATE TABLE AuthUsers(user_id uuid PRIMARY KEY uuid_generate_v4(),user_name VARCHAR(255),email VARCHAR(255),password VARCHAR(255));
+//CREATE TABLE AuthUsers(user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),user_name VARCHAR(255),email VARCHAR(255),password VARCHAR(255));
 
 app.get("/",authorize,async(req,res)=>{
     try {
@@ -39,6 +39,12 @@ app.post("/signup",validate,async(req,res)=>{
         const {user_name,email,password} = req.body;
         const salt = await bcrypt.genSalt(10);
         const bcryptpassword = await bcrypt.hash(password,salt);
+
+        const check = await pool.query("SELECT * FROM AuthUsers WHERE email = $1",[email]);
+        
+        if(check.rows.length!==0){
+            return res.status(401).json("Account already found!");
+        }
 
         
         const data = await pool.query("INSERT INTO AuthUsers (user_name,email,password) VALUES($1,$2,$3) RETURNING *",

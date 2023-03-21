@@ -24,6 +24,8 @@ import StartPage from './StartPage';
 import './errorPage.css'
 import './middle.css'
 import './startpage.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 let newTitle = new Array()
 export function Mytoggle (title,logo,img,ep,rating,isvisible){
@@ -63,13 +65,49 @@ function App() {
       },
       });
 
-      if (!res.ok) throw new Error('Unauthorized');
-
       const parseRes = await res.json();
 
+      if (!res.ok){
+        toast.warn(parseRes, {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+      }
+        
+
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false); 
+
+      if(parseRes ===true){
+        toast.info("Authentication Successful", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+      }
+      
     } catch (error) {
       console.log(error.message);
+      toast.error(error.message, {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
       //localStorage.removeItem('jwt_token');
     };
 
@@ -91,6 +129,7 @@ function App() {
    
         <div className="Root">
           <div className="Contents">
+            <ToastContainer/>
             <Routes>
               <Route path='/Homepage' element={isAuthorized ? <FinalLayout/> : <ErrorPage status= "Login Required" err="Token has expired!"/>}></Route> 
               <Route path='/Login' element={!isAuthorized ? <Login/> : <Middle/>}></Route> 
