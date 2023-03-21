@@ -33,7 +33,7 @@ export default function ErrorPage(props){
             <div className="errorbtn">
                  {/* <h1>{props.err}</h1> */}
                  <img src="hand-pointer.png" width="50px" ></img>
-                 <Link to="/login"><button className="mybtn">Session Expired !</button></Link>
+                 <Link to="/login"><button className="mybtn">Session Timeout!</button></Link>
             </div>
 </figure>
             

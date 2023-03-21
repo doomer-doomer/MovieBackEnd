@@ -62,28 +62,27 @@ export default function Login(){
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(body)
             }),{
-                
                 pending:"Verifying credentials",
                 success:"Login Successful!",
                 error:"Something went wrong!"
-            })
+            });
 
             const res = await response.json();
             console.log(res);
 
-            if(!response.ok){
-                toast.warn(res, {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    });
-                    return;
-            }
+            // if(!response.ok){
+            //     toast.warn(res, {
+            //         position: "top-center",
+            //         autoClose: 3000,
+            //         hideProgressBar: false,
+            //         closeOnClick: true,
+            //         pauseOnHover: false,
+            //         draggable: true,
+            //         progress: undefined,
+            //         theme: "colored",
+            //         });
+            //         return;
+            // }
             
             
             localStorage.setItem('jwt_token',res.jwtToken);

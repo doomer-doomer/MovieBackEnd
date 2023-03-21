@@ -34,50 +34,45 @@ export default function Signup(){
         }
         try {
             const body = {user_name,email,password};  
-            const response = await fetch("http://localhost:5000/signup",{
+            const response = await toast.promise(fetch("http://localhost:5000/signup",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(body)
+            }),{
+                pending:"Checking credentials...",
+                success:"Registration Successful!",
+                error:"Something went wrong!"
             });
 
             const res = await response.json();
             console.log(res);
 
-            if(!response.ok){
-                toast.warn(res, {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    });
-                    return;
-            }
+            // if(!response.ok){
+            //     toast.warn(res, {
+            //         position: "top-center",
+            //         autoClose: 3000,
+            //         hideProgressBar: false,
+            //         closeOnClick: true,
+            //         pauseOnHover: false,
+            //         draggable: true,
+            //         progress: undefined,
+            //         theme: "colored",
+            //         });
+            //         return;
+            // }
             
             localStorage.setItem('jwt_token',res.jwtToken);
             if(res.jwtToken.length>10){
-                toast.success("Registration Successful!", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    });
+                
                 setTimeout(reloadFun,3000);
-            }
+            };
                 
             
             
         } catch (err) {
             console.error(err.message);
             toast.error(err.message, {
-                position: "top-center",
+                position: "bottom-left",
                 autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,

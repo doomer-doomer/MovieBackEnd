@@ -55,6 +55,17 @@ export default function StartPage(){
             
         } catch (error) {
             console.error(error.message);
+            toast.error('Server Error!', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+                
         }
     }
 
