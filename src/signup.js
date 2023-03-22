@@ -1,5 +1,5 @@
 import { BrowserRouter as Router,Link,Route,Routes, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -95,11 +95,24 @@ export default function Signup(){
         
       }
 
+
+
     return(
         <div className="LoginMain">
            <ToastContainer
            
            />
+           <div className='mainilogoimg'>
+            <img src='chillax.png'></img>
+           </div>
+           <div className="imageLogin">
+          
+            <img src="loginbg.jpg"></img>
+           
+            </div>
+
+           
+
             <div className="LoginLayout">
                
                 <h1>Sign up</h1>

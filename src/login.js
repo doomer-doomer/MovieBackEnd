@@ -131,9 +131,11 @@ export default function Login(){
            <ToastContainer
            
            />
-          
+          <div className='mainilogoimg'>
+            <img src='chillax.png'></img>
+           </div>
            <div className="imageLogin">
-                <img src="redbg.jpg"></img>
+                <img src="loginbg.jpg"></img>
             </div>
             <div className="LoginLayout">
                 

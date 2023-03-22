@@ -20,26 +20,6 @@ const Url = "https://streaming-availability.p.rapidapi.com/search/basic?country=
 const totalUrl = "https://netflix54.p.rapidapi.com/season/episodes/?ids=70123993%2C70145831%2C70190773%2C70242039%2C70281308%2C80039648&offset=0&limit=25&lang=en"
 const netflixHost = "netflix54.p.rapidapi.com"
 
-export const data_storage = (title,logo,img,ep,rating) =>{
-    return ({
-        "title":title,
-        "logo":logo
-    })
-}
-export function thistoggle (title,logo,img,ep,rating){
-    console.log(title)
-    console.log(logo)
-    console.log(img)
-    console.log(ep)
-    console.log(rating)
-    
-   
-}
-
-
-
-
-
 export default function FetchData(props){
 
     let myrandomImg
@@ -83,11 +63,11 @@ export default function FetchData(props){
 
     function Mytoggle2 (title,logo,img,ep,rating,isvisible,cast,des,id,seasons,episode,pic,myep){
 
-        console.log(title)
-        console.log(logo)
-        console.log(img)
-        console.log(ep)
-        console.log(rating)
+        // console.log(title)
+        // console.log(logo)
+        // console.log(img)
+        // console.log(ep)
+        // console.log(rating)
         setVisible(true)
         setVisible2(false)
         setsingletitle(title)
@@ -629,7 +609,7 @@ export default function FetchData(props){
             )).length!==0
     )
 
-    console.log(Teens);
+    //console.log(Teens);
 
     let Family = datas.filter((item)=>
         (item.jawSummary.genres.filter((inner)=>
@@ -637,7 +617,7 @@ export default function FetchData(props){
             )).length!==0
     )
 
-    console.log(Family);
+    //console.log(Family);
 
     let Kids = datas.filter((item)=>
         (item.jawSummary.genres.filter((inner)=>
@@ -683,10 +663,6 @@ export default function FetchData(props){
 
     
 
-    const Category = ({ title }) => {
-        console.log(title)
-        return <SingleLay/>
-      };
 
       let mytitle
       let myimg
@@ -715,7 +691,7 @@ export default function FetchData(props){
         const desfind = episodes[0].episodes.map(kkk=>kkk=kkk.contextualSynopsis.text)
 
 
-        console.log(desfind)
+        //console.log(desfind)
 
             let i=0
             let j=0
@@ -755,9 +731,9 @@ export default function FetchData(props){
            }
       }
 
-      console.log(desarr)
+      //console.log(desarr)
 
-      console.log(episodes[0].episodes.map(kkk=>kkk=kkk.contextualSynopsis.text))
+      //console.log(episodes[0].episodes.map(kkk=>kkk=kkk.contextualSynopsis.text))
 
       //console.log(myarr)
       picz();
@@ -766,7 +742,7 @@ export default function FetchData(props){
 
       const seriesdes = datas[0].jawSummary.episodez
       const desss = seriesdes.map(aaa=>aaa=aaa.episodes.map(aaa=>aaa=aaa.contextualSynopsis.text))
-      console.log(desss[0].at(0))
+      //console.log(desss[0].at(0))
       
       
     const sitcoms = sitcom_genre.map(titles=>{
@@ -890,6 +866,10 @@ const mystry = Mysteries.map(titles=>{
             des = {titles.jawSummary.synopsis}
     
             rating = {titles.jawSummary.maturity.rating.value}
+            seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+            episode = {titlearr}
+            pic={myarr}
+            episodedescription = {desarr}
             mytoggle = {Mytoggle2}
             //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
     
@@ -914,6 +894,10 @@ const mystry = Mysteries.map(titles=>{
                 des = {titles.jawSummary.synopsis}
         
                 rating = {titles.jawSummary.maturity.rating.value}
+                seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+                episode = {titlearr}
+                pic={myarr}
+                episodedescription = {desarr}
                 mytoggle = {Mytoggle2}
                 //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
         
@@ -938,6 +922,10 @@ const mystry = Mysteries.map(titles=>{
         des = {titles.jawSummary.synopsis}
 
         rating = {titles.jawSummary.maturity.rating.value}
+        seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+        episode = {titlearr}
+        pic={myarr}
+        episodedescription = {desarr}
         mytoggle = {Mytoggle2}
         //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
 
@@ -961,6 +949,10 @@ const mystry = Mysteries.map(titles=>{
         des = {titles.jawSummary.synopsis}
 
         rating = {titles.jawSummary.maturity.rating.value}
+        seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+        episode = {titlearr}
+        pic={myarr}
+        episodedescription = {desarr}
         mytoggle = {Mytoggle2}
         //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
 
@@ -984,6 +976,10 @@ const mystry = Mysteries.map(titles=>{
         des = {titles.jawSummary.synopsis}
 
         rating = {titles.jawSummary.maturity.rating.value}
+        seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+        episode = {titlearr}
+        pic={myarr}
+        episodedescription = {desarr}
         mytoggle = {Mytoggle2}
         //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
 
@@ -1007,6 +1003,10 @@ const mystry = Mysteries.map(titles=>{
         des = {titles.jawSummary.synopsis}
 
         rating = {titles.jawSummary.maturity.rating.value}
+        seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+        episode = {titlearr}
+        pic={myarr}
+        episodedescription = {desarr}
         mytoggle = {Mytoggle2}
         //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
 
@@ -1031,6 +1031,10 @@ const mystry = Mysteries.map(titles=>{
 
         rating = {titles.jawSummary.maturity.rating.value}
         
+        seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+        episode = {titlearr}
+        pic={myarr}
+        episodedescription = {desarr}
         mytoggle = {Mytoggle2}
         //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
 
@@ -1054,6 +1058,10 @@ const mystry = Mysteries.map(titles=>{
         des = {titles.jawSummary.synopsis}
 
         rating = {titles.jawSummary.maturity.rating.value}
+        seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+        episode = {titlearr}
+        pic={myarr}
+        episodedescription = {desarr}
         mytoggle = {Mytoggle2}
         //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
 
@@ -1077,6 +1085,10 @@ const mystry = Mysteries.map(titles=>{
         des = {titles.jawSummary.synopsis}
 
         rating = {titles.jawSummary.maturity.rating.value}
+        seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+        episode = {titlearr}
+        pic={myarr}
+        episodedescription = {desarr}
         mytoggle = {Mytoggle2}
         //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
 
@@ -1101,6 +1113,10 @@ const mystry = Mysteries.map(titles=>{
         des = {titles.jawSummary.synopsis}
 
         rating = {titles.jawSummary.maturity.rating.value}
+        seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+        episode = {titlearr}
+        pic={myarr}
+        episodedescription = {desarr}
         mytoggle = {Mytoggle2}
         //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
 
@@ -1124,12 +1140,16 @@ const mystry = Mysteries.map(titles=>{
         des = {titles.jawSummary.synopsis}
 
         rating = {titles.jawSummary.maturity.rating.value}
+        seasons = {season.map(sea=>sea=sea.seasons.map(kkk=>kkk=kkk.name))}
+        episode = {titlearr}
+        pic={myarr}
+        episodedescription = {desarr}
         mytoggle = {Mytoggle2}
         //sitcoms = {titles.jawSummary.genres.map(sitcom=>sitcom = sitcom.name = "Sitcoms")}
 
         />
         })
-                console.log(Drama)
+                
 
              
     function goback(){
@@ -1138,6 +1158,29 @@ const mystry = Mysteries.map(titles=>{
         window.scrollTo(0, 0);
     }
 
+    function top(){
+        window.scrollTo(0,0);
+    }
+
+    function reveal() {
+        var reveals = document.querySelectorAll(".contentContainer");
+        for (var i = 0; i < reveals.length; i++) {
+          var windowHeight = window.innerHeight;
+          var elementTop = reveals[i].getBoundingClientRect().top;
+          var elementVisible = 150;
+          if (elementTop < windowHeight - elementVisible) {
+            reveals[i].classList.add("active");
+          } else {
+            reveals[i].classList.remove("active");
+          }
+        }
+      }
+
+      window.addEventListener("scroll", reveal);
+
+      useEffect(()=>{
+        reveal();
+      },[]);
     /*
      const getData = async (url,host) =>{
         const response = await fetch(url,{
@@ -1463,6 +1506,8 @@ const mystry = Mysteries.map(titles=>{
             </div>
 
 </div>
+
+            
             </div>
             
            }
@@ -1472,6 +1517,9 @@ const mystry = Mysteries.map(titles=>{
 
         </div>
 
+                    <div className="scrollTop">
+                        <img src="scrolltop.png" onClick={top}></img>
+                    </div>
         </div>
         
        

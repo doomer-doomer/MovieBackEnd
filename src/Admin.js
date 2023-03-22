@@ -80,20 +80,37 @@ export default function AdminPage(){
                     return;
             }
 
-            toast.info(res, {
-                position: "bottom-left",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                });
-                getAllData();
+            if(res==="Deleted Successfully"){
+                toast.error(res, {
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                    getAllData();
+            }
+
+            if(res==="Account not found!"){
+                toast.info(res, {
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                    getAllData();
+            }
                 
         } catch (error) {
             console.error(error.message);
+            
         }
     }
 

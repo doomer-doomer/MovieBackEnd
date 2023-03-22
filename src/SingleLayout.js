@@ -26,7 +26,7 @@ export default function SingleLay(items){
                     
                     <div className="serieshead">
                         <img className="mainimg" src={items.myimage}></img>
-                        <img className="submainimg" src={items.logo}></img>
+                        {/* <img className="submainimg" src={items.logo}></img> */}
                     </div>
                     <div className="seriesdata">
                         <h1>{items.mytitle}</h1>
