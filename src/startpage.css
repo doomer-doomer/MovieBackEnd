@@ -28,7 +28,11 @@
     border: none;
     background: transparent;
     font-family: 'Manrope', sans-serif;
-    font-size: 1vw;
+    font-size: 20px;
+}
+
+.headerstartpg button:hover{
+    color: red;
 }
 
 .startpgLay img{
@@ -86,7 +90,7 @@
 .innerForm{
     display: flex;
     width: 400px;
-    margin-left: 60px;
+    
    
 }
 

@@ -250,155 +250,155 @@ export default function FetchData(props){
     function swipeRight1(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll1.current.scrollLeft += 20;
+            scroll1.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight2(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll2.current.scrollLeft += 20;
+            scroll2.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight3(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll3.current.scrollLeft += 20;
+            scroll3.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight4(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll4.current.scrollLeft += 20;
+            scroll4.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight5(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll5.current.scrollLeft += 20;
+            scroll5.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight6(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll6.current.scrollLeft += 20;
+            scroll6.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight7(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll7.current.scrollLeft += 20;
+            scroll7.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight8(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll8.current.scrollLeft += 20;
+            scroll8.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight9(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll9.current.scrollLeft += 20;
+            scroll9.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight10(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll10.current.scrollLeft += 20;
+            scroll10.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight11(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll11.current.scrollLeft += 20;
+            scroll11.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight12(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll12.current.scrollLeft += 20;
+            scroll12.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight13(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll13.current.scrollLeft += 20;
+            scroll13.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     function swipeRight14(){
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll14.current.scrollLeft += 20;
+            scroll14.current.scrollLeft += 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
 
@@ -406,167 +406,167 @@ export default function FetchData(props){
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll1.current.scrollLeft -= 20;
+            scroll1.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft2 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll2.current.scrollLeft -= 20;
+            scroll2.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft3 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll3.current.scrollLeft -= 20;
+            scroll3.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft4 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll4.current.scrollLeft -= 20;
+            scroll4.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft5 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll5.current.scrollLeft -= 20;
+            scroll5.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft6 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll6.current.scrollLeft -= 20;
+            scroll6.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft7 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll7.current.scrollLeft -= 20;
+            scroll7.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
     const swipeLeft8 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll8.current.scrollLeft -= 20;
+            scroll8.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft9 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll9.current.scrollLeft -= 20;
+            scroll9.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft10 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll10.current.scrollLeft -= 20;
+            scroll10.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft11 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll11.current.scrollLeft -= 20;
+            scroll11.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft12 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll12.current.scrollLeft -= 20;
+            scroll12.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft13 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll13.current.scrollLeft -= 20;
+            scroll13.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
     const swipeLeft14 = () =>{
         
         var scrollAmount = 0;
         var slideTimer = setInterval(function(){
-            scroll14.current.scrollLeft -= 20;
+            scroll14.current.scrollLeft -= 62;
             scrollAmount += 10;
             if(scrollAmount >= 100){
                 window.clearInterval(slideTimer);
             }
-        }, 25);
+        }, 50);
     }
 
 
