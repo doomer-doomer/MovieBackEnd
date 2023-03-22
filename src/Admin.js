@@ -142,7 +142,7 @@ export default function AdminPage(){
             });
 
             const res = await response.json();
-            console.log(res);
+            //console.log(res);
 
             if(!response.ok){
                 toast.warn(res, {
