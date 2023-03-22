@@ -8,6 +8,12 @@ In the project directory, you can run:
 
 ### `npm start`
 
+But before that, make sure that all dependencies have been installed:
+
+### `npm install`
+
+Use above command in `./server` directory as well to install all the required packages from 'package.json'
+
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
@@ -39,6 +45,14 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+**Further, to run the server, use the command:**
+
+### `nodemon index`
+
+## Required 
+
+- Postgres Database v15 with particular database(Can be changed by changing ./server/.env | ./server/db.js and ./server/index.js)
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
@@ -68,3 +82,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
