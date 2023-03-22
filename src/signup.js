@@ -40,30 +40,40 @@ export default function Signup(){
                 body:JSON.stringify(body)
             }),{
                 pending:"Checking credentials...",
-                success:"Registration Successful!",
+                success:"Connecting to Database",
                 error:"Something went wrong!"
             });
 
             const res = await response.json();
             console.log(res);
 
-            // if(!response.ok){
-            //     toast.warn(res, {
-            //         position: "top-center",
-            //         autoClose: 3000,
-            //         hideProgressBar: false,
-            //         closeOnClick: true,
-            //         pauseOnHover: false,
-            //         draggable: true,
-            //         progress: undefined,
-            //         theme: "colored",
-            //         });
-            //         return;
-            // }
+            if(!response.ok){
+                toast.warn(res, {
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                    return;
+            }
             
             localStorage.setItem('jwt_token',res.jwtToken);
             if(res.jwtToken.length>10){
-                
+                toast.success("Registration successful!", {
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                    
                 setTimeout(reloadFun,3000);
             };
                 

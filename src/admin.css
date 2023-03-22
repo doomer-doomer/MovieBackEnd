@@ -1,0 +1,108 @@
+.AdminData{
+    display: flex;
+    padding: 10px;
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    width: 130%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.dashboard{
+    margin: 20px;
+    padding: 10px;
+    font-size: xxx-large;
+}
+
+.UserId h1{
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.Username h1{
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;   
+}
+
+.Email h1{
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+}
+
+.Password h1{
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+}
+
+.inner_id{
+    padding: 10px;
+}
+
+.inner_username{
+    padding: 10px;
+}
+
+.inner_email{
+    padding: 10px;
+}
+
+.inner_password{
+    padding: 10px;
+}
+
+.Queries{
+    display: flex;
+}
+
+.deleteusers{
+    width: 350px;
+    margin: 20px;
+    padding: 20px;
+    background-color: lightcoral;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: auto;
+    border-radius: 10px;
+    
+}
+
+.addusers{
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 350px;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: auto;
+    background-color: lightgreen;
+    border: none;
+    border-radius: 10px;
+
+}
+
+.userdata {
+    margin: 20px;
+    padding: 20px;
+    background-color: lightskyblue;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: auto;
+}
+
+.deleteusers form input{
+    display: block;
+}
+
+.addusers form input{
+    display: block;
+    
+}

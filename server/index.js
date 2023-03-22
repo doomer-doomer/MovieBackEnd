@@ -183,11 +183,29 @@ app.get("/getuser",async(req,res)=>{
     try{
         //const {email,password} = req.body;
         
-        const data = await pool.query("SELECT * FROM MyUser4");
+        const data = await pool.query("SELECT * FROM AuthUsers");
 
         res.json(data.rows)
     }catch(err){
         console.log(err.message);
+        res.json("Error in Server");
+    }
+})
+
+app.post("/delete",async(req,res)=>{
+    try {
+        const {user_id} = req.body;
+        const find = await pool.query("SELECT * FROM AuthUsers WHERE user_id=$1",[user_id]);
+        if(find.rows.length===0){
+            return res.json("Account not found!")
+        }
+
+        const response = await pool.query("DELETE FROM AuthUsers WHERE user_id= $1",[user_id]);
+
+        res.json("Deleted Successfully");
+    } catch (error) {
+        console.log(error.message);
+        res.json("Error in Server");
     }
 })
 

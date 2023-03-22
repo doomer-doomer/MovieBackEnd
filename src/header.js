@@ -119,8 +119,11 @@ export default function PageHeader(){
                     <div className="navAlign">
                         <div className="navbar">
                             <img src="chillax.png" className="logo"></img>
-                            <h3>{greet}, {username}</h3>
-                            <button onClick={logout}>Logout</button>
+                            <div className="user_info">
+                               <h3>{greet}, {username}</h3>
+                                <button onClick={logout}>Logout</button>            
+                            </div>
+                            
                         </div>
                     </div>
                     

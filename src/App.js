@@ -26,6 +26,7 @@ import './middle.css'
 import './startpage.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './admin.css'
 
 let newTitle = new Array()
 export function Mytoggle (title,logo,img,ep,rating,isvisible){
@@ -58,16 +59,12 @@ function App() {
     try {
       const token = localStorage.getItem('jwt_token');
       if (!token) return;
-      const res = await toast.promise(fetch("http://localhost:5000/checkauth",{
+      const res = await fetch("http://localhost:5000/checkauth",{
         method:"POST",
         headers: { Authorization: `Bearer ${token}`,
           jwt_token: token
       },
-      }),{
-          pending:"Verifying Previous Session",
-          success:"Authorisation Successful!",
-          error:"Error"
-      })
+      });
 
       const parseRes = await res.json();
 
@@ -87,18 +84,29 @@ function App() {
 
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false); 
 
-      // if(parseRes ===true){
-      //   toast.info("Authentication Successful", {
-      //     position: "bottom-left",
-      //     autoClose: 5000,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: true,
-      //     draggable: true,
-      //     progress: undefined,
-      //     theme: "colored",
-      //     });
-      // }
+      if(parseRes ===true){
+        toast.info("Authentication Successful", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+      }else{
+        toast.info("Session Expired", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+      }
       
     } catch (error) {
       console.log(error.message);

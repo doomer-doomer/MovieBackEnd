@@ -389,6 +389,20 @@
     margin-bottom: auto;
 }
 
+.user_info{
+    display: block;
+}
+
+.user_info h3{
+    padding-right: 100px;
+}
+
+.user_info button{
+    display: flex;
+    margin-left: auto;
+    
+}
+
 @media screen and (max-width:1200px) {
     .content_info{
         display: block;
