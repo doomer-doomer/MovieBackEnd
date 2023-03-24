@@ -217,11 +217,12 @@ html {
     position: absolute;
 }
 .goback{
+    padding: 6px;
     display: absolute;
     position: absolute;  
     z-index: 1;
     margin-top: 10px;
-    margin-left: 10px;  
+    margin-left: 18px;  
     border: none;
     border-radius: 10px;
 }

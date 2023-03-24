@@ -7,6 +7,10 @@ export default function Signup(){
     const [user_name,setusername] = useState("");
     const [email,setEmail] = useState("");
     const [password,setPass] = useState("");
+    const [user_age,setuser_age] = useState("");
+    const [contact,setcontact] = useState("");
+    const [gender,setgender] = useState("");
+    const [country,setcountry] = useState("");
     const [formData,setformData] = useState(
         {}
     );
@@ -33,7 +37,7 @@ export default function Signup(){
                 return;
         }
         try {
-            const body = {user_name,email,password};  
+            const body = {user_name,email,password,user_age,contact,gender,country};  
             const response = await toast.promise(fetch("http://localhost:5000/signup",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
@@ -94,6 +98,10 @@ export default function Signup(){
         }
         
       }
+      const test = e=>{
+        e.preventDefault();
+        alert(country + gender);
+      }
 
 
 
@@ -111,35 +119,34 @@ export default function Signup(){
            
             </div>
 
-           
-
             <div className="LoginLayout">
                
                 <h1>Sign up</h1>
                 <div className="LoginContent">
                 <form onSubmit={handleSubmit}>
-                    <label>Name:
+                    <label>Name *
                         <input
                         type="text" 
                         value={user_name}
                         onChange={(e) => setusername(e.target.value)}
                         />
                     </label>
-                    <label>Email:
+                  
+                    <label>Email *
                         <input
                         type="email" 
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         />
                     </label>
-                    <label>Password:
+                    <label>Password *
                         <input
                         type="password" 
                         value={password}
                         onChange={(e) => setPass(e.target.value)}
                         />
-                        
                     </label>
+               
                    
                     <br></br>
                     <button type="submit">Submit</button>

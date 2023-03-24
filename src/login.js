@@ -153,7 +153,7 @@ export default function Login(){
                             onChange={(e) => setEmail(e.target.value)}
                             />
                         </label>
-                        <br></br>
+                        
                         <label>Password
                             <input
                             type="password" 
@@ -163,7 +163,7 @@ export default function Login(){
                             
                         </label>
                         
-                        <br></br><br></br>
+                        <br></br>
                         <button type="submit">Submit</button>
                         <p>Create a new account?<Link to="/Signup">Signup</Link></p>
                         

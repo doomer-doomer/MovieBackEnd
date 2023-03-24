@@ -29,6 +29,8 @@
     display: block;
     background-color: #191919;
     color: white;
+    border: none;
+    border-radius: 0px 0px 20px 0px;
 }
 
 .objects{

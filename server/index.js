@@ -20,7 +20,7 @@ app.use(express.json());
 
 // create extension if not exists "uuid-ossp"; 
 //CREATE TABLE AuthUsers(user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),user_name VARCHAR(255),email VARCHAR(255),password VARCHAR(255));
-
+//CREATE TABLE AuthenticatedUsers(user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),user_name VARCHAR(255),email VARCHAR(255),password VARCHAR(255), user_age int, contact int,gender char,country varchar(100));
 app.get("/",authorize,async(req,res)=>{
     try {
         const user = await pool.query("SELECT user_name FROM AuthUsers WHERE user_id= $1",

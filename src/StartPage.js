@@ -107,7 +107,7 @@ export default function StartPage(){
                                             />
                                         </label>
                                         
-                                        <button type="submit">Submit</button>
+                                        <button type="submit">Subscribe</button>
                                     </form>
                                     
                     </div>

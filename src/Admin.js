@@ -220,6 +220,7 @@ export default function AdminPage(){
                     <hr></hr>
                         {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_password'>{abc.password}</div>)} )}</h3></div> : <div>Loading...</div>}
                     </div>
+                    
                 </div>
 
                 <div className='Queries'>
