@@ -99,6 +99,10 @@ export default function Signup(){
         }
         
       }
+      const test = e=>{
+        e.preventDefault();
+        alert(country + gender);
+      }
 
 
 
@@ -145,7 +149,6 @@ export default function Signup(){
                         value={password}
                         onChange={(e) => setPass(e.target.value)}
                         />
-                        
                     </label>
 
                     <label>Age
