@@ -4,6 +4,7 @@ html {
   }
 *{
     font-family: 'Manrope', sans-serif;
+    background-attachment: fixed;
 }
 :root{
     --blackyellow : 254,231,21;
@@ -433,6 +434,20 @@ html {
 }
 .user_info button:hover{
     color: red;
+}
+
+.homebg{
+    
+    background-position: center;
+    background-attachment: fixed;
+    width: 100%;
+}
+
+.homebg img{
+    display: absolute;
+    position: fixed;
+    width: 100%;
+    background-attachment: fixed;
 }
 
 @media screen and (max-width:1200px) {

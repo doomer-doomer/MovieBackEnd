@@ -6,7 +6,8 @@
     border-radius: 10px;
     background-color: black;
     color: white;
-    width: 100%;
+    width: 120%;
+    overflow: hidden;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -62,25 +63,24 @@
 }
 
 .deleteusers{
-    width: 350px;
+    flex: 1;
     margin: 20px;
     padding: 20px;
     background-color: lightcoral;
     border: none;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-bottom: auto;
+    
     border-radius: 10px;
     
 }
 
 .addusers{
-    display: grid;
-    grid-template-columns: auto auto;
-    width: 350px;
+    display: block;
+    flex: 1.5;
     margin: 20px;
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-bottom: auto;
+   
     background-color: lightgreen;
     border: none;
     border-radius: 10px;
@@ -88,21 +88,60 @@
 }
 
 .userdata {
+    flex: 1;
     margin: 20px;
     padding: 20px;
     background-color: lightskyblue;
     border: none;
     border-radius: 10px;
-    text-align: center;
+    text-align: left;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-bottom: auto;
-}
-
-.deleteusers form input{
-    display: block;
-}
-
-.addusers form input{
-    display: block;
     
+}
+
+.userdata .topuserdata{
+    display: flex;
+    width: 100%;
+}
+
+.userdata .topuserdata img{
+    width: 25px;
+    height: 25px;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-bottom: 5px;
+}
+
+.deleteusers form {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    row-gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+.addusers form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    row-gap: 15px;
+    
+}
+
+.deleteusers .bargraph{
+    margin: 20px;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    margin-top: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }

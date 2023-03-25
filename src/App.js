@@ -27,6 +27,7 @@ import './startpage.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './admin.css'
+import './signuplay.css'
 
 let newTitle = new Array()
 export function Mytoggle (title,logo,img,ep,rating,isvisible){

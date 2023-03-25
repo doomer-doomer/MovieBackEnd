@@ -4,8 +4,11 @@ export default function SingleLay(items){
     return(
         <div className="OverallLayout">
            
+           
             <div className="BoxStructure">
+                
                 <div className="UpperPosSingleLayout">
+
 
                     <div className="seasons">   
                             <br></br> 
@@ -25,6 +28,7 @@ export default function SingleLay(items){
                     <div>
                     
                     <div className="serieshead">
+                   
                         <img className="mainimg" src={items.myimage}></img>
                         {/* <img className="submainimg" src={items.logo}></img> */}
                     </div>
@@ -34,10 +38,11 @@ export default function SingleLay(items){
                         <p>{items.rating}</p>
                         <p>{items.des}</p>
                         <p>{items.id}</p>
-                        
+                     
                         <p>{items.cast.map(kkk=>kkk=kkk.split(","))}</p>
                        
                     </div>
+                    
                     
 
                     
@@ -49,6 +54,7 @@ export default function SingleLay(items){
                                 <div className="episodedata">
                                     <h2>{items.episode[0]}</h2>
                                     <p>{items.myep}</p>
+                                    <p>{items.epdes}</p>
                                 </div>
                                 
                             </div>

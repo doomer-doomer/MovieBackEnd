@@ -59,9 +59,10 @@ export default function FetchData(props){
     const [singleepisode,setsinglepisode] = useState("")
     const [singlepic,setsinglepic] = useState("")
     const [singleepisodedes,setsingleepisodedes] = useState("")
+    const [singleepdes,setsingleepdes] = useState("")
     
 
-    function Mytoggle2 (title,logo,img,ep,rating,isvisible,cast,des,id,seasons,episode,pic,myep){
+    function Mytoggle2 (title,logo,img,ep,rating,isvisible,cast,des,id,seasons,episode,pic,myep,epdes){
 
         // console.log(title)
         // console.log(logo)
@@ -82,6 +83,7 @@ export default function FetchData(props){
         setsinglepisode(episode)
         setsinglepic(pic)
         setsingleepisodedes(myep)
+        setsingleepdes(epdes);
         window.scrollTo(0, 0);
       }
 
@@ -687,11 +689,21 @@ export default function FetchData(props){
         })
         )
 
+        const s1 =episodes[0].episodes.map(kbc=>{
+            const item = `${kbc.contextualSynopsis.text}`
+            return <li>{item}</li>
+        });
+        const s2 =episodes[1].episodes.map(kbc=>kbc.contextualSynopsis.text);
+        const s3 =episodes[2].episodes.map(kbc=>kbc.contextualSynopsis);
+        const s4 =episodes[3].episodes.map(kbc=>kbc.contextualSynopsis);
+        const s5 =episodes[4].episodes.map(kbc=>kbc.contextualSynopsis);
+        const s6 =episodes[5].episodes.map(kbc=>kbc.contextualSynopsis);
+
         const titlefind = episodes[0].episodes.map(kkk=>kkk=kkk.title)
         const desfind = episodes[0].episodes.map(kkk=>kkk=kkk.contextualSynopsis.text)
 
 
-        //console.log(desfind)
+        console.log(s1.map(kbc=>kbc));
 
             let i=0
             let j=0
@@ -751,6 +763,10 @@ export default function FetchData(props){
         //if(titles.jawSummary.id==season.map(kkk=>kkk=kkk.titleId)){
             //seasonz = seasonId
         //}
+        const s1 =episodes[0].episodes.map(kbc=>{
+            const item = `${kbc.contextualSynopsis.text}`
+            return( {item})
+        });
                 
                     return <Layout
                     
@@ -777,6 +793,7 @@ export default function FetchData(props){
                     //pic = {episodes.map(ahh=>ahh=ahh.episodes.map(ahhh=>ahhh=ahhh.interestingMoment._342x192.webp.value.url.at(0)))}
                     //pic ={eachpic[0].map(kkk=>kkk=kkk)}
                     pic={myarr}
+                    epdes = {s1}
                     myep = {desss[0].at(0)}
                     mytoggle = {Mytoggle2}
 
@@ -1215,6 +1232,7 @@ const mystry = Mysteries.map(titles=>{
                                     
             {visbile && 
             <div>
+                
                 <button className="goback" onClick={goback}>Go back</button>
                     <SingleLay 
                         mytitle={singletitle} 
@@ -1229,6 +1247,7 @@ const mystry = Mysteries.map(titles=>{
                         episode = {singleepisode}
                         pic = {singlepic}
                         myep = {singleepisodedes}
+                        epdes={singleepdes}
                      />   
             </div>}
                         
@@ -1243,6 +1262,7 @@ const mystry = Mysteries.map(titles=>{
             */}
             {visbile2 && 
             <div className="parentContent">
+                
 
                 <div className="content_info">
                     
