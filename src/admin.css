@@ -63,7 +63,7 @@
 }
 
 .deleteusers{
-    flex: 1;
+    flex: 1.5;
     margin: 20px;
     padding: 20px;
     background-color: lightcoral;
@@ -75,7 +75,7 @@
 
 .addusers{
     display: block;
-    flex: 1.5;
+    flex: 1.25;
     margin: 20px;
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

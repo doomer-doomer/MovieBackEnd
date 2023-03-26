@@ -3,6 +3,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Chart as ChartJS, ArcElement, Legend, CategoryScale,LinearScale,BarElement,Title,Tooltip } from "chart.js";
 import { Pie ,Bar} from "react-chartjs-2";
+import {CanvasJSChart} from 'canvasjs-react-charts';
+import Chart from 'react-apexcharts';
 import {ShimmerText,ShimmerCircularImage,ShimmerThumbnail} from "react-shimmer-effects";
 
 ChartJS.register(ArcElement,CategoryScale,LinearScale,BarElement,Title,Tooltip,
@@ -28,6 +30,9 @@ export default function AdminPage(){
     const [countofgen,setgen] = useState([]);
     const [valgen,setvalgen] = useState([]);
 
+    const [countofage,setcountage] = useState([]);
+    const [valage,setvalage] = useState([]);
+
     const [col1,setbgcolr]=useState("")
     const [col2,sethovercol] = useState("")
     const [col3,setcol3]=useState("")
@@ -52,6 +57,51 @@ export default function AdminPage(){
         return `rgb(${r}, ${g}, ${b})`;
       }
 
+      console.log(valage)
+
+    const agegroup ={
+        labels: countofage.sort(),
+        datasets: [{
+            label:"Age Group",
+            data: Object.values(valage),
+            backgroundColor: [
+                col1,
+                col2,
+                col3,
+                col4,
+                col5,
+                col6,
+                col7,
+                col8,
+                col9,
+                col10
+            ],
+            hoverBackgroundColor:[
+                hexToRGB(col1,0.75),
+                hexToRGB(col2,0.75),
+                hexToRGB(col3,0.75),
+                hexToRGB(col4,0.75),
+                hexToRGB(col5,0.75),
+                hexToRGB(col6,0.75),
+                hexToRGB(col7,0.75),
+                hexToRGB(col8,0.75),
+                hexToRGB(col9,0.75),
+                hexToRGB(col10,0.75)
+            ],
+            
+        }]
+    }
+
+    const ageoptions = {
+        responsive:true,
+        plugins: {
+            legend: {
+				horizontalAlign: "right",
+				verticalAlign: "center",
+				reversed: true
+			}
+        },
+      };
   
 
     const barstate={
@@ -66,16 +116,19 @@ export default function AdminPage(){
             hoverBackgroundColor:[
                 hexToRGB(col1,0.75),
                 hexToRGB(col2,0.75)
-            ]
+            ],
+            
         }]
     }
 
     const genoptions = {
         responsive:true,
         plugins: {
-          legend: {
-            position: 'top',
-          },
+            legend: {
+				horizontalAlign: "right",
+				verticalAlign: "center",
+				reversed: true
+			}
         },
       };
 
@@ -141,6 +194,7 @@ export default function AdminPage(){
             //setcountcountry(res.map(abc=>abc.country))
             var country = res.map(abc=>abc.country);
             var gen = res.map(abc=>abc=abc.gender);
+            var age = res.map(abc=>abc=abc.user_age);
 
             loaded(true);
             finalization(res.map(aaa=>aaa=aaa));
@@ -152,7 +206,10 @@ export default function AdminPage(){
             var unique_gen = gen.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
             setgen(unique_gen);
 
-            // console.log(unique.length)
+            var unique_age = age.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
+            setcountage(unique_age);
+
+             console.log(unique_age)
         
             const counts = {};
             const sampleArray = country;
@@ -164,7 +221,12 @@ export default function AdminPage(){
             const gen_Array = gen;
             gen_Array.forEach(function (x) { gen_counts[x] = (gen_counts[x] || 0) + 1; });
             setvalgen(gen_counts);
-            // console.log(counts)
+
+            const age_counts = {};
+            const age_Array = age;
+            age_Array.forEach(function (x) { age_counts[x] = (age_counts[x] || 0) + 1; });
+            setvalage(age_counts);
+             console.log(valage)
 
             const randColor = () =>  {
                 return "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase();
@@ -436,17 +498,6 @@ export default function AdminPage(){
                         <button type="submit">Submit</button>
                     </form>
 
-                    <div className='bargraph'>
-                    {loading?  <Bar
-                    options={genoptions}
-                        data={barstate}
-                    /> : <ShimmerThumbnail height={300} width={400}  className="m-0" rounded />}
-                    </div>
-
-
-                </div>
-
-                <div className='addusers'>
                     <h3>Add Users</h3>
                     <hr></hr>
                     <form onSubmit={handleSubmit_add}>
@@ -755,6 +806,28 @@ export default function AdminPage(){
 
                         <button type="submit">Submit</button>
                     </form>
+
+                   
+
+
+                </div>
+
+                <div className='addusers'>
+               
+                  
+                    <div className='bargraph'>
+
+                    {loading?  <Bar
+                        options={ageoptions}
+                        data={agegroup}
+                        
+                    /> : <ShimmerThumbnail height={300} width={550}  className="m-0" rounded />}
+                    {loading?  <Bar
+                        options={genoptions}
+                        data={barstate}
+                        
+                    /> : <ShimmerThumbnail height={300} width={550}  className="m-0" rounded />}
+                    </div>
 
                 </div>
 
