@@ -1,7 +1,8 @@
-import React from "react"
+import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import {ShimmerThumbnail} from "react-shimmer-effects";
 
 export default function Layout(items){
     const visibleRef = React.useRef()
@@ -62,8 +63,8 @@ export default function Layout(items){
                             <div className="imageLogo" onMouseEnter={showElement} onMouseLeave={hideElement}>
                             <img className="logoimg" src={items.logo}></img>
                             
-                            <img className="myimg" src={items.bgimage}></img>
-                             
+                            {/* <img className="myimg" src={items.bgimage}></img> */}
+                             {items.bgimage ? <img className="myimg" src={items.bgimage}></img>: <ShimmerThumbnail height={250} rounded />}
 
                                
                             </div>

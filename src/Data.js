@@ -759,14 +759,14 @@ export default function FetchData(props){
       
     const sitcoms = sitcom_genre.map(titles=>{
 
-        //let seasonz = []
-        //if(titles.jawSummary.id==season.map(kkk=>kkk=kkk.titleId)){
-            //seasonz = seasonId
-        //}
-        const s1 =episodes[0].episodes.map(kbc=>{
-            const item = `${kbc.contextualSynopsis.text}`
-            return( {item})
-        });
+        // //let seasonz = []
+        // //if(titles.jawSummary.id==season.map(kkk=>kkk=kkk.titleId)){
+        //     //seasonz = seasonId
+        // //}
+        // const s1 =episodes[0].episodes.map(kbc=>{
+        //     const item = `${kbc.contextualSynopsis.text}`
+        //     return( {item})
+        // });
                 
                     return <Layout
                     

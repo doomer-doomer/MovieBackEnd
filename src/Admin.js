@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Chart as ChartJS, ArcElement, Legend, CategoryScale,LinearScale,BarElement,Title,Tooltip } from "chart.js";
 import { Pie ,Bar} from "react-chartjs-2";
+import {ShimmerText,ShimmerCircularImage,ShimmerThumbnail} from "react-shimmer-effects";
 
 ChartJS.register(ArcElement,CategoryScale,LinearScale,BarElement,Title,Tooltip,
 Legend);
@@ -50,6 +51,8 @@ export default function AdminPage(){
       
         return `rgb(${r}, ${g}, ${b})`;
       }
+
+  
 
     const barstate={
         labels: countofgen,
@@ -340,49 +343,81 @@ export default function AdminPage(){
                     <div className='UserId'>
                         <h1>UserId</h1>
                         <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_id'>{abc.user_id}</div>)} )}</h3></div> : <div>Loading...</div>}
+                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_id'>{abc.user_id}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+                            <span className="busterCards" key={i}>
+                                <ShimmerText line={3} gap={10} />
+                            </span>
+                            ))}
                     </div>
                     <hr></hr>
                     <div className='Username'>
                     <h1>Username</h1>
                     <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_username'>{abc.user_name}</div>)} )}</h3></div> : <div>Loading...</div>}
+                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_username'>{abc.user_name}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+                            <span className="busterCards" key={i}>
+                                <ShimmerText line={3} gap={10} />
+                            </span>
+                            ))}
                     </div>
                     <hr></hr>
                     <div className='Email'>
                     <h1>Email</h1>
                     <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_email '>{abc.email}</div>)} )}</h3></div> : <div>Loading...</div>}
+                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_email '>{abc.email}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+                            <span className="busterCards" key={i}>
+                                <ShimmerText line={3} gap={10} />
+                            </span>
+                            ))}
                     </div>
                     <hr></hr>
                     <div className='Password'>
                     <h1>Password</h1>
                     <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_password'>{abc.password}</div>)} )}</h3></div> : <div>Loading...</div>}
+                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_password'>{abc.password}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+                            <span className="busterCards" key={i}>
+                                <ShimmerText line={3} gap={10} />
+                            </span>
+                            ))}
                     </div>
                     <hr></hr>
                     <div className='UserId'>
                         <h1>Age</h1>
                         <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_id'>{abc.user_age}</div>)} )}</h3></div> : <div>Loading...</div>}
+                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_id'>{abc.user_age}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+                            <span className="busterCards" key={i}>
+                                <ShimmerText line={3} gap={10} />
+                            </span>
+                            ))}
                     </div>
                     <hr></hr>
                     <div className='Username'>
                     <h1>Gender</h1>
                     <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_username'>{abc.gender}</div>)} )}</h3></div> : <div>Loading...</div>}
+                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_username'>{abc.gender}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+                            <span className="busterCards" key={i}>
+                                <ShimmerText line={3} gap={10} />
+                            </span>
+                            ))}
                     </div>
                     <hr></hr>
                     <div className='Email'>
                     <h1>Contact</h1>
                     <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_email '>{abc.contact}</div>)} )}</h3></div> : <div>Loading...</div>}
+                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_email '>{abc.contact}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+                            <span className="busterCards" key={i}>
+                                <ShimmerText line={3} gap={10} />
+                            </span>
+                            ))}
                     </div>
                     <hr></hr>
                     <div className='Password'>
                     <h1>Location</h1>
                     <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_password'>{abc.country}</div>)} )}</h3></div> : <div>Loading...</div>}
+                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_password'>{abc.country}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+                            <span className="busterCards" key={i}>
+                                <ShimmerText line={3} gap={10} />
+                            </span>
+                            ))}
                     </div>
                 </div>
 
@@ -402,12 +437,12 @@ export default function AdminPage(){
                     </form>
 
                     <div className='bargraph'>
-                    <Bar
+                    {loading?  <Bar
                     options={genoptions}
                         data={barstate}
-                    />
+                    /> : <ShimmerThumbnail height={300} width={400}  className="m-0" rounded />}
                     </div>
-                    
+
 
                 </div>
 
@@ -730,7 +765,7 @@ export default function AdminPage(){
                     </div>
                     
                     <hr></hr>
-                    <Pie
+                    {loading?<Pie
                     data={state}
                     options={{
                         title:{
@@ -739,7 +774,7 @@ export default function AdminPage(){
                         fontSize:20
                         }
                     }}
-                    />
+                    /> :<ShimmerCircularImage size={450} /> }
                 </div>
 
                 </div>
