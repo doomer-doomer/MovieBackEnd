@@ -3,8 +3,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Chart as ChartJS, ArcElement, Legend, CategoryScale,LinearScale,BarElement,Title,Tooltip } from "chart.js";
 import { Pie ,Bar} from "react-chartjs-2";
-import {CanvasJSChart} from 'canvasjs-react-charts';
-import Chart from 'react-apexcharts';
 import {ShimmerText,ShimmerCircularImage,ShimmerThumbnail} from "react-shimmer-effects";
 
 ChartJS.register(ArcElement,CategoryScale,LinearScale,BarElement,Title,Tooltip,
@@ -65,28 +63,28 @@ export default function AdminPage(){
             label:"Age Group",
             data: Object.values(valage),
             backgroundColor: [
-                col1,
-                col2,
-                col3,
-                col4,
-                col5,
-                col6,
-                col7,
-                col8,
+                col10,
                 col9,
-                col10
+                col8,
+                col7,
+                col6,
+                col5,
+                col4,
+                col3,
+                col2,
+                col1
             ],
             hoverBackgroundColor:[
-                hexToRGB(col1,0.75),
-                hexToRGB(col2,0.75),
-                hexToRGB(col3,0.75),
-                hexToRGB(col4,0.75),
-                hexToRGB(col5,0.75),
-                hexToRGB(col6,0.75),
-                hexToRGB(col7,0.75),
-                hexToRGB(col8,0.75),
+                hexToRGB(col10,0.75),
                 hexToRGB(col9,0.75),
-                hexToRGB(col10,0.75)
+                hexToRGB(col8,0.75),
+                hexToRGB(col7,0.75),
+                hexToRGB(col6,0.75),
+                hexToRGB(col5,0.75),
+                hexToRGB(col4,0.75),
+                hexToRGB(col3,0.75),
+                hexToRGB(col2,0.75),
+                hexToRGB(col1,0.75)
             ],
             
         }]
@@ -110,12 +108,12 @@ export default function AdminPage(){
             label: 'Gender Ratio',
             data: Object.values(valgen),
             backgroundColor: [
-                col1,
-                col2
+                col5,
+                col6
             ],
             hoverBackgroundColor:[
-                hexToRGB(col1,0.75),
-                hexToRGB(col2,0.75)
+                hexToRGB(col5,0.75),
+                hexToRGB(col6,0.75)
             ],
             
         }]
@@ -395,10 +393,13 @@ export default function AdminPage(){
                 });
         }
     }
+
+
     return(
         <div><ToastContainer/>
-            <div className='AdminsLay'>
-                <h1 className='dashboard'>Dashboard.</h1>
+            <h1 className='dashboard'>Dashboard.</h1>
+
+            <div className='AdminsLay' id='container'>
                 
                 <div className='AdminData'>
                    
@@ -482,10 +483,16 @@ export default function AdminPage(){
                             ))}
                     </div>
                 </div>
+                
 
-                <div className='Queries'>
+               
+            </div>
+
+            <div className='Queries'>
                 <div className='deleteusers'>
-                    <h3>Delete Users</h3>
+
+                    <div className='subdeleteuser'>
+                    <h2>Delete Users</h2>
                     <hr></hr>
                     <form onSubmit={handleSubmit_delete}>
                          UserId:<input
@@ -496,9 +503,13 @@ export default function AdminPage(){
                         />
 
                         <button type="submit">Submit</button>
-                    </form>
+                    </form> 
 
-                    <h3>Add Users</h3>
+                    </div>
+                    
+
+                    <div className='subadduser'>
+                    <h2>Add Users</h2>
                     <hr></hr>
                     <form onSubmit={handleSubmit_add}>
                         Username *<input
@@ -807,37 +818,30 @@ export default function AdminPage(){
                         <button type="submit">Submit</button>
                     </form>
 
+                    </div>
+                    
+
                    
 
 
                 </div>
 
-                <div className='addusers'>
+                {/* <div className='addusers'>
                
                   
-                    <div className='bargraph'>
+                
 
-                    {loading?  <Bar
-                        options={ageoptions}
-                        data={agegroup}
-                        
-                    /> : <ShimmerThumbnail height={300} width={550}  className="m-0" rounded />}
-                    {loading?  <Bar
-                        options={genoptions}
-                        data={barstate}
-                        
-                    /> : <ShimmerThumbnail height={300} width={550}  className="m-0" rounded />}
-                    </div>
-
-                </div>
+                </div> */}
 
                 <div className='userdata'>
                     <div className='topuserdata'>
-                    <h3>Total Users : {loading ? initialisation.length : <div>Loading...</div>}</h3>
+                    <h2>Total Users : {loading ? initialisation.length : <div>Loading...</div>}</h2>
                     <img src="refresh.png" width="10px" onClick={getAllData}></img>
                     </div>
                     
                     <hr></hr>
+                    <div className='countryuser'>
+                        <h1>Country Distribution</h1>
                     {loading?<Pie
                     data={state}
                     options={{
@@ -848,12 +852,37 @@ export default function AdminPage(){
                         }
                     }}
                     /> :<ShimmerCircularImage size={450} /> }
-                </div>
-
-                </div>
+                    </div>
+                    
                 
+                
+                </div>
 
-               
+                </div>
+
+            <div className='bargraphlay'>
+            
+
+                    <div className='agegrp'>
+                        <h1>Age group</h1>
+                    {loading?  <Bar
+                    options={ageoptions}
+                    data={agegroup}
+                    
+                /> : <ShimmerThumbnail height={300} width={400}  className="m-0" rounded />}
+                    </div>
+
+                    <div className='gengrp'>
+                        <h1>Gender ratio</h1>
+                    {loading?  <Bar
+                    options={genoptions}
+                    data={barstate}
+                    
+                /> : <ShimmerThumbnail height={300} width={400}  className="m-0" rounded />}
+                    </div>
+                
+                
+              
             </div>
         </div>
     )

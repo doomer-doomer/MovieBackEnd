@@ -1,14 +1,20 @@
-.AdminData{
-    display: flex;
+.AdminsLay{
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    width: 100%;
+    background-color: #191919;
+    color: white;
+    width: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 10px;
     margin: 20px;
     border: none;
     border-radius: 10px;
-    background-color: black;
-    color: white;
-    width: 120%;
-    overflow: hidden;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.AdminData{
+    display: flex;
+    
 }
 
 .dashboard{
@@ -44,6 +50,7 @@
 
 .inner_id{
     padding: 10px;
+    white-space: nowrap;
 }
 
 .inner_username{
@@ -56,6 +63,7 @@
 
 .inner_password{
     padding: 10px;
+    white-space: nowrap;
 }
 
 .Queries{
@@ -63,13 +71,10 @@
 }
 
 .deleteusers{
-    flex: 1.5;
+    flex: 1.75;
     margin: 20px;
-    padding: 20px;
-    background-color: lightcoral;
-    border: none;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    
+    border: none;
     border-radius: 10px;
 }
 
@@ -98,6 +103,10 @@
     
 }
 
+.userdata h1{
+    text-align: center;
+}
+
 .userdata .topuserdata{
     display: flex;
     width: 100%;
@@ -121,6 +130,20 @@
     margin-bottom: 20px;
 }
 
+.deleteusers .subadduser{
+    border: none;
+    border-radius: 0px 0px 10px 10px;
+    background-color: lightgreen;
+    padding: 20px;
+}
+
+.deleteusers .subdeleteuser{
+    border: none;
+    border-radius: 10px 10px 0px 0px;
+    background-color: lightcoral;
+    padding: 20px;
+}
+
 
 
 .addusers form {
@@ -133,14 +156,27 @@
     
 }
 
-.deleteusers .bargraph{
+.bargraphlay{
+    display: flex;
+   
+}
+
+.bargraphlay .agegrp{
+    flex: 1;
+    padding: 20px;
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: lightgoldenrodyellow;
+}
+
+.bargraphlay .gengrp{
+    flex: 1;
     margin: 20px;
     padding: 20px;
     border: none;
     border-radius: 10px;
-    background-color: white;
-    display: flex;
-    margin-top: 50px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+    background-color: lightgoldenrodyellow;
 }
