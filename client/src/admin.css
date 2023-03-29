@@ -1,0 +1,190 @@
+.AdminsLay{
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    width: 100%;
+    background-color: #191919;
+    color: white;
+    width: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 10px;
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+}
+
+.AdminData{
+    display: flex;
+    padding: 10px;
+}
+
+.AdminData hr{
+    border: none;
+    height: 2px;
+    background-color: white;
+}
+
+.dashboard{
+    margin: 20px;
+    padding: 10px;
+    font-size: xxx-large;
+}
+
+.UserId h1{
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.Username h1{
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;   
+}
+
+.Email h1{
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+}
+
+.Password h1{
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+}
+
+.inner_id{
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.inner_username{
+    padding: 10px;
+}
+
+.inner_email{
+    padding: 10px;
+}
+
+.inner_password{
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.Queries{
+    display: flex;
+}
+
+.deleteusers{
+    flex: 1.75;
+    display: block;
+    margin: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: none;
+    border-radius: 10px;
+    background-color: lightgreen;
+}
+
+.addusers{
+    display: block;
+    flex: 1.25;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   
+    background-color: lightgreen;
+    border: none;
+    border-radius: 10px;
+
+}
+
+.userdata {
+    flex: 1;
+    margin: 20px;
+    padding: 20px;
+    background-color: lightskyblue;
+    border: none;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+}
+
+.userdata h1{
+    text-align: center;
+}
+
+.userdata .topuserdata{
+    display: flex;
+    width: 100%;
+}
+
+.userdata .topuserdata img{
+    width: 25px;
+    height: 30px;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-bottom: 5px;
+}
+
+.deleteusers form {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    row-gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.deleteusers .subadduser{
+    border: none;
+    border-radius: 0px 0px 10px 10px;
+    background-color: lightgreen;
+    padding: 20px;
+}
+
+.deleteusers .subdeleteuser{
+    border: none;
+    border-radius: 10px 10px 0px 0px;
+    background-color: lightcoral;
+    padding: 20px;
+}
+
+
+
+.addusers form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    row-gap: 15px;
+    
+}
+
+.bargraphlay{
+    display: flex;
+   
+}
+
+.bargraphlay .agegrp{
+    flex: 1;
+    padding: 20px;
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: lightgoldenrodyellow;
+}
+
+.bargraphlay .gengrp{
+    flex: 1;
+    margin: 20px;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: lightgoldenrodyellow;
+}

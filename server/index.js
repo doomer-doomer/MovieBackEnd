@@ -193,6 +193,20 @@ app.get("/getuser",async(req,res)=>{
     }
 })
 
+app.post("/getspecific",authorize,async(req,res)=>{
+    try{
+        //const {email,password} = req.body;
+        
+        const data = await pool.query("SELECT * FROM AuthenticatedUsers where user_id=$1",
+        [req.user]);
+
+        res.json(data.rows)
+    }catch(err){
+        console.log(err.message);
+        res.json("Error in Server");
+    }
+})
+
 app.post("/delete",async(req,res)=>{
     try {
         const {user_id} = req.body;
@@ -204,6 +218,29 @@ app.post("/delete",async(req,res)=>{
         const response = await pool.query("DELETE FROM AuthenticatedUsers WHERE user_id= $1",[user_id]);
 
         res.json("Deleted Successfully");
+    } catch (error) {
+        console.log(error.message);
+        res.json("Error in Server");
+    }
+})
+
+//Update/edit user
+app.post("/edit",authorize,async(req,res)=>{
+    try {
+        const {user_name,password,user_age,contact} = req.body;
+        
+        const salt = await bcrypt.genSalt(10);
+        const bcryptpassword = await bcrypt.hash(password,salt);
+
+        const response = await pool.query("UPDATE AuthenticatedUsers SET user_name=$1,password=$2,user_age=$3,contact=$4 WHERE user_id=$5",
+        [user_name,bcryptpassword,user_age,contact,req.user]);
+
+
+        const mydata = await pool.query("SELECT * FROM AuthenticatedUsers WHERE user_id=$1",
+        [req.user])
+
+        const jwtToken = jwtGenerator(mydata.rows[0].user_id);
+        res.json({jwtToken});
     } catch (error) {
         console.log(error.message);
         res.json("Error in Server");

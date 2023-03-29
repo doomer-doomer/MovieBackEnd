@@ -1,0 +1,14 @@
+.contents .aboutInfo .heading {
+    padding: 20px;
+    margin: 10px;
+}
+
+.contents .aboutInfo .heading h2,h4{
+    padding-left: 10px;
+}
+
+.contents .aboutInfo .heading .stats{
+    display: grid;
+    text-align: left;
+    grid-template-columns: auto auto;
+}
