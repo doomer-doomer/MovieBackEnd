@@ -1,16 +1,11 @@
 import React, { useEffect, useState ,useRef } from "react";
-import staticData from "./staticData";
 import Layout from './DataLayout';
 import datas from "./datas";
-import PageHeader from "./header";
 import SingleLay from "./SingleLayout";
-import { Link } from "react-router-dom";
-import { BrowserRouter as Router,Route,Routes } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-import { Mytoggle } from "./App";
-import id from "./id";
 import season from "./season";
 import episodes from "./episodes";
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ApiKey = "8cd5fdfdbdmsh1e9c0bce5756f43p1d9321jsn04a4bd150890"
 const Host = "streaming-availability.p.rapidapi.com"
@@ -1267,7 +1262,7 @@ const mystry = Mysteries.map(titles=>{
                 <div className="content_info">
                     
                     {!infovisible && <button onClick={back} className="leftbtn"><img src="right-arrow3.png" width="100%"></img></button>}
-                    <button>Watch Now</button>
+                    <Button variant="dark">Watch Now</Button>
                         <div className="PageLogo">
                             
                             {!infovisible && <img src={title} className="basetitle"></img>}

@@ -72,6 +72,7 @@ export default function PageHeader(){
             //setPass(response[0].password);
             setgender(response[0].gender);
             setcontact(response[0].contact);
+            setcountry(response[0].country);
     
         } catch (error) {
             console.log(error.message);
@@ -258,6 +259,26 @@ export default function PageHeader(){
 
             <div className="editform">
 
+<div className="nonchangaleinfo">
+<label className="lab">Email <input className="inp5"
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    /></label>
+
+                    <label className="lab">Gender <input className="inp5"
+                        type="text"
+                        value={gender}
+                        onChange={(e) => setgender(e.target.value)}
+                    /></label>
+                    <label className="lab">Country <input className="inp5"
+                        type="text"
+                        value={country}
+                        onChange={(e) => setcountry(e.target.value)}
+                    /></label>
+</div>
+<hr></hr>
+                    
             <form onSubmit={handleSubmit}>
                     <label>Username <input className="inp1"
                         type="text"
@@ -266,7 +287,6 @@ export default function PageHeader(){
                         placeholder="Change Username"
                     /></label>
 
-                    
                     <label>Password <input className="inp2"
                         type="password"
                         value={password}
@@ -286,7 +306,6 @@ export default function PageHeader(){
                         onChange={(e) => setcontact(e.target.value)}
                         placeholder="Change Contact"
                     /></label>
-
 
 <Button variant="Secondary" onClick={handleClose}>Close</Button>
                     <Button type="submit" onClick={handleClose}>Save Changes</Button>

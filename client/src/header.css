@@ -425,6 +425,26 @@ form .inp3{
 form .inp4{
     
 }
+
+.nonchangaleinfo{
+    pointer-events: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
+    padding: 10px;
+}
+
+.inp5{
+    display: block;
+    border: none;
+    outline: none;
+    font-size: 40px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+
+
 @keyframes fade {
     from{
         
