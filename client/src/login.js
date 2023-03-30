@@ -145,8 +145,8 @@ export default function Login(){
                         
                         <br></br>
                         <br></br>
-                        <Button type="submit">Submit</Button>
-                        <p>Create a new account?<Link to="/Signup">Signup</Link></p>
+                        <Button type="submit">Login</Button>
+                        <p>Create a new account?<br></br><Link to="/Signup">Signup</Link></p>
                         
                     </form>
 
