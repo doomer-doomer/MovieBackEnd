@@ -123,7 +123,7 @@
     position: absolute;
     padding-left: 100px;
     padding-right: 100px;
-    top: 25%;
+    top: 50%;
     color: rgb(255, 255, 255);
     pointer-events:none;
 }
@@ -189,19 +189,22 @@
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     transition: all 1s;
-    
-}
-
-.navbar:hover{
-    opacity: 20%;
+    height: 100px;
 }
 
 .navbar img{
     padding-left: 100px;
     width: 250px;
-    
+    display: flex;
+    position: absolute;
+
 }
 
+.navbar .user_info{
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
 .navbar h3{
     padding: 15px;
     color: white;

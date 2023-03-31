@@ -1,15 +1,12 @@
 import FetchData from "./Data"
 import React, { useState,useEffect } from "react"
 import Modal from 'react-bootstrap/Modal'
-import ModalDialog from 'react-bootstrap/ModalDialog'
-import ModalHeader from 'react-bootstrap/ModalHeader'
-import ModalTitle from 'react-bootstrap/ModalTitle'
-import ModalBody from 'react-bootstrap/ModalBody'
-import ModalFooter from 'react-bootstrap/ModalFooter'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export default function PageHeader(){
     
@@ -238,13 +235,32 @@ export default function PageHeader(){
                         <div className="navbar">
                             <img src="chillax.png" className="logo"></img>
                             <div className="user_info">
-                                <div className="user_detailz">
+                            <Dropdown>
+
+                                <DropdownButton
+                                    
+                                    key="down"
+                                    id="dropdown-button-drop-down"
+                                    drop="down"
+                                    title="View Profile"
+                                    variant="danger"
+                                    align={{ lg: 'start' }}
+                                >
+                                    <Dropdown.ItemText href="#">{greet},<br></br> {currentusername}</Dropdown.ItemText>
+                                    <Dropdown.Header>{email}</Dropdown.Header>
+                                
+                                    <Dropdown.Divider />
+                                    <Dropdown.Item onClick={handleShow}>Edit Profile</Dropdown.Item>
+                                    <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+                                </DropdownButton>
+                                </Dropdown>
+                                {/* <div className="user_detailz">
                                 <h3>{greet}, {currentusername}</h3>
                                 <h5>{email}</h5>
                                 </div>
                                 
                                 <button onClick={handleShow}>Edit Profile</button>
-                                <button onClick={logout}>Logout</button>            
+                                <button onClick={logout}>Logout</button>             */}
                             </div>
                             
                         </div>
