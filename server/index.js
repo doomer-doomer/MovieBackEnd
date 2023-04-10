@@ -11,6 +11,8 @@ const { Navigate } = require('react-router-dom');
 
 const nodemailer = require('nodemailer');
 const mailgen = require('mailgen');
+const SavingPack = require('./subscriptionTokenGenerator');
+const subscribeAuth = require('./subscribeAuth');
 
 //Middleware
 app.use(cors())
@@ -21,6 +23,13 @@ app.use(express.json());
 // create extension if not exists "uuid-ossp"; 
 //CREATE TABLE AuthUsers(user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),user_name VARCHAR(255),email VARCHAR(255),password VARCHAR(255));
 //CREATE TABLE AuthenticatedUsers(user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),user_name VARCHAR(255),email VARCHAR(255),password VARCHAR(255),user_age smallint, gender char,contact bigint,country varchar(255));
+
+//CREATE TABLE Subscriptions AS SELECT user_id FROM AuthenticatedUsers;
+//ALTER TABLE Subscriptions ADD subscription_id VARCHAR(255) NOT NULL DEFAULT 'Not Subscribed';
+//ALTER TABLE Subscriptions ADD subscription_name varchar(255) NULL;
+//ALTER TABLE Subscriptions ADD subscription_price smallint NOT NULL DEFAULT 0;
+//ALTER TABLE Subscriptions ADD subscription_start_date varchar(255) NOT NULL DEFAULT current_date;
+//ALTER TABLE Subscriptions ADD subscription_end_date varchar(255) NOT NULL DEFAULT current_date+30;
 
 app.get("/",authorize,async(req,res)=>{
     try {
@@ -282,6 +291,58 @@ app.post("/changepass",async(req,res)=>{
     } catch (error) {
         console.error(error.message);
         res.json("Error in server");
+    }
+})
+
+app.post("/subscribe",authorize,async(req,res)=>{
+    try {
+        const date = new Date();
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+
+        const current_date = `${day}-${month}-${year}`;
+        const one_month_subscription = `${day}-${month+1}-${year}`;
+        const three_month_subscription = `${day}-${month+3}-${year}`;
+        const year_month_subscription = `${day}-${month+12}-${year}`;
+        
+
+        // This arrangement can be altered based on how we want the date's format to appear.
+        const {subscription_name,subscription_price} = req.body;
+        if(subscription_price===199 || subscription_name==="Saving Pack"){
+            const token = SavingPack(subscription_price,current_date,one_month_subscription)
+            const data = await pool.query("UPDATE subscriptions SET user_id=$1,subscription_id=$2,subscription_price=$3,subscription_start_date=$4,subscription_end_date=$5,subscription_name=$6 WHERE user_id=$7",
+            [req.user,token,subscription_price,current_date,one_month_subscription,subscription_name,req.user]);
+
+            return res.json("Subcription Successful!");
+        }else if(subscription_price===399 || subscription_name==="Standard Pack"){
+            const token = SavingPack(subscription_price,current_date,one_month_subscription)
+            const data = await pool.query("UPDATE subscriptions SET user_id=$1,subscription_id=$2,subscription_price=$3,subscription_start_date=$4,subscription_end_date=$5,subscription_name=$6 WHERE user_id=$7",
+            [req.user,token,subscription_price,current_date,three_month_subscription,subscription_name,req.user]);
+
+            return res.json("Subcription Successful!");
+        }else if(subscription_price===999 || subscription_name==="Premium Pack"){
+            const token = SavingPack(subscription_price,current_date,one_month_subscription)
+            const data = await pool.query("UPDATE subscriptions SET user_id=$1,subscription_id=$2,subscription_price=$3,subscription_start_date=$4,subscription_end_date=$5,subscription_name=$6 WHERE user_id=$7",
+            [req.user,token,subscription_price,current_date,year_month_subscription,subscription_name,req.user]);
+
+            return res.json("Subcription Successful!");
+        }else{
+            return res.json("No Pack Selected")
+        }
+        
+    } catch (error) {
+        console.error(error.message);
+        res.json(error.message);
+    }
+})
+
+app.post('/subscriptionCheck',subscribeAuth,async(req,res)=>{
+    try {
+        res.json(true)
+    } catch (error) {
+        console.error(error.message);
     }
 })
 

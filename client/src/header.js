@@ -7,21 +7,23 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import { useNavigate } from "react-router-dom"
 
 export default function PageHeader(){
     
-    const [modalShow, setModalShow] = useState(false);
+    const navigate = useNavigate();
+const [modalShow, setModalShow] = useState(false);
 
-    const [show, setShow] = useState(false);
+const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
 
-    const [currentusername,set_user_name] = useState("");
-    
-    const [greet,setgreet] = useState("");
+const [currentusername,set_user_name] = useState("");
 
-    const themes = React.useRef()
+const [greet,setgreet] = useState("");
+
+const themes = React.useRef()
 
     document.documentElement.style.setProperty("--theme-color", "var(--redwhite)")
     function mygetVal(val){
@@ -71,6 +73,77 @@ export default function PageHeader(){
             setcontact(response[0].contact);
             setcountry(response[0].country);
     
+        } catch (error) {
+            console.log(error.message);
+            toast.error(error.message, {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+        }
+    }
+
+    function subscribe(){
+        navigate('/subscription');
+    }
+
+    const checkSubscription= async e =>{
+        try {
+            const token = localStorage.getItem('jwt_token');
+            if (!token) return;
+            const res = await fetch("http://localhost:5000/subscriptionCheck",{
+                method:"POST",
+                headers: { Authorization: `Bearer ${token}`,
+                jwt_token: token
+            },
+            });
+
+            const response = await res.json();
+
+            if(!res.ok){
+                toast.warn(res, {
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                    setTimeout(subscribe,10000);
+                
+            }
+
+            
+            if(response===true){
+                toast.success("Subscription Validated✔️", {
+                    position: "bottom-left",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+            }else{
+                toast.info("Subscription Required", {
+                    position: "bottom-left",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+            }
         } catch (error) {
             console.log(error.message);
             toast.error(error.message, {
@@ -215,6 +288,7 @@ export default function PageHeader(){
         myusername();
         setgreet(greeting);
         getData();
+        checkSubscription();
     },[]);
    
 

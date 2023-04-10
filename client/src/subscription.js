@@ -29,7 +29,8 @@ const handleShowPay3 = () => setShowPayment3(true);
 
     return(
         <div className="subcritionlay">
-            <h1 className='topsubscribe'>Pick your Deal!</h1>
+            <h1 className='topsubscribe'>Do you also hate inturrupts? <br></br>
+            Check out our latest packs to keep you moving on.</h1>
             <Modal show={show} onHide={handleClose} centered size="xl">
         <Modal.Header closeButton>
           <Modal.Title><h1><strong>Terms & Conditions</strong></h1></Modal.Title>
