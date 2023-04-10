@@ -128,3 +128,40 @@ figcaption span {
     color: #191919;
     transition: 1s;
 }
+
+.totalerrorlay .errorlay{
+	background-color: white;
+	padding: 50px;
+	width: 600px;
+	height: 300px;
+	display: absolute;
+	position: absolute;
+	right: 0;
+  	left: 0;
+  	top: 0;
+  	bottom: 0;
+  	margin: auto;
+	border: none;
+	border-radius: 20px;	
+}
+
+.errorlay span img{
+	margin-right: 20px;
+	margin-bottom: 20px;
+	
+}
+
+.errorlay span{
+	display: flex;
+	font-size: 35px;
+	margin: auto;
+}
+
+.errorlay button{
+	border: none;
+	border-radius: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
