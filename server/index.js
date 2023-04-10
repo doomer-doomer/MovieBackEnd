@@ -247,40 +247,44 @@ app.post("/edit",authorize,async(req,res)=>{
     }
 })
 
-//SELECT SPECIFIC
-app.get("/myurl/:id",async(req,res)=>{
-    try{
-        const {id} = req.params;
-        const data = await pool.query("SELECT * FROM MyUser2 WHERE id = $1",[id]);
-
-        res.json(data.rows[0]);
-    }catch(err){
-        console.error(err.message);
-    }
-})
-
-app.get("/myurl/:email/:password",async(req,res)=>{
-    try{
-        const {email,password} = req.params;
-        const data = await pool.query("SELECT * FROM MyUser2 WHERE email = $1",[email,password]);
-
-        res.json(data.rows[0]);
-    }catch(err){
-        console.error(err.message);
-    }
-})
-
-//DELETE
-app.delete("/myurl/:id",async(req,res)=>{
+app.post("/checkemail",validate,async(req,res)=>{
     try {
-        const {id} = req.params;
-        const deleteRow = await pool.query("DELETE FROM MyUser2 WHERE id= $1",[id])
+        const {email} = req.body
+        const check = await pool.query("SELECT * FROM AuthenticatedUsers WHERE email=$1",[email])
 
-        res.json("User was deleted successfully!");
+        if(check.rows.length===0){
+            return res.json("No Account Found!");
+        }
+
+        res.json(true);
+
+    } catch (error) {
+        console.error(error.message)
+        res.json("Error in server")
+    }
+})
+
+app.post("/changepass",async(req,res)=>{
+    try {
+        const {email,password} = req.body;
+        const salt = await bcrypt.genSalt(10);
+        const bcryptpassword = await bcrypt.hash(password,salt);
+
+        const find = await pool.query("SELECT * FROM AuthenticatedUsers WHERE email=$1",[email]);
+        if(find.rows.length===0){
+            return res.status(500).json("Account not found!")
+        }
+
+        const changepassword = await pool.query("UPDATE AuthenticatedUsers SET password=$1 WHERE email=$2",
+        [bcryptpassword,email])
+
+        res.json(true);
     } catch (error) {
         console.error(error.message);
+        res.json("Error in server");
     }
 })
+
 
 //My Port
 app.listen(5000,()=>{

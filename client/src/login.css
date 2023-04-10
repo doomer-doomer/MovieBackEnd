@@ -105,10 +105,59 @@
 
 }
 
+.forgetformlay .emailform{
+    margin: 5px;
+    display: grid;
+    grid-template-columns: 1fr 0.25fr;
+    row-gap: 10px;
+    column-gap: 10px;
+}
 
+.forgetformlay .passwordform{
+    margin: 5px;
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    row-gap: 10px;
+    column-gap: 10px;
+}
 
+.forgetformlay .emailform input{
+    display: block;
+    border: none;
+    font-size: 28px;
+    outline: none;
+}
+.forgetformlay .passwordform input{
+    display: block;
+    border: none;
+    font-size: 28px;
+    outline: none;
+}
 
+.forgetformlay .emailform button{
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    transition: all 1s;
+}
 
+.forgetformlay .emailform button:hover{
+    background-color: lightblue;
+}
+.forgetformlay .passwordform button{
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    transition: all 1s;
+    width: 50%;
+    margin-top: 10px;
+    padding: 10px;
+    text-align: left;
+}
+
+.forgetformlay .passwordform button:hover{
+    background-color: lightblue;
+}
 
 
 
