@@ -11,7 +11,7 @@ export default function ErrorPage(props){
 			<div className="errorlay">
 				<span><img src="expired.png" width="50px"></img>Session Expired</span>
 				<br></br>
-				<p>Your Session has been expired. Click below to login again.</p>
+				<p>Your Session has been over. Click below to login again.</p>
 				<Link to="/login"><Button className="mybtn">Login</Button></Link>
 				<div className="errorbtn">
 						

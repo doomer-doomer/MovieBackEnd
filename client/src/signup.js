@@ -13,12 +13,7 @@ export default function Signup(){
     const [gender,setgender] = useState("");
     const [contact,setcontact] = useState("");
     const [country,setcountry] = useState("");
-    
-    const [formData,setformData] = useState(
-        {}
-    );
-
-    const navigate = useNavigate();
+    const [checkpass,setcheckpass] = useState("");
 
     function reloadFun(){
         window.location.reload();
@@ -28,6 +23,19 @@ export default function Signup(){
         e.preventDefault();
         if(user_name==="" || email === "" || password === ""){
             toast.warn('Insufficient Credentials!', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+                return;
+        }
+        if(password!==checkpass){
+            toast.warn('Passwords are not matching!', {
                 position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -101,10 +109,7 @@ export default function Signup(){
         }
         
       }
-      const test = e=>{
-        e.preventDefault();
-        alert(country + gender);
-      }
+    
 
 
 
@@ -153,6 +158,14 @@ export default function Signup(){
                         />
                     </label>
 
+                    <label>Re-Type Password *
+                        <input
+                        type="password" 
+                        value={checkpass}
+                        onChange={(e) => setcheckpass(e.target.value)}
+                        />
+                    </label>
+
                     <label>Age
                         <input
                         type="number" 
@@ -167,6 +180,7 @@ export default function Signup(){
                             <option value="F">F</option>
                         </select>
                     </label>
+
                     <label>Contact
                         <input
                         type="number" 
@@ -434,7 +448,7 @@ export default function Signup(){
                         
                     </label>
                    
-                    <br></br>
+                   
                     <Button type='submit'>Register</Button>
                     <br></br>
                     <p>Already have an account? <Link to="/login">Login</Link></p>
