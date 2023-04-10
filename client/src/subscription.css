@@ -1,0 +1,68 @@
+.subcritionlay{
+    background-color: rgba(231, 23, 23, 1);
+    height: 100vh;
+}
+
+.features{
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.features .subscribebox{
+    flex:1;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0px 3px 7px rgba(0,0,0,0.5);
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+}
+
+.features .subscribebox h1{
+    font-size: 55px;
+}
+
+.features .subscribebox small button{
+    border: none;
+    background-color: white;
+    color: rgb(31, 143, 248);
+}
+
+.subcritionlay .topsubscribe{
+    font-size: 60px;
+    display: flex;
+    width: 100%;
+    background-color: #191919;
+    color: white;
+    padding: 20px;
+}
+
+.savingform{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
+    column-gap: 10px;
+    padding: 10px;
+}
+
+.savingform input{
+    display: block;
+    border: none;
+    outline: none;
+    font-size: 25px;
+}
+
+.savingbox{
+    display: flex;
+}
+
+.savingbox .savingcred{
+    flex: 1;
+}
+
+.savingbox .packagesave{
+    flex: 1;
+}

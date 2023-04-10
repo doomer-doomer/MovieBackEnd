@@ -1,16 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import FetchData, { myarr } from './Data';
 import './card.css'
-import PageHeader from './header';
 import './header.css'
 import FinalLayout from './FinalLayout';
 import { BrowserRouter as Router,Route,Routes,Redirect, Navigate } from 'react-router-dom';
 import SingleLay from './SingleLayout';
-import Layout from './DataLayout';
-import Datas from './datas';
-import season from './season';
-import episodes from './episodes';
 import './singleLayout.css'
 import Login from './login';
 import './login.css'
@@ -29,6 +22,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import './admin.css'
 import './signuplay.css'
 import './DataLayout.css'
+import Subcribe from './subscription';
+import './subscription.css';
 
 let newTitle = new Array()
 export function Mytoggle (title,logo,img,ep,rating,isvisible){
@@ -151,6 +146,7 @@ function App() {
               <Route path='/Admin' element={<AdminPage/>}></Route>    
               <Route path='/' element={!isAuthorized ? <StartPage/> : <Middle/>}/>
               <Route path='/middle' element={<Middle/>}></Route>
+              <Route path='/subscription' element={<Subcribe/>}></Route>
             </Routes>
 
             
