@@ -47,6 +47,19 @@ export default function Signup(){
                 });
                 return;
         }
+        if(contact.length!=10){
+            toast.warn('Incorrect phone number!', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+            return;
+        }
         try {
             const body = {user_name,email,password,user_age,gender,contact,country};  
             const response = await toast.promise(fetch("http://localhost:5000/signup",{

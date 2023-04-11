@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import Nav from 'react-bootstrap/Nav';
@@ -31,19 +31,114 @@ const handleShow = () => setShow(true);
 
 const [showPayment1, setShowPayment1] = useState(false);
 const handleClosePay1 = () => setShowPayment1(false);
-const handleShowPay1 = () => setShowPayment1(true);
+const handleShowPay1 = () => {setShowPayment1(true)
+setsubname("Saving Pack")
+setprice(199)};
 
 const [showPayment2, setShowPayment2] = useState(false);
 const handleClosePay2 = () => setShowPayment2(false);
-const handleShowPay2 = () => setShowPayment2(true);
+const handleShowPay2 = () => {setShowPayment2(true)
+    setsubname("Standard Pack")
+    setprice(399)
+};
 
 const [showPayment3, setShowPayment3] = useState(false);
 const handleClosePay3 = () => setShowPayment3(false);
-const handleShowPay3 = () => setShowPayment3(true);
+const handleShowPay3 = () => {setShowPayment3(true)
+    setsubname("Premium Pack")
+    setprice(999)
+};
 
-const subscribe_save = async e =>{
+const if_subscribed = ()=>{
+    navigate("/middle");
+}
+
+const checkSubscription= async e =>{
+    try {
+        const token = localStorage.getItem('jwt_token');
+        const subscriberData = await fetch("http://localhost:5000/subscriberData",{
+            method:"POST",
+            headers: { Authorization: `Bearer ${token}`,
+            jwt_token: token
+        },
+        });
+
+        if (!subscriberData) return;
+
+        const newtoken = await subscriberData.json();
+        //console.log(newtoken.subscription_id)
+        
+        if(newtoken!=="Not Subscribed"){
+            try {
+                const res = await fetch("http://localhost:5000/subscriptionCheck",{
+                method:"POST",
+                headers: { Authorization: `Bearer ${newtoken.subscription_id}`,
+                subscription_token: newtoken.subscription_id
+                },
+                });
+
+                const response = await res.json();
+                if(!res.ok){
+                    toast.warn(res, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        });
+                        
+                        
+                    
+                }
+
+                if(response===true){
+                    toast.success("Subscription Validated✔️", {
+                        position: "bottom-left",
+                        autoClose: 4000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        });
+                        setTimeout(if_subscribed,2000);
+                }
+            } catch (error) {
+                console.log(error.message);
+                toast.error(error.message, {
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                    }
+           
+                }
+    } catch (error) {
+        console.log(error.message);
+        toast.error(error.message, {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+    }
+}
+
+const subscribe = async e =>{
     e.preventDefault();
-    console.log(subscription_name,subscription_price)
     try {
         const token = localStorage.getItem('jwt_token');
         if (!token) return;
@@ -51,10 +146,12 @@ const subscribe_save = async e =>{
         const body = {subscription_name,subscription_price}
         const res = await toast.promise(fetch("http://localhost:5000/subscribe",{
             method:"POST",
+            body:JSON.stringify(body),
             headers: { Authorization: `Bearer ${token}`,
-            jwt_token: token
+            jwt_token: token,
+            "Content-Type":"application/json"
         },
-            body:JSON.stringify(body)
+            
         }),{
             pending:"Loading...",
             success:"Connected",
@@ -62,7 +159,6 @@ const subscribe_save = async e =>{
         });
 
         const response = await res.json();
-        console.log(response)
         if(!res.ok){
             toast.warn(res, {
                 position: "bottom-left",
@@ -74,7 +170,28 @@ const subscribe_save = async e =>{
                 progress: undefined,
                 theme: "colored",
                 });
+                return;
         }
+        if(subscription_price===199){
+            handleClosePay1()
+        }else if(subscription_price===399){
+            handleClosePay2()
+        }else{
+            handleClosePay3()
+        }
+        
+        toast.success(response, {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+        
+       
     } catch (error) {
         toast.error(error.message, {
             position: "bottom-left",
@@ -89,25 +206,15 @@ const subscribe_save = async e =>{
     }
 }
 
-const subscribe_stand = async e =>{
-    e.preventDefault();
-    try {
-        
-    } catch (error) {
-        
-    }
-}
+useEffect(()=>{
+    checkSubscription();
+},[])
 
-const subscribe_prem = async e =>{
-    e.preventDefault();
-    try {
-        
-    } catch (error) {
-        
-    }
-}
     return(
-        <div className="subcritionlay">
+        
+        <div className="subcritionlay"><ToastContainer/>
+
+
             <h1 className='topsubscribe'>Do you also hate inturrupts? <br></br>
             Check out our latest packs to keep you moving on.</h1>
             <Modal show={show} onHide={handleClose} centered size="xl">
@@ -244,8 +351,8 @@ const subscribe_prem = async e =>{
         <Modal.Body>
             <div className='savingbox'>
                 <div className='savingcred'>
-                
-                    <form className='savingform'>
+            
+                    <form className='savingform' onSubmit={subscribe}>
                     <h3>Card Credentials</h3>
                     <br></br>
                     <label>First Name
@@ -278,27 +385,28 @@ const subscribe_prem = async e =>{
                                 placeholder='CVV'
                             /></label>
                             
-                            </form >
+                           
                             
-                            <form className='savingform' onSubmit={subscribe_save}>
+                            
                             <h3><br></br>Subscription Details</h3>
                             <br></br>
                             <label>Subscription Pack
                             <input
                                 type='text'
-                                value={subscription_name}
+                                value="Saving Pack"
                                 placeholder='Saving Pack'
                                 onChange={(e)=>setsubname(e.target.value)}
-                                
+                                disabled
                                
                             /></label>
 
                         <label>Price
                             <input
                                 type='number'
-                                value={subscription_price}
+                                value="199"
                                 placeholder='199.00'
                                 onChange={(e)=>setprice(e.target.value)}
+                                disabled
                                 
                             /></label>
                             <button type='submit'>Purchase</button>
@@ -329,7 +437,7 @@ const subscribe_prem = async e =>{
         <Modal.Body>
         <div className='savingbox'>
                 <div className='savingcred'>
-                    <form className='savingform'>
+                    <form className='savingform' onSubmit={subscribe}>
                     <h3>Card Credentials</h3>
                     <br></br>
                     <label>First Name
@@ -406,7 +514,7 @@ const subscribe_prem = async e =>{
         <Modal.Body>
         <div className='savingbox'>
                 <div className='savingcred'>
-                    <form className='savingform'>
+                    <form className='savingform' onSubmit={subscribe}>
                     <h3>Card Credentials</h3>
                     <br></br>
                     <label>First Name
