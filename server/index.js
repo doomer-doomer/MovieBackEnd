@@ -63,6 +63,8 @@ app.post("/signup",validate,async(req,res)=>{
         const data = await pool.query("INSERT INTO AuthenticatedUsers (user_name,email,password,user_age,gender,contact,country) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *",
         [user_name,email,bcryptpassword,user_age,gender,contact,country]);
 
+        const new_subscriber = await pool.query("INSERT INTO subscriptions (user_id) VALUES($1)",
+        [data.rows[0].user_id])
         //res.json(data.rows[0])
         const jwtToken = jwtGenerator(data.rows[0].user_id);
         
@@ -306,31 +308,33 @@ app.post("/subscribe",authorize,async(req,res)=>{
         const one_month_subscription = `${day}-${month+1}-${year}`;
         const three_month_subscription = `${day}-${month+3}-${year}`;
         const year_month_subscription = `${day}-${month+12}-${year}`;
-        
 
         // This arrangement can be altered based on how we want the date's format to appear.
         const {subscription_name,subscription_price} = req.body;
+
         if(subscription_price===199 || subscription_name==="Saving Pack"){
             const token = SavingPack(subscription_price,current_date,one_month_subscription)
             const data = await pool.query("UPDATE subscriptions SET user_id=$1,subscription_id=$2,subscription_price=$3,subscription_start_date=$4,subscription_end_date=$5,subscription_name=$6 WHERE user_id=$7",
             [req.user,token,subscription_price,current_date,one_month_subscription,subscription_name,req.user]);
 
             return res.json("Subcription Successful!");
-        }else if(subscription_price===399 || subscription_name==="Standard Pack"){
+        }
+        if(subscription_price===399 || subscription_name==="Standard Pack"){
             const token = SavingPack(subscription_price,current_date,one_month_subscription)
             const data = await pool.query("UPDATE subscriptions SET user_id=$1,subscription_id=$2,subscription_price=$3,subscription_start_date=$4,subscription_end_date=$5,subscription_name=$6 WHERE user_id=$7",
             [req.user,token,subscription_price,current_date,three_month_subscription,subscription_name,req.user]);
 
             return res.json("Subcription Successful!");
-        }else if(subscription_price===999 || subscription_name==="Premium Pack"){
+        }
+        if(subscription_price===999 || subscription_name==="Premium Pack"){
             const token = SavingPack(subscription_price,current_date,one_month_subscription)
             const data = await pool.query("UPDATE subscriptions SET user_id=$1,subscription_id=$2,subscription_price=$3,subscription_start_date=$4,subscription_end_date=$5,subscription_name=$6 WHERE user_id=$7",
             [req.user,token,subscription_price,current_date,year_month_subscription,subscription_name,req.user]);
 
             return res.json("Subcription Successful!");
-        }else{
-            return res.json("No Pack Selected")
         }
+
+        res.json("Something is wrong")
         
     } catch (error) {
         console.error(error.message);
@@ -341,6 +345,17 @@ app.post("/subscribe",authorize,async(req,res)=>{
 app.post('/subscriptionCheck',subscribeAuth,async(req,res)=>{
     try {
         res.json(true)
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+app.post('/subscriberData',authorize,async(req,res)=>{
+    try {
+        const data = await pool.query("SELECT subscription_id FROM subscriptions WHERE user_id=$1",
+        [req.user]);
+
+        res.json(data.rows[0]);
     } catch (error) {
         console.error(error.message);
     }

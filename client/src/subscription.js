@@ -2,6 +2,9 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import Nav from 'react-bootstrap/Nav';
+import { useNavigate } from "react-router-dom"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Subcribe(){
 
@@ -10,6 +13,18 @@ const [firstname,setfirstname] = useState("");
 const [lastname,setlastname] = useState("");
 const [cvv,setcvv] = useState("");
 
+const [hiddendetails,sethiddendetails]=useState(false);
+
+const navigate = useNavigate();
+
+const [subscription_name,setsubname]=useState("")
+const [subscription_price,setprice] = useState("");
+const [subscription_price_save,setprice_save] = useState(199);
+const [subscription_name_save,setsubscription_name_save] = useState("Saving Pack");
+const [subscription_price_stand,setprice_stand] = useState(399);
+const [subscription_name_stand,setsubscription_name_stand] = useState("Standard Pack");
+const [subscription_price_prem,setprice_prem] = useState(999);
+const [subscription_name_prem,setsubscription_name_prem] = useState("Premium Pack");
 const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
@@ -26,7 +41,71 @@ const [showPayment3, setShowPayment3] = useState(false);
 const handleClosePay3 = () => setShowPayment3(false);
 const handleShowPay3 = () => setShowPayment3(true);
 
+const subscribe_save = async e =>{
+    e.preventDefault();
+    console.log(subscription_name,subscription_price)
+    try {
+        const token = localStorage.getItem('jwt_token');
+        if (!token) return;
+        
+        const body = {subscription_name,subscription_price}
+        const res = await toast.promise(fetch("http://localhost:5000/subscribe",{
+            method:"POST",
+            headers: { Authorization: `Bearer ${token}`,
+            jwt_token: token
+        },
+            body:JSON.stringify(body)
+        }),{
+            pending:"Loading...",
+            success:"Connected",
+            error:"Error"
+        });
 
+        const response = await res.json();
+        console.log(response)
+        if(!res.ok){
+            toast.warn(res, {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+        }
+    } catch (error) {
+        toast.error(error.message, {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+    }
+}
+
+const subscribe_stand = async e =>{
+    e.preventDefault();
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
+const subscribe_prem = async e =>{
+    e.preventDefault();
+    try {
+        
+    } catch (error) {
+        
+    }
+}
     return(
         <div className="subcritionlay">
             <h1 className='topsubscribe'>Do you also hate inturrupts? <br></br>
@@ -165,9 +244,10 @@ const handleShowPay3 = () => setShowPayment3(true);
         <Modal.Body>
             <div className='savingbox'>
                 <div className='savingcred'>
-                <h3>Card Credentials</h3>
-                <br></br>
+                
                     <form className='savingform'>
+                    <h3>Card Credentials</h3>
+                    <br></br>
                     <label>First Name
                             <input
                                 type='text'
@@ -197,12 +277,37 @@ const handleShowPay3 = () => setShowPayment3(true);
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVV'
                             /></label>
+                            
+                            </form >
+                            
+                            <form className='savingform' onSubmit={subscribe_save}>
+                            <h3><br></br>Subscription Details</h3>
+                            <br></br>
+                            <label>Subscription Pack
+                            <input
+                                type='text'
+                                value={subscription_name}
+                                placeholder='Saving Pack'
+                                onChange={(e)=>setsubname(e.target.value)}
+                                
+                               
+                            /></label>
+
+                        <label>Price
+                            <input
+                                type='number'
+                                value={subscription_price}
+                                placeholder='199.00'
+                                onChange={(e)=>setprice(e.target.value)}
+                                
+                            /></label>
                             <button type='submit'>Purchase</button>
                     </form>
                 </div>
                 <div className='packagesave'>
-                    <h3>Saving Pack</h3>
-                        <h1>₹199</h1>
+                    
+                        <h1>Checkout - ₹199.00</h1>
+                        <h3>Saving Pack</h3>
                         <hr></hr>
                         <p>A pack which contains -</p>
                         <li>Custom Theme ✔️</li>
@@ -224,9 +329,9 @@ const handleShowPay3 = () => setShowPayment3(true);
         <Modal.Body>
         <div className='savingbox'>
                 <div className='savingcred'>
-                <h3>Card Credentials</h3>
-                <br></br>
                     <form className='savingform'>
+                    <h3>Card Credentials</h3>
+                    <br></br>
                     <label>First Name
                             <input
                                 type='text'
@@ -256,12 +361,31 @@ const handleShowPay3 = () => setShowPayment3(true);
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVV'
                             /></label>
+                             <h3><br></br>Subscription Details</h3>
+                            <br></br>
+                            <label>Subscription Pack
+                            <input
+                                type='text'
+                                value="Standard Pack"
+                                placeholder='Standard Pack'
+                                disabled
+                               
+                            /></label>
+
+                        <label>Price
+                            <input
+                                type='number'
+                                value="399"
+                                placeholder='399.00'
+                                disabled
+                            /></label>
                             <button type='submit'>Purchase</button>
                     </form>
                 </div>
                 <div className='packagesave'>
+                
+                <h1>Checkout - ₹399.00</h1>
                 <h3>Standard Pack</h3>
-                    <h1>₹399</h1>
                     <hr></hr>
                     <p>A pack which contains -</p>
                     <li>Custom Theme ✔️</li>
@@ -282,9 +406,9 @@ const handleShowPay3 = () => setShowPayment3(true);
         <Modal.Body>
         <div className='savingbox'>
                 <div className='savingcred'>
-                <h3>Card Credentials</h3>
-                <br></br>
                     <form className='savingform'>
+                    <h3>Card Credentials</h3>
+                    <br></br>
                     <label>First Name
                             <input
                                 type='text'
@@ -314,12 +438,31 @@ const handleShowPay3 = () => setShowPayment3(true);
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVV'
                             /></label>
+                             <h3><br></br>Subscription Details</h3>
+                            <br></br>
+                            <label>Subscription Pack
+                            <input
+                                type='text'
+                                value="Premium Pack"
+                                placeholder='Premium Pack'
+                                disabled
+                               
+                            /></label>
+
+                        <label>Price
+                            <input
+                                type='number'
+                                value="999"
+                                placeholder='999.00'
+                                disabled
+                            /></label>
                             <button type='submit'>Purchase</button>
                     </form>
                 </div>
                 <div className='packagesave'>
+                
+                <h1>Checkout - ₹999.00</h1>
                 <h3>Premium Pack</h3>
-                    <h1>₹999</h1>
                     <hr></hr>
                     <p>A pack which contains -</p>
                     <li>Custom Theme ✔️</li>

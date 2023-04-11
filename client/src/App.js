@@ -146,7 +146,7 @@ function App() {
               <Route path='/Admin' element={<AdminPage/>}></Route>    
               <Route path='/' element={!isAuthorized ? <StartPage/> : <Middle/>}/>
               <Route path='/middle' element={<Middle/>}></Route>
-              <Route path='/subscription' element={<Subcribe/>}></Route>
+              <Route path='/subscription' element={isAuthorized ? <Subcribe/> : <ErrorPage/>}></Route>
             </Routes>
 
             
