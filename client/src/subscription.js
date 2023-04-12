@@ -12,6 +12,8 @@ const [cardnum,setcardnum] = useState("");
 const [firstname,setfirstname] = useState("");
 const [lastname,setlastname] = useState("");
 const [cvv,setcvv] = useState("");
+const [mytoken,setotp]=useState("");
+const [detect,setdetect]=useState(false)
 
 const [hiddendetails,sethiddendetails]=useState(false);
 
@@ -46,6 +48,10 @@ const handleShowPay3 = () => {setShowPayment3(true)
     setprice(999)
 };
 
+const [showOTP, setShowOTP] = useState(false);
+const handleCloseOTP = () => setShowOTP(false);
+const handleShowOTP = () => setShowOTP(true);
+
 const [paybycard,setcard]=useState(true)
 const [paybyqr,setqr] = useState(false)
 
@@ -68,6 +74,126 @@ const qrpayment=()=>{
 
 const if_subscribed = ()=>{
     navigate("/middle");
+}
+
+const verfiyOTP = async event=>{
+    event.preventDefault()
+
+    try {
+        
+        const body = {mytoken}
+        const res = await toast.promise(fetch("http://localhost:5000/verifyotp",{
+            method:"POST",
+            body:JSON.stringify(body),
+            headers: { Authorization: `Bearer ${mytoken}`,
+            otp_token: mytoken,
+            "Content-Type":"application/json"
+        },
+            
+        }),{
+            pending:"Loading...",
+            success:"Connected",
+            error:"Error"
+        });
+        const result = await res.json();
+
+        if(!res.ok){
+            toast.error("OTP is not Valid", {
+                position: "bottom-left",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+                handleCloseOTP()
+            return
+        }
+
+            if(result===true){
+                handleClosePay1()
+                handleClosePay2()
+                handleClosePay3()
+                toast.success("OTP Validation Confirm", {
+                    position: "bottom-left",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+                    setdetect(true)
+            }
+        
+
+    } catch (error) {
+        toast.error("Something went Wrong", {
+            position: "bottom-left",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+    }
+}
+
+const sendOTP= async e=>{
+    e.preventDefault()
+    try {
+        const token = localStorage.getItem('jwt_token');
+        if (!token) return;
+        const res = await toast.promise(fetch("http://localhost:5000/sendotp",{
+            method:"POST",
+            headers: { Authorization: `Bearer ${token}`,
+            jwt_token: token
+        },
+        }),{
+            pending:"Sending Mail...",
+            success:"Mail Sent",
+            error:"Error"
+        });
+
+        const parseRes = await res.json();
+        if(!res.ok){
+            return
+        }
+
+        toast.success("OTP has been send to your Email", {
+            position: "bottom-left",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+        handleShowOTP();
+        handleClosePay1();
+        handleClosePay2();
+        handleClosePay3();
+
+
+
+    } catch (error) {
+        toast.error("OTP Error", {
+            position: "bottom-left",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+    }
 }
 
 const checkSubscription= async e =>{
@@ -232,7 +358,36 @@ useEffect(()=>{
         
         <div className="subcritionlay"><ToastContainer/>
 
+                    <Modal
+                        show={showOTP}
+                        onHide={handleCloseOTP}
+                        backdrop="static"
+                        keyboard={false}
+                        centered
+                        size="lg"
+                    >
+                       <Modal.Header>
+                            <Modal.Title>Verify OTP</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <form className='savingform' onSubmit={verfiyOTP}>
+                                <label>OTP<input
+                                    type='text'
+                                    value={mytoken}
+                                    onChange={(e)=>setotp(e.target.value)}
+                                    placeholder='Enter OTP'
+                                /></label>
+                                <br></br>
 
+                                <Button type="submit">Verify</Button>
+                                
+                            </form>
+                            {detect &&
+                                    <Button onClick={subscribe}>Subscribe Now</Button>
+                                }
+                        </Modal.Body>
+
+                    </Modal>
             <h1 className='topsubscribe'>Do you also hate inturrupts? <br></br>
             Check out our latest packs to keep you moving on.</h1>
             <Modal show={show} onHide={handleClose} centered size="xl">
@@ -333,7 +488,7 @@ useEffect(()=>{
             <div className='savingbox'>
                 {paybycard && <div className='savingcred'>
             
-                    <form className='savingform' onSubmit={subscribe}>
+                    <form className='savingform' onSubmit={sendOTP}>
                     <h3>Card Credentials</h3>
                     <br></br>
                     <label>Name on Card
@@ -404,7 +559,7 @@ useEffect(()=>{
                 {paybyqr && <div>
                         <h1>Qr Payment</h1>
                         <div className='savingcred'>
-                    <form className='savingform' onSubmit={subscribe}>
+                    <form className='savingform' onSubmit={sendOTP}>
                     <label>First Name
                             <input
                                 type='text'
@@ -472,7 +627,7 @@ useEffect(()=>{
             </div>
         <div className='savingbox'>
                 {paybycard &&<div className='savingcred'>
-                    <form className='savingform' onSubmit={subscribe}>
+                    <form className='savingform' onSubmit={sendOTP}>
                     <h3>Card Credentials</h3>
                     <br></br>
                     <label>Name on Card
@@ -535,7 +690,7 @@ useEffect(()=>{
                 {paybyqr && <div>
                         <h1>Qr Payment</h1>
                         <div className='savingcred'>
-                    <form className='savingform' onSubmit={subscribe}>
+                    <form className='savingform' onSubmit={sendOTP}>
                     <label>First Name
                             <input
                                 type='text'
@@ -603,7 +758,7 @@ useEffect(()=>{
           <div className='savingbox'>
             {paybycard &&
                 <div className='savingcred'>
-                    <form className='savingform' onSubmit={subscribe}>
+                    <form className='savingform' onSubmit={sendOTP}>
                     <h3>Card Credentials</h3>
                     <br></br>
                     <label>Name on Card
@@ -666,7 +821,7 @@ useEffect(()=>{
                 {paybyqr && <div>
                         <h1>Qr Payment</h1>
                         <div className='savingcred'>
-                    <form className='savingform' onSubmit={subscribe}>
+                    <form className='savingform' onSubmit={sendOTP}>
                     <label>First Name
                             <input
                                 type='text'
