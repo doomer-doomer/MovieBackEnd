@@ -24,6 +24,8 @@ import './signuplay.css'
 import './DataLayout.css'
 import Subcribe from './subscription';
 import './subscription.css';
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button';
 
 let newTitle = new Array()
 export function Mytoggle (title,logo,img,ep,rating,isvisible){
@@ -48,6 +50,9 @@ export function Mytoggle (title,logo,img,ep,rating,isvisible){
 
 
 function App() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   
   const [isAuthorized,setIsAuthenticated] = useState(false);
@@ -103,6 +108,8 @@ function App() {
           progress: undefined,
           theme: "colored",
           });
+          setTimeout(handleShow,4000)
+
       }
       
     } catch (error) {
@@ -131,6 +138,9 @@ function App() {
   
   const navigate = useNavigate();
   
+  const sessionExpired=()=>{
+    handleClose()
+  }
   const setAuth = boolean => {
     setIsAuthenticated(boolean);
   };
@@ -138,15 +148,16 @@ function App() {
    
         <div className="Root">
           <div className="Contents">
+          
             <ToastContainer/>
             <Routes>
-              <Route path='/Homepage' element={isAuthorized ? <FinalLayout/> : <ErrorPage status= "Login Required" err="Token has expired!"/>}></Route> 
+              <Route path='/Homepage' element={isAuthorized? <FinalLayout/>:<Login/>}></Route> 
               <Route path='/Login' element={!isAuthorized ? <Login/> : <Middle/>}></Route> 
               <Route path='/Signup' element={!isAuthorized ? <Signup/> : <Middle/>}></Route>
               <Route path='/Admin' element={<AdminPage/>}></Route>    
               <Route path='/' element={!isAuthorized ? <StartPage/> : <Middle/>}/>
               <Route path='/middle' element={<Middle/>}></Route>
-              <Route path='/subscription' element={isAuthorized ? <Subcribe/> : <ErrorPage/>}></Route>
+              <Route path='/subscription' element={isAuthorized?<Subcribe/>:<Login/>}></Route>
             </Routes>
 
             
