@@ -386,7 +386,7 @@ app.post('/ch',authorize,async(req,res)=>{
 app.post("/sendotp",authorize,async(req,res)=>{
     try {
 
-        const getMail = await pool.query("SELECT email FROM AuthenticatedUsers WHERE user_id=$1",
+        const getMail = await pool.query("SELECT * FROM AuthenticatedUsers WHERE user_id=$1",
         [req.user])
 
         let config = {
@@ -402,7 +402,7 @@ app.post("/sendotp",authorize,async(req,res)=>{
         let mailGenerator = new mailgen({
             theme:"default",
             product:{
-                name:"Contains Secret OTP",
+                name:"Chillax",
                 link:"https://mailgen.js/"
             }
         })
@@ -412,8 +412,8 @@ app.post("/sendotp",authorize,async(req,res)=>{
 
         let response = {
             body:{
-                name:"Subscriber",
-                intro:"Your OTP is : " + genOTP,}
+                name:getMail.rows[0].user_name,
+                intro:"Your OTP is : " + genOTP}
                
             }
         
@@ -443,7 +443,6 @@ app.post("/verifyotp",otpAuth,async(req,res)=>{
     try{  
         const val = req.otp;
         res.json(val)
-        //res.json(true)
     } catch (error) {
         res.status(401).json("Error");
     }

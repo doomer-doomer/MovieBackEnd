@@ -76,6 +76,15 @@
     flex: 1;
 }
 
+.savingbox .savingform .savingformrefresh{
+    display: flex;
+}
+
+.savingformrefresh img{
+    padding-bottom: 15px;
+    margin-left: 10px;
+}
+
 .carddetails{
     display: flex;
     flex: 1;

@@ -10,10 +10,14 @@ export default function Subcribe(){
 
 const [cardnum,setcardnum] = useState("");
 const [firstname,setfirstname] = useState("");
-const [lastname,setlastname] = useState("");
+const [lastname,setlastname]=useState("")
+const [validUpto,setvalidUpto] = useState("");
 const [cvv,setcvv] = useState("");
 const [mytoken,setotp]=useState("");
 const [detect,setdetect]=useState(false)
+
+const [checkcarddetails,setcarddetails] = useState(false);
+const [checkqrdetails,setqrdetails] = useState(false);
 
 const [hiddendetails,sethiddendetails]=useState(false);
 
@@ -22,6 +26,14 @@ const ref2 = React.useRef();
 
 const navigate = useNavigate();
 
+const [paysuccesscol,setpaysuccesscol]=useState("primary")
+const [paysuccessstatus,setpaysuccessstatus]=useState("Pay Now")
+const [subscribesuccesscol,setsubscribesuccesscol]=useState("primary")
+const [subscribesuccesscol2,setsubscribesuccesscol2]=useState("primary")
+const [subscriptionsuccessstatus,setsubscriptionsuccessstatus]=useState("Subscribe Now")
+const [verfiycol,setverifylcol]=useState("primary")
+const [verfiystatus,setverifylstatus]=useState("Verify")
+
 const [subscription_name,setsubname]=useState("")
 const [subscription_price,setprice] = useState("");
 const [show, setShow] = useState(false);
@@ -29,23 +41,33 @@ const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
 
 const [showPayment1, setShowPayment1] = useState(false);
-const handleClosePay1 = () => setShowPayment1(false);
+const handleClosePay1 = () => {setShowPayment1(false)
+   
+};
 const handleShowPay1 = () => {setShowPayment1(true)
 setsubname("Saving Pack")
-setprice(199)};
+setprice(199)
+   
+};
 
 const [showPayment2, setShowPayment2] = useState(false);
-const handleClosePay2 = () => setShowPayment2(false);
+const handleClosePay2 = () => {setShowPayment2(false)
+   
+};
 const handleShowPay2 = () => {setShowPayment2(true)
     setsubname("Standard Pack")
     setprice(399)
+   
 };
 
 const [showPayment3, setShowPayment3] = useState(false);
-const handleClosePay3 = () => setShowPayment3(false);
+const handleClosePay3 = () => {setShowPayment3(false)
+   
+};
 const handleShowPay3 = () => {setShowPayment3(true)
     setsubname("Premium Pack")
     setprice(999)
+    
 };
 
 const [showOTP, setShowOTP] = useState(false);
@@ -108,7 +130,7 @@ const verfiyOTP = async event=>{
                 progress: undefined,
                 theme: "colored",
                 });
-                handleCloseOTP()
+                //handleCloseOTP()
             return
         }
 
@@ -127,6 +149,8 @@ const verfiyOTP = async event=>{
                     theme: "colored",
                     });
                     setdetect(true)
+                    setverifylcol("success")
+                    setverifylstatus("Verified Successfully✔️")
             }
         
 
@@ -176,9 +200,10 @@ const sendOTP= async e=>{
             theme: "colored",
             });
         handleShowOTP();
-        handleClosePay1();
-        handleClosePay2();
-        handleClosePay3();
+        setsubscribesuccesscol("success")
+        setTimeout(handleClosePay1(),3000);
+        setTimeout(handleClosePay2(),3000);
+        setTimeout(handleClosePay3(),3000);
 
 
 
@@ -333,6 +358,8 @@ const subscribe = async e =>{
             progress: undefined,
             theme: "colored",
             });
+            setsubscriptionsuccessstatus("Subscribtion Successful✔️")
+            setsubscribesuccesscol2("success")
             checkSubscription();
         
        
@@ -348,6 +375,88 @@ const subscribe = async e =>{
             theme: "colored",
             });
     }
+}
+
+  function ValidateCreditCardNumber(cardval) {
+
+    var visaRegEx = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
+    var mastercardRegEx = /^(?:5[1-5][0-9]{14})$/;
+    var amexpRegEx = /^(?:3[47][0-9]{13})$/;
+    var discovRegEx = /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/;
+    var isValid = false;
+  
+    if (visaRegEx.test(cardval)) {
+      isValid = true;
+    } else if(mastercardRegEx.test(cardval)) {
+      isValid = true;
+    } else if(amexpRegEx.test(cardval)) {
+      isValid = true;
+    } else if(discovRegEx.test(cardval)) {
+      isValid = true;
+    }
+  
+    if(isValid) {
+       setcarddetails(true)
+       setpaysuccesscol("success")
+       setpaysuccessstatus("Payment Successful")
+    } else {
+        toast.info(`Please provide a valid Visa number!`, {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+    })
+    };
+       
+    
+  }
+
+const authenticateCard=(e)=>{
+    e.preventDefault();
+    if(firstname!="" && validUpto!="" && cardnum.length===16 && cvv.length===3){
+        ValidateCreditCardNumber(cardnum)
+        if(detect===true){
+            toast.success(`Payment Successful`, {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+        }else{
+            toast.danger(`Payment Unsuccessful`, {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });}
+    
+        
+
+    }else{
+        toast.warn(`Please enter your Credentials`, {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+    })
+    };
+
 }
 
 useEffect(()=>{
@@ -371,21 +480,29 @@ useEffect(()=>{
                         </Modal.Header>
                         <Modal.Body>
                             <form className='savingform' onSubmit={verfiyOTP}>
+                                <div className='savingformrefresh'>
+                                    
                                 <label>OTP<input
                                     type='text'
                                     value={mytoken}
                                     onChange={(e)=>setotp(e.target.value)}
                                     placeholder='Enter OTP'
                                 /></label>
-                                <br></br>
+                                <img src='refresh.png' width="25px" onClick={sendOTP}></img>
+                                </div>
+                               
 
-                                <Button type="submit">Verify</Button>
+                                <Button type="submit" variant={verfiycol}>{verfiystatus}</Button>
                                 
                             </form>
-                            {detect &&
-                                    <Button onClick={subscribe}>Subscribe Now</Button>
-                                }
+                            
                         </Modal.Body>
+
+                        <Modal.Footer>
+                        {detect &&
+                                    <Button onClick={subscribe} variant={subscribesuccesscol2}>{subscriptionsuccessstatus}</Button>
+                                }
+                        </Modal.Footer>
 
                     </Modal>
             <h1 className='topsubscribe'>Do you also hate inturrupts? <br></br>
@@ -488,7 +605,7 @@ useEffect(()=>{
             <div className='savingbox'>
                 {paybycard && <div className='savingcred'>
             
-                    <form className='savingform' onSubmit={sendOTP}>
+                    <form className='savingform' onSubmit={authenticateCard}>
                     <h3>Card Credentials</h3>
                     <br></br>
                     <label>Name on Card
@@ -503,9 +620,9 @@ useEffect(()=>{
                                 type='month'
                                 min="1990-06"
                                 max="2040-09"
-                                value={lastname}
-                                onChange={(e)=>setlastname(e.target.value)}
-                                placeholder='Enter lastname'
+                                value={validUpto}
+                                onChange={(e)=>setvalidUpto(e.target.value)}
+                                placeholder='Enter valid Upto'
                         /></label>
                         <label>Card Number
                         <div className='carddetails'>
@@ -522,14 +639,14 @@ useEffect(()=>{
 
                         <label>Security Code
                             <input
-                                type='number'
+                                type='password'
                                 value={cvv}
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVC'
                             /></label>
-                            
-                           
-                            
+                            <Button type='submit' variant={paysuccesscol}>{paysuccessstatus}</Button>
+                           </form>
+                            <form className='savingform' onSubmit={sendOTP}>
                             
                             <h3><br></br>Subscription Details</h3>
                             <br></br>
@@ -552,7 +669,7 @@ useEffect(()=>{
                                 disabled
                                 
                             /></label>
-                            <button type='submit'>Purchase</button>
+                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Purchase</Button>}
                     </form>
                 </div>}
 
@@ -574,7 +691,8 @@ useEffect(()=>{
                                 onChange={(e)=>setlastname(e.target.value)}
                                 placeholder='Enter Last Name'
                         /></label>
-            
+            </form>
+            <form className='savingform' onSubmit={sendOTP}>
                              <h3><br></br>Subscription Details</h3>
                             <br></br>
                             <label>Subscription Pack
@@ -627,7 +745,7 @@ useEffect(()=>{
             </div>
         <div className='savingbox'>
                 {paybycard &&<div className='savingcred'>
-                    <form className='savingform' onSubmit={sendOTP}>
+                    <form className='savingform' onSubmit={authenticateCard}>
                     <h3>Card Credentials</h3>
                     <br></br>
                     <label>Name on Card
@@ -642,9 +760,9 @@ useEffect(()=>{
                                 type='month'
                                 min="1990-06"
                                 max="2040-09"
-                                value={lastname}
-                                onChange={(e)=>setlastname(e.target.value)}
-                                placeholder='Enter lastname'
+                                value={validUpto}
+                                onChange={(e)=>setvalidUpto(e.target.value)}
+                                placeholder='Enter validUpto'
                         /></label>
                         <label>Card Number
                         <div className='carddetails'>
@@ -661,11 +779,14 @@ useEffect(()=>{
 
                         <label>Security Code
                             <input
-                                type='number'
+                                type='password'
                                 value={cvv}
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVC'
                             /></label>
+                 <Button type='submit' variant={paysuccesscol}>{paysuccessstatus}</Button>
+                            </form>
+                            <form className='savingform' onSubmit={sendOTP}>
                              <h3><br></br>Subscription Details</h3>
                             <br></br>
                             <label>Subscription Pack
@@ -684,7 +805,7 @@ useEffect(()=>{
                                 placeholder='399.00'
                                 disabled
                             /></label>
-                            <button type='submit'>Purchase</button>
+                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Purchase</Button>}
                     </form>
                 </div>}
                 {paybyqr && <div>
@@ -758,7 +879,7 @@ useEffect(()=>{
           <div className='savingbox'>
             {paybycard &&
                 <div className='savingcred'>
-                    <form className='savingform' onSubmit={sendOTP}>
+                    <form className='savingform' onSubmit={authenticateCard}>
                     <h3>Card Credentials</h3>
                     <br></br>
                     <label>Name on Card
@@ -773,8 +894,8 @@ useEffect(()=>{
                                 type='month'
                                 min="1990-06"
                                 max="2040-09"
-                                value={lastname}
-                                onChange={(e)=>setlastname(e.target.value)}
+                                value={validUpto}
+                                onChange={(e)=>setvalidUpto(e.target.value)}
                                 placeholder='Expire Date'
                         /></label>
                         <label>Card Number
@@ -792,11 +913,14 @@ useEffect(()=>{
 
                         <label>Security code
                             <input
-                                type='number'
+                                type='password'
                                 value={cvv}
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVC'
                             /></label>
+                            <Button type='submit' variant={paysuccesscol}>{paysuccessstatus}</Button>
+                            </form>
+                            <form className='savingform' onSubmit={sendOTP}>
                              <h3><br></br>Subscription Details</h3>
                             <br></br>
                             <label>Subscription Pack
@@ -815,7 +939,7 @@ useEffect(()=>{
                                 placeholder='999.00'
                                 disabled
                             /></label>
-                            <button type='submit'>Purchase</button>
+                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Purchase</Button>}
                     </form>
                 </div>}
                 {paybyqr && <div>
