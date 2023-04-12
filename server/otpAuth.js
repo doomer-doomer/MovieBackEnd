@@ -14,7 +14,7 @@ module.exports = function(req,res,next){
     //Verify
     try {
         const payload = jwt.verify(token,""+process.env.JWT_KEY);
-        req.user = payload.user;
+        req.otp = payload.myotp;
         next();
     } catch (error) {
         res.status(401).json({msg:"Token is not Valid!"});

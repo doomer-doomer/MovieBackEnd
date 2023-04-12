@@ -441,7 +441,9 @@ app.post("/sendotp",authorize,async(req,res)=>{
 
 app.post("/verifyotp",otpAuth,async(req,res)=>{
     try{  
-        res.json(true)
+        const val = req.otp;
+        res.json(val)
+        //res.json(true)
     } catch (error) {
         res.status(401).json("Error");
     }

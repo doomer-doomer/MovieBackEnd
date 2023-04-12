@@ -112,7 +112,7 @@ const verfiyOTP = async event=>{
             return
         }
 
-            if(result===true){
+            if(result!==""){
                 handleClosePay1()
                 handleClosePay2()
                 handleClosePay3()
