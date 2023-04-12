@@ -40,10 +40,14 @@
 .themes{
     display: absolute;
     position: fixed;
-    top: 15%;
+    top: 0;
+    bottom: 0;
+    left: 0;
     width: 1%;
-    right: 0px;
-    z-index: 1;
+    right: 0;
+    margin-left: auto;
+    margin-top: 0px;
+    z-index: 3;
     transition: all 1s;
 }
 
@@ -163,8 +167,16 @@
 }
 
 .leftbtn{
-    width: 5%;
+    width:5%;
+    display: absolute;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-right: auto;
     background-color: transparent;
+    z-index: 2;
     border: none;
     opacity: 50%;
 }
@@ -175,7 +187,15 @@
 
 .rightbtn{
     width: 5%;
+    display: absolute;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-left: auto;
     background-color: transparent;
+    z-index: 2;
     border: none;
     opacity: 50%;
 }

@@ -58,12 +58,6 @@ export default function FetchData(props){
     
 
     function Mytoggle2 (title,logo,img,ep,rating,isvisible,cast,des,id,seasons,episode,pic,myep,epdes){
-
-        // console.log(title)
-        // console.log(logo)
-        // console.log(img)
-        // console.log(ep)
-        // console.log(rating)
         setVisible(true)
         setVisible2(false)
         setsingletitle(title)
@@ -83,7 +77,7 @@ export default function FetchData(props){
       }
 
 
-      const [loadimg,newimg] = useState(gen)
+    const [loadimg,newimg] = useState(gen)
     const [title,newTitle] = useState(titletext)
     const [text,newtext] = useState(mytext)
     const [zzseason,newseason] = useState(myseason)
@@ -91,6 +85,48 @@ export default function FetchData(props){
     const [genrez,newGenrez] = useState(mygenre)
     const [ratingz,newRatingz] = useState(myrating)
     const [zoom,unzoom] = useState("")
+
+    const [onemonth,setonemonth] = useState(false)
+    const [threemonth,setthreemonth] = useState(false)
+    const [yearmonth,setyearmonth] = useState(false)
+
+    const allowances = async event=>{
+        try {
+            const token = localStorage.getItem('jwt_token');
+            if (!token) return;
+            const getSubscriberData = await fetch("http://localhost:5000/subscriberAllData",{
+                method:"POST",
+                headers: { Authorization: `Bearer ${token}`,
+                jwt_token: token
+            },
+            });
+
+            const userData = await getSubscriberData.json();
+
+            if(!getSubscriberData.ok){
+                console.log("No Data found")
+                return;
+            }
+
+            if(userData.subscription_price===199){
+                setonemonth(true)
+            }else if(userData.subscription_price===399){
+                setonemonth(true);
+                setthreemonth(true);
+            }else if(userData.subscription_price===999){
+                setonemonth(true)
+                setthreemonth(true)
+                setyearmonth(true)
+            }else{
+                setonemonth(true)
+                setthreemonth(true)
+                setyearmonth(true)
+            }
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
     
 
     const LongText = ({content,limit}) => {
@@ -576,11 +612,14 @@ export default function FetchData(props){
             )).length!==0
     )
 
+
     let Mysteries = datas.filter((item)=>
         (item.jawSummary.genres.filter((inner)=>
                 inner.name ==="TV Mysteries"
             )).length!==0
     )
+
+    
 
     let Sci_Fi = datas.filter((item)=>
         (item.jawSummary.genres.filter((inner)=>
@@ -606,7 +645,8 @@ export default function FetchData(props){
             )).length!==0
     )
 
-    //console.log(Teens);
+
+    console.log(Teens)
 
     let Family = datas.filter((item)=>
         (item.jawSummary.genres.filter((inner)=>
@@ -614,7 +654,7 @@ export default function FetchData(props){
             )).length!==0
     )
 
-    //console.log(Family);
+    //console.log(Family.length());
 
     let Kids = datas.filter((item)=>
         (item.jawSummary.genres.filter((inner)=>
@@ -628,6 +668,7 @@ export default function FetchData(props){
             )).length!==0
     )
 
+    console.log(Adult)
     let Crime = datas.filter((item)=>
         (item.jawSummary.genres.filter((inner)=>
                 inner.name ==="Crime TV Shows"
@@ -698,7 +739,7 @@ export default function FetchData(props){
         const desfind = episodes[0].episodes.map(kkk=>kkk=kkk.contextualSynopsis.text)
 
 
-        console.log(s1.map(kbc=>kbc));
+        // console.log(s1.map(kbc=>kbc));
 
             let i=0
             let j=0
@@ -797,7 +838,7 @@ export default function FetchData(props){
                     />
                     })
 
-                    //console.log(season1.map(kkk=>kkk=kkk.map(ahh=>ahh=ahh)))
+                                       //console.log(season1.map(kkk=>kkk=kkk.map(ahh=>ahh=ahh)))
 const mystry = Mysteries.map(titles=>{
 
 
@@ -1192,6 +1233,7 @@ const mystry = Mysteries.map(titles=>{
 
       useEffect(()=>{
         reveal();
+        allowances();
       },[]);
     /*
      const getData = async (url,host) =>{
@@ -1262,7 +1304,7 @@ const mystry = Mysteries.map(titles=>{
                 <div className="content_info">
                     
                     {!infovisible && <button onClick={back} className="leftbtn"><img src="right-arrow3.png" width="100%"></img></button>}
-                    <Button variant="dark">Watch Now</Button>
+                    
                         <div className="PageLogo">
                             
                             {!infovisible && <img src={title} className="basetitle"></img>}
@@ -1302,39 +1344,40 @@ const mystry = Mysteries.map(titles=>{
 
 
 <div className="gridContainer">
-<div className="contentContainer">
-    <div className="arrangeLayout">
-                <div className="genre">
-                    <h2>Sitcoms</h2>
-                </div>
-                <div className="layer1" ref={scroll1}>
-                    <button onClick={swipeLeft1} className="swipeLeft"><img src="rightarrow2.png" width="100px"></img></button>
+
+                {onemonth && <div className="contentContainer">
+                    <div className="arrangeLayout">
+                                <div className="genre">
+                                    <h2>Sitcoms</h2>
+                                </div>
+                                <div className="layer1" ref={scroll1}>
+                                    <button onClick={swipeLeft1} className="swipeLeft"><img src="rightarrow2.png" width="100px"></img></button>
+                                    
+                                    {sitcoms}
+                                    <button onClick={swipeRight1} className="swipeRight"><img className="rightimg" src="rightarrow.png" width="100px"></img></button>
+                                </div>
+                            </div>
+                </div>}
+                            
+                            
+                {onemonth && <div className="contentContainer">
+                <div className="arrangeLayout">
+                            <div className="genre">
+                                    <h2>Si-Fi</h2>
+                                </div>
+                                <div className="layer2" ref={scroll2}>
+                                    <button onClick={swipeLeft2} className="swipeLeft"><img src="rightarrow2.png" width="100px"></img></button>
+                                    <button onClick={swipeRight2} className="swipeRight"><img className="rightimg" src="rightarrow.png" width="100px"></img></button>
+                                    {sify}
+                                </div>
+                                
+                                
+                            </div>
+
                     
-                    {sitcoms}
-                    <button onClick={swipeRight1} className="swipeRight"><img className="rightimg" src="rightarrow.png" width="100px"></img></button>
-                </div>
-            </div>
-</div>
-            
-            
-<div className="contentContainer">
-<div className="arrangeLayout">
-            <div className="genre">
-                    <h2>Si-Fi</h2>
-                </div>
-                <div className="layer2" ref={scroll2}>
-                    <button onClick={swipeLeft2} className="swipeLeft"><img src="rightarrow2.png" width="100px"></img></button>
-                    <button onClick={swipeRight2} className="swipeRight"><img className="rightimg" src="rightarrow.png" width="100px"></img></button>
-                    {sify}
-                </div>
-                
-                
-            </div>
+                </div>}
 
-    
-</div>
-
-      <div className="contentContainer">     
+            {onemonth && <div className="contentContainer">     
             <div className="arrangeLayout">
             <div className="genre">
                     <h2>Mystery</h2>
@@ -1347,9 +1390,9 @@ const mystry = Mysteries.map(titles=>{
                 
                 
             </div>
-            </div>
+            </div>}
 
-            <div className="contentContainer">
+           {threemonth && <div className="contentContainer">
             <div className="arrangeLayout">
             <div className="genre">
                     <h2>Thriller</h2>
@@ -1362,9 +1405,9 @@ const mystry = Mysteries.map(titles=>{
                 
                 
             </div>
-            </div>
+            </div>}
 
-            <div className="contentContainer">
+           {threemonth && <div className="contentContainer">
             <div className="arrangeLayout">
             <div className="genre">
                     <h2>Drama</h2>
@@ -1377,9 +1420,9 @@ const mystry = Mysteries.map(titles=>{
               
                 
             </div>
-            </div>
+            </div>}
 
-            <div className="contentContainer">
+            {threemonth && <div className="contentContainer">
             <div className="arrangeLayout">
             <div className="genre">
                     <h2>Adult</h2>
@@ -1392,9 +1435,9 @@ const mystry = Mysteries.map(titles=>{
              
                 
             </div>
-            </div>
+            </div>}
 
-            <div className="contentContainer">
+            {threemonth && <div className="contentContainer">
             <div className="arrangeLayout">
             <div className="genre">
                     <h2>Romance</h2>
@@ -1407,9 +1450,9 @@ const mystry = Mysteries.map(titles=>{
                 
                 
             </div>
-            </div>
+            </div>}
 
-            <div className="contentContainer">
+            {threemonth && <div className="contentContainer">
             <div className="arrangeLayout">
             <div className="genre">
                     <h2>Crime</h2>
@@ -1422,9 +1465,9 @@ const mystry = Mysteries.map(titles=>{
                
                 
             </div>
-            </div>
+            </div>}
 
-            <div className="contentContainer">
+            {yearmonth && <div className="contentContainer">
             <div className="arrangeLayout">
             <div className="genre">
                     <h2>Fantasy</h2>
@@ -1437,9 +1480,9 @@ const mystry = Mysteries.map(titles=>{
             
                 
             </div>
-</div>
+</div>}
 
-      <div className="contentContainer">      
+      {yearmonth && <div className="contentContainer">      
             <div className="arrangeLayout">
             <div className="genre">
                     <h2>Teens</h2>
@@ -1452,10 +1495,10 @@ const mystry = Mysteries.map(titles=>{
                
                 
             </div>
-</div>
+</div>}
 
 
-<div className="contentContainer">
+{yearmonth && <div className="contentContainer">
 
 <div className="arrangeLayout">
             <div className="genre">
@@ -1470,8 +1513,8 @@ const mystry = Mysteries.map(titles=>{
                 
             </div>
 
-</div>
-<div className="contentContainer">
+</div>}
+{yearmonth && <div className="contentContainer">
             <div className="arrangeLayout">
             <div className="genre">
                     <h2>Kids</h2>
@@ -1484,9 +1527,9 @@ const mystry = Mysteries.map(titles=>{
              
                 
             </div>
-            </div>
+            </div>}
 
-            <div className="contentContainer">
+            {yearmonth && <div className="contentContainer">
                 
             <div className="arrangeLayout">
             <div className="genre">
@@ -1501,10 +1544,10 @@ const mystry = Mysteries.map(titles=>{
                 
             </div>
 
-            </div>
+            </div>}
 
 
-            <div className="contentContainer">
+           {yearmonth && <div className="contentContainer">
             <div className="arrangeLayout">
             <div className="genre">
                     <h2>Horror</h2>
@@ -1518,7 +1561,7 @@ const mystry = Mysteries.map(titles=>{
                 
             </div>
 
-            </div>
+            </div>}
 
 </div>
 

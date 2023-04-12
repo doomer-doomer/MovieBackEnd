@@ -305,9 +305,9 @@ app.post("/subscribe",authorize,async(req,res)=>{
         let year = date.getFullYear();
 
         const current_date = `${day}-${month}-${year}`;
-        const one_month_subscription = `${day}-${month+1}-${year}`;
-        const three_month_subscription = `${day}-${month+3}-${year}`;
-        const year_month_subscription = `${day}-${month+12}-${year}`;
+        const one_month_subscription = `${day}-${date.getMonth()+1+1}-${year}`;
+        const three_month_subscription = `${day}-${date.getMonth()+1+3}-${year}`;
+        const year_month_subscription = `${day}-${date.getMonth()+1}-${date.getFullYear()+1}`;
 
         // This arrangement can be altered based on how we want the date's format to appear.
         const {subscription_name,subscription_price} = req.body;
@@ -353,6 +353,17 @@ app.post('/subscriptionCheck',subscribeAuth,async(req,res)=>{
 app.post('/subscriberData',authorize,async(req,res)=>{
     try {
         const data = await pool.query("SELECT subscription_id FROM subscriptions WHERE user_id=$1",
+        [req.user]);
+
+        res.json(data.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+app.post('/subscriberAllData',authorize,async(req,res)=>{
+    try {
+        const data = await pool.query("SELECT * FROM subscriptions WHERE user_id=$1",
         [req.user]);
 
         res.json(data.rows[0]);
