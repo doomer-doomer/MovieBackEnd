@@ -8,11 +8,12 @@ const jwtGenerator = require('./jwtGenerator');
 const validate = require('./validate');
 const authorize = require('./authorize');
 const { Navigate } = require('react-router-dom');
-
 const nodemailer = require('nodemailer');
 const mailgen = require('mailgen');
 const SavingPack = require('./subscriptionTokenGenerator');
 const subscribeAuth = require('./subscribeAuth');
+const otpGenerator = require('./otpToken');
+const otpAuth = require('./otpAuth')
 
 //Middleware
 app.use(cors())
@@ -369,6 +370,80 @@ app.post('/subscriberAllData',authorize,async(req,res)=>{
         res.json(data.rows[0]);
     } catch (error) {
         console.error(error.message);
+    }
+})
+
+app.post('/ch',authorize,async(req,res)=>{
+    try {
+        const getMail = await pool.query("SELECT email FROM AuthenticatedUsers WHERE user_id=$1",
+        [req.user])
+        res.json(getMail.rows[0].email)
+    } catch (error) {
+        
+    }
+})
+
+app.post("/sendotp",authorize,async(req,res)=>{
+    try {
+
+        const getMail = await pool.query("SELECT email FROM AuthenticatedUsers WHERE user_id=$1",
+        [req.user])
+
+        let config = {
+            service : "gmail",
+            auth:{
+                user:"gotavadetejas2122@ternaengg.ac.in",
+                pass:"kitbrfxpzcfgnzpv"
+            }
+        }
+
+        let transporter = nodemailer.createTransport(config);
+
+        let mailGenerator = new mailgen({
+            theme:"default",
+            product:{
+                name:"Contains Secret OTP",
+                link:"https://mailgen.js/"
+            }
+        })
+
+        let x = Math.floor((Math.random() * 99999) + 1);
+        const genOTP = otpGenerator(x)
+
+        let response = {
+            body:{
+                name:"Subscriber",
+                intro:"Your OTP is : " + genOTP,}
+               
+            }
+        
+
+        let mail = mailGenerator.generate(response);
+
+        let message = {
+            from:process.env.EMAIL,
+            to:getMail.rows[0].email,
+            subject:"Purchase Verification Code",
+            html:mail
+        }
+
+        transporter.sendMail(message).then(()=>{
+            return res.status(201).json({
+                msg:"Email sent!"
+            });
+        }).catch(err=>{
+            return res.status(500).json({err})
+        })
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+app.post("/verifyotp",otpAuth,async(req,res)=>{
+    try{  
+        res.json(true)
+    } catch (error) {
+        res.status(401).json("Error");
     }
 })
 
