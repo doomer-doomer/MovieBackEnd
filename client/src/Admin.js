@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Chart as ChartJS, ArcElement, Legend, CategoryScale,LinearScale,BarElement,Title,Tooltip } from "chart.js";
 import { Pie ,Bar} from "react-chartjs-2";
 import {ShimmerText,ShimmerCircularImage,ShimmerThumbnail} from "react-shimmer-effects";
-
+import Button from 'react-bootstrap/Button';
 ChartJS.register(ArcElement,CategoryScale,LinearScale,BarElement,Title,Tooltip,
 Legend);
 
@@ -21,6 +21,17 @@ export default function AdminPage(){
     const [gender,setgender] = useState("");
     const [contact,setcontact] = useState("");
     const [country,setcountry] = useState("");
+
+    const [showdata,setshowdata]=useState(false);
+    const [showdatatxt,setshowdatatxt]=useState("Show Database");
+
+    const [subscribe,setsub]= useState("")
+    const [subscriberev,setsubrev]= useState("")
+    const [notsub,setnotsub] = useState(0)
+    const [subscribesav,setsubsav]= useState(0)
+    const [subscribestd,setsubstd]= useState(0)
+    const [subscribeprem,setsubprem]= useState(0)
+    const [subscribetionprice,setsubtionprice]= useState("")
     
     const [countofcountry,setcountcountry] = useState([]);
     const [locname,setlocname]=useState([]);
@@ -41,6 +52,47 @@ export default function AdminPage(){
     const [col8,setcol8] =useState("")
     const [col9,setcol9]=useState("")
     const [col10,setcol10] = useState("")
+
+     const suboptions = {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Total Subscription Chart',
+          },
+        },
+      };
+
+    const labels = ["Subscriptions"];
+
+ const subcribtiondata = {
+  labels,
+  datasets: [
+    {
+      label: 'Saving',
+      data: [subscribesav],
+      backgroundColor: hexToRGB(col4,0.5),
+    },
+    {
+      label: 'Stanadard',
+      data: [subscribestd],
+      backgroundColor: hexToRGB(col5,0.5),
+    },
+    {
+        label: 'Premium',
+        data: [subscribestd],
+        backgroundColor: hexToRGB(col6,0.5),
+      },
+      {
+        label: 'Not Subscribed',
+        data: [notsub],
+        backgroundColor: hexToRGB(col7,0.5),
+      },
+  ],
+};
     
     function hexToRGB(hex,alpha) {
 
@@ -63,18 +115,6 @@ export default function AdminPage(){
             label:"Age Group",
             data: Object.values(valage),
             backgroundColor: [
-                col10,
-                col9,
-                col8,
-                col7,
-                col6,
-                col5,
-                col4,
-                col3,
-                col2,
-                col1
-            ],
-            hoverBackgroundColor:[
                 hexToRGB(col10,0.75),
                 hexToRGB(col9,0.75),
                 hexToRGB(col8,0.75),
@@ -85,6 +125,18 @@ export default function AdminPage(){
                 hexToRGB(col3,0.75),
                 hexToRGB(col2,0.75),
                 hexToRGB(col1,0.75)
+            ],
+            hoverBackgroundColor:[
+                hexToRGB(col10,0.5),
+                hexToRGB(col9,0.5),
+                hexToRGB(col8,0.5),
+                hexToRGB(col7,0.5),
+                hexToRGB(col6,0.5),
+                hexToRGB(col5,0.5),
+                hexToRGB(col4,0.5),
+                hexToRGB(col3,0.5),
+                hexToRGB(col2,0.5),
+                hexToRGB(col1,0.5)
             ],
             
         }]
@@ -101,19 +153,19 @@ export default function AdminPage(){
         },
       };
   
-
+console.log(valgen.M)
     const barstate={
         labels: countofgen,
         datasets: [{
             label: 'Gender Ratio',
             data: Object.values(valgen),
             backgroundColor: [
-                col5,
-                col6
-            ],
-            hoverBackgroundColor:[
                 hexToRGB(col5,0.75),
                 hexToRGB(col6,0.75)
+            ],
+            hoverBackgroundColor:[
+                hexToRGB(col5,0.5),
+                hexToRGB(col6,0.5)
             ],
             
         }]
@@ -169,6 +221,67 @@ export default function AdminPage(){
             data: Object.values(countofcountry)
           }
         ]
+      }
+
+    
+      
+      const getSubscriptionData=async()=>{
+        try {
+            
+            const subscriberData = await toast.promise(fetch("http://localhost:5000/subscribergetAllData",{
+               
+            }),{
+                pending:"Checking credentials...",
+                success:"Subscription Database Connected",
+                error:"Something went wrong!"
+            });
+
+            const subscriberInfo = await subscriberData.json();
+
+            if (!subscriberData.ok) return;
+
+            const subscribed = subscriberInfo.map(abc=>abc=abc.subscription_id)
+            const totalprice = subscriberInfo.map(abc=>abc=abc.subscription_price)
+            const Packs = subscriberInfo.map(abc=>abc=abc.subscription_name)
+            let i=0;
+            let count=0;
+            let result=0;
+            let sav=0;
+            let std=0;
+            let prem=0;
+            let nosub=0;
+            for(i=0;i<subscribed.length;i++){
+                if(subscribed[i]==="Not Subscribed"){
+                    count = count+1;
+                    nosub =nosub+1;
+                }
+                result = result+ totalprice[i]
+                if(Packs[i]==="Saving Pack"){
+                    sav=sav+1
+                }else if(Packs[i]==="Standard Pack"){
+                    std=std+1
+                }else if(Packs[i]==="Premium Pack"){
+                    prem=prem+1;
+                }else{
+                    
+                }
+            }
+
+            const sub_counts = {};
+            const sub_Array = Packs;
+            sub_Array.forEach(function (x) { sub_counts[x] = (sub_counts[x] || 0) + 1; });
+            setsubtionprice(sub_counts);
+            setsubrev(result);
+            setsubprem(prem)
+            setsubsav(sav)
+            setsubstd(std);
+            setnotsub(nosub)
+            //console.log(stdPack);
+            setsub(subscribed.length-count)
+
+        } catch (error) {
+            
+        }
       }
 
     const getAllData = async e =>{
@@ -256,6 +369,7 @@ export default function AdminPage(){
 
     useEffect(()=>{
         getAllData();
+        getSubscriptionData();
     },[]);
 
 
@@ -300,7 +414,9 @@ export default function AdminPage(){
                     progress: undefined,
                     theme: "colored",
                     });
+                    getSubscriptionData();
                     getAllData();
+                    
             }
 
             if(res==="Account not found!"){
@@ -379,7 +495,7 @@ export default function AdminPage(){
                     progress: undefined,
                     theme: "colored",
                     });
-                    
+                    getSubscriptionData();
                     getAllData();
             };
                 
@@ -400,115 +516,85 @@ export default function AdminPage(){
         }
     }
 
+    function showdb(){
+        if(showdata===true){
+            setshowdata(false)
+            setshowdatatxt("Show Database")
+        }else{
+            setshowdata(true)
+            setshowdatatxt("Hide Database")
+        }
+    }
 
     return(
         <div><ToastContainer/>
             <h1 className='dashboard'>Dashboard.</h1>
+<hr></hr>
+<div className='SubscriptionData'>
+<div className='Subscriptions'>
 
-            <div className='AdminsLay'>
-                
-                <div className='AdminData'>
-                   
-                    <div className='UserId'>
-                        <h1>UserId</h1>
-                        <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_id'>{abc.user_id}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
-                            <span className="busterCards" key={i}>
-                                <ShimmerText line={3} gap={10} />
-                            </span>
-                            ))}
-                    </div>
-                    <hr></hr>
-                    <div className='Username'>
-                    <h1>Username</h1>
-                    <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_username'>{abc.user_name}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
-                            <span className="busterCards" key={i}>
-                                <ShimmerText line={3} gap={10} />
-                            </span>
-                            ))}
-                    </div>
-                    <hr></hr>
-                    <div className='Email'>
-                    <h1>Email</h1>
-                    <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_email '>{abc.email}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
-                            <span className="busterCards" key={i}>
-                                <ShimmerText line={3} gap={10} />
-                            </span>
-                            ))}
-                    </div>
-                    <hr></hr>
-                    <div className='Password'>
-                    <h1>Password</h1>
-                    <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_password'>{abc.password}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
-                            <span className="busterCards" key={i}>
-                                <ShimmerText line={3} gap={10} />
-                            </span>
-                            ))}
-                    </div>
-                    <hr></hr>
-                    <div className='UserId'>
-                        <h1>Age</h1>
-                        <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_id'>{abc.user_age}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
-                            <span className="busterCards" key={i}>
-                                <ShimmerText line={3} gap={10} />
-                            </span>
-                            ))}
-                    </div>
-                    <hr></hr>
-                    <div className='Username'>
-                    <h1>Gender</h1>
-                    <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_username'>{abc.gender}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
-                            <span className="busterCards" key={i}>
-                                <ShimmerText line={3} gap={10} />
-                            </span>
-                            ))}
-                    </div>
-                    <hr></hr>
-                    <div className='Email'>
-                    <h1>Contact</h1>
-                    <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_email '>{abc.contact}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
-                            <span className="busterCards" key={i}>
-                                <ShimmerText line={3} gap={10} />
-                            </span>
-                            ))}
-                    </div>
-                    <hr></hr>
-                    <div className='Password'>
-                    <h1>Location</h1>
-                    <hr></hr>
-                        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_password'>{abc.country}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
-                            <span className="busterCards" key={i}>
-                                <ShimmerText line={3} gap={10} />
-                            </span>
-                            ))}
-                    </div>
-                </div>
-                
+<h3>Total Users<br></br>
+<h1>{subscribe+ notsub}</h1></h3>
 
-               
-            </div>
+<h3>Total Subscriptions<br></br>
+<h1>{subscribe}</h1></h3>
+
+<h3>Total Revenue Generated<br></br>
+<h1>₹{subscriberev}</h1></h3>
+
+
+
+</div>
+
+<div className='subgraph'>
+<Bar options={suboptions} data={subcribtiondata} />
+</div>
+</div>
+            
+           
+           <hr></hr>
 
             <div className='Queries'>
+
+            <div className='userdata'>
+                    <div className='topuserdata'>
+                    <h1>Country Distribution</h1>
+                    <img src="refresh.png" width="10px" onClick={getAllData}></img>
+                    </div>
+                    
+                    <hr></hr>
+                    <div className='countryuser'>
+                        
+                    {loading?<Pie
+                    data={state}
+                    options={{
+                        title:{
+                        display:true,
+                        text:'Country',
+                        fontSize:20
+                        }
+                    }}
+                    /> :<ShimmerCircularImage size={450} /> }
+                    </div>
+                    
+                
+                
+                </div>
+            
                 <div className='deleteusers'>
 
                     <div className='subdeleteuser'>
                     <h2>Delete Users</h2>
                     <hr></hr>
                     <form onSubmit={handleSubmit_delete}>
-                         UserId:<input
+                         <label>UserId:<input
                             placeholder='Enter userId'
                             type="text"
                             value={user_id}
                             onChange={(e) => setid(e.target.value)}
-                        />
-
-                        <button type="submit">Submit</button>
+                        /></label>
+<br></br>
+                        <Button type="submit">Submit</Button>
                     </form> 
 
                     </div>
@@ -518,51 +604,51 @@ export default function AdminPage(){
                     <h2>Add Users</h2>
                     <hr></hr>
                     <form onSubmit={handleSubmit_add}>
-                        Username *<input
+                        <label>Username *<input
                             placeholder='Enter Username'
                             type="text"
                             value={user_name}
                             onChange={(e) => setuser(e.target.value)}
-                        />
+                        /></label>
 
-                        Email *<input
+                        <label>     Email *<input
                             placeholder='Enter email'
                             type="email"
                             value={email}
                             onChange={(e) => setemail(e.target.value)}
-                        />
-                        Password *<input
+                        /></label>
+                        <label>Password *<input
                             placeholder='Enter pass'
                             type="password"
                             value={password}
                             onChange={(e) => setpass(e.target.value)}
-                        />
+                        /></label>
 
-                        Age
+                        <label>Age
                         <input
                         type="number" 
                         value={user_age}
                         placeholder="Enter Age"
                         onChange={(e) => setage(e.target.value)}
-                        />
+                        /></label>
                     
-                    Gender
+                    <label>Gender
                         <select value={gender} onChange={(e) => setgender(e.target.value)}>
                             <option></option>
                             <option value="M">M</option>
                             <option value="F">F</option>
-                        </select>
+                        </select></label>
                     
-                    Contact
+                        <label>Contact
                         <input
                         type="number" 
                         value={contact}
                         placeholder="Enter contact number"
                         onChange={(e) => setcontact(e.target.value)}
-                        />
+                        /></label>
                         
                     
-                    Country
+                        <label>Country
                     <select value={country} onChange={(e) => setcountry(e.target.value)}>
                             <option></option>
                             <option value="Afghanistan">Afghanistan</option>
@@ -818,10 +904,11 @@ export default function AdminPage(){
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
+                        </label>
                         
-                   
+                   <br></br>
 
-                        <button type="submit">Submit</button>
+                        <Button type="submit">Submit</Button>
                     </form>
 
                     </div>
@@ -839,38 +926,20 @@ export default function AdminPage(){
 
                 </div> */}
 
-                <div className='userdata'>
-                    <div className='topuserdata'>
-                    <h2>Total Users : {loading ? initialisation.length : <div>Loading...</div>}</h2>
-                    <img src="refresh.png" width="10px" onClick={getAllData}></img>
-                    </div>
-                    
-                    <hr></hr>
-                    <div className='countryuser'>
-                        <h1>Country Distribution</h1>
-                    {loading?<Pie
-                    data={state}
-                    options={{
-                        title:{
-                        display:true,
-                        text:'Country',
-                        fontSize:20
-                        }
-                    }}
-                    /> :<ShimmerCircularImage size={450} /> }
-                    </div>
-                    
-                
-                
-                </div>
+               
 
                 </div>
-
+                <br></br>
+<hr></hr>
             <div className='bargraphlay'>
             
 
                     <div className='agegrp'>
-                        <h1>Age group</h1>
+                    <div className='topuserdataa'>
+                    <h1>Age Group</h1>
+                    <img src="refresh.png" width="10px" onClick={getAllData}></img>
+                    </div>
+                        <hr></hr>
                     {loading?  <Bar
                     options={ageoptions}
                     data={agegroup}
@@ -879,7 +948,12 @@ export default function AdminPage(){
                     </div>
 
                     <div className='gengrp'>
-                        <h1>Gender ratio - {ratioGen}</h1>
+                    <div className='topuserdataa'>
+                    <h1>Gender ratio - {ratioGen}</h1>
+                    <img src="refresh.png" width="10px" onClick={getAllData}></img>
+                    </div>
+                    
+                        <hr></hr>
                     {loading?  <Bar
                     options={genoptions}
                     data={barstate}
@@ -890,6 +964,99 @@ export default function AdminPage(){
                 
               
             </div>
+            <Button onClick={showdb}>{showdatatxt}</Button>
+            {showdata && <div className='AdminsLay'>
+
+            
+                
+<div className='AdminData'>
+   
+    <div className='UserId'>
+        <h1>UserId</h1>
+        <hr></hr>
+        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_id'>{abc.user_id}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+            <span className="busterCards" key={i}>
+                <ShimmerText line={3} gap={10} />
+            </span>
+            ))}
+    </div>
+    <hr></hr>
+    <div className='Username'>
+    <h1>Username</h1>
+    <hr></hr>
+        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_username'>{abc.user_name}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+            <span className="busterCards" key={i}>
+                <ShimmerText line={3} gap={10} />
+            </span>
+            ))}
+    </div>
+    <hr></hr>
+    <div className='Email'>
+    <h1>Email</h1>
+    <hr></hr>
+        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_email '>{abc.email}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+            <span className="busterCards" key={i}>
+                <ShimmerText line={3} gap={10} />
+            </span>
+            ))}
+    </div>
+    <hr></hr>
+    <div className='Password'>
+    <h1>Password</h1>
+    <hr></hr>
+        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_password'>{abc.password}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+            <span className="busterCards" key={i}>
+                <ShimmerText line={3} gap={10} />
+            </span>
+            ))}
+    </div>
+    <hr></hr>
+    <div className='UserId'>
+        <h1>Age</h1>
+        <hr></hr>
+        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_id'>{abc.user_age}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+            <span className="busterCards" key={i}>
+                <ShimmerText line={3} gap={10} />
+            </span>
+            ))}
+    </div>
+    <hr></hr>
+    <div className='Username'>
+    <h1>Gender</h1>
+    <hr></hr>
+        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_username'>{abc.gender}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+            <span className="busterCards" key={i}>
+                <ShimmerText line={3} gap={10} />
+            </span>
+            ))}
+    </div>
+    <hr></hr>
+    <div className='Email'>
+    <h1>Contact</h1>
+    <hr></hr>
+        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_email '>{abc.contact}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+            <span className="busterCards" key={i}>
+                <ShimmerText line={3} gap={10} />
+            </span>
+            ))}
+    </div>
+    <hr></hr>
+    <div className='Password'>
+    <h1>Location</h1>
+    <hr></hr>
+        {loading ? <div className='inner_admin_data'><h3>{initialisation.map(abc=>{return(<div className='inner_password'>{abc.country}</div>)} )}</h3></div> : Array.apply(null, { length: 5 }).map((e, i) => (
+            <span className="busterCards" key={i}>
+                <ShimmerText line={3} gap={10} />
+            </span>
+            ))}
+    </div>
+</div>
+
+
+
+
+
+</div>}
         </div>
     )
 }

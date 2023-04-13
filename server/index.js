@@ -373,6 +373,16 @@ app.post('/subscriberAllData',authorize,async(req,res)=>{
     }
 })
 
+app.get('/subscribergetAllData',async(req,res)=>{
+    try {
+        const data = await pool.query("SELECT * FROM subscriptions");
+
+        res.json(data.rows);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
 app.post('/ch',authorize,async(req,res)=>{
     try {
         const getMail = await pool.query("SELECT email FROM AuthenticatedUsers WHERE user_id=$1",

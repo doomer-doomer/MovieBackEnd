@@ -2,8 +2,8 @@
     overflow-x: scroll;
     scroll-behavior: smooth;
     width: 100%;
-    background-color: #191919;
-    color: white;
+    background-color: white;
+    color: #191919;
     width: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 10px;
@@ -88,8 +88,8 @@
     margin: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border: none;
-    border-radius: 10px;
-    background-color: lightgreen;
+    border-radius: 20px;
+   
 }
 
 .addusers{
@@ -99,7 +99,7 @@
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
    
-    background-color: lightgreen;
+
     border: none;
     border-radius: 10px;
 
@@ -109,11 +109,10 @@
     flex: 1;
     margin: 20px;
     padding: 20px;
-    background-color: lightskyblue;
+  
     border: none;
     border-radius: 10px;
     text-align: left;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     
 }
 
@@ -137,24 +136,34 @@
 
 .deleteusers form {
     display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 15px;
     row-gap: 15px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
+.deleteusers form input{
+    display: block;
+    width: 100%;
+}
+
+.deleteusers form select{
+    display: block;
+    width: 100%;
+}
+
 .deleteusers .subadduser{
     border: none;
     border-radius: 0px 0px 10px 10px;
-    background-color: lightgreen;
+   
     padding: 20px;
 }
 
 .deleteusers .subdeleteuser{
     border: none;
     border-radius: 10px 10px 0px 0px;
-    background-color: lightcoral;
+
     padding: 20px;
 }
 
@@ -171,8 +180,12 @@
 }
 
 .bargraphlay{
-    display: flex;
-   
+    display: grid;
+    grid-template-columns: auto auto;
+    
+    margin: 40px;
+    border-radius: 20px;
+    border: none;
 }
 
 .bargraphlay .agegrp{
@@ -181,8 +194,33 @@
     margin: 20px;
     border: none;
     border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: lightgoldenrodyellow;
+
+}
+
+.agegrp .topuserdataa{
+    display: flex;
+}
+
+.agegrp .topuserdataa img{
+    width: 25px;
+    height: 30px;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-bottom: 5px;
+}
+
+.gengrp .topuserdataa{
+    display: flex;
+}
+
+.gengrp .topuserdataa img{
+    width: 25px;
+    height: 30px;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-bottom: 5px;
 }
 
 .bargraphlay .gengrp{
@@ -191,6 +229,25 @@
     padding: 20px;
     border: none;
     border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: lightgoldenrodyellow;
+  
+}
+
+.Subscriptions{
+    flex: 0.8;
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 40px;
+}
+
+.SubscriptionData{
+    display: flex;
+}
+
+.subgraph{
+    flex: 1.2;
+    padding: 20px;
+}
+
+.Subscriptions h3 h1{
+    font-size: 60px;
 }
