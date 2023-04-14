@@ -391,7 +391,7 @@ const themes = React.useRef()
                         </Modal.Header>
                         <Modal.Body>
                             <h1>🕒Looks like your time is Over!</h1>
-                            <h4>Click below to Check out our awesome plans </h4>
+                            <h4>💥Click below to Check out our awesome plans💥</h4>
                         </Modal.Body>
                         <Modal.Footer>
                         
