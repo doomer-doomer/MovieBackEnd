@@ -21,6 +21,8 @@ const [checkqrdetails,setqrdetails] = useState(false);
 
 const [hiddendetails,sethiddendetails]=useState(false);
 
+const [validateotp,setvalidateotp] = useState("");
+
 const ref1 = React.useRef();
 const ref2 = React.useRef();
 
@@ -52,7 +54,7 @@ setprice(199)
 
 const [showPayment2, setShowPayment2] = useState(false);
 const handleClosePay2 = () => {setShowPayment2(false)
-   
+  
 };
 const handleShowPay2 = () => {setShowPayment2(true)
     setsubname("Standard Pack")
@@ -62,7 +64,7 @@ const handleShowPay2 = () => {setShowPayment2(true)
 
 const [showPayment3, setShowPayment3] = useState(false);
 const handleClosePay3 = () => {setShowPayment3(false)
-   
+    
 };
 const handleShowPay3 = () => {setShowPayment3(true)
     setsubname("Premium Pack")
@@ -134,7 +136,10 @@ const verfiyOTP = async event=>{
             return
         }
 
-            if(result!==""){
+        console.log(validateotp)
+        console.log(result)
+
+            if(result===validateotp){
                 handleClosePay1()
                 handleClosePay2()
                 handleClosePay3()
@@ -185,6 +190,26 @@ const sendOTP= async e=>{
         });
 
         const parseRes = await res.json();
+        console.log(parseRes.genOTP)
+        const otp_to_check = parseRes.genOTP;
+
+        const body = {otp_to_check}
+        const resp = await toast.promise(fetch("http://localhost:5000/verifyotp",{
+            method:"POST",
+            body:JSON.stringify(body),
+            headers: { Authorization: `Bearer ${otp_to_check}`,
+            otp_token: otp_to_check,
+            "Content-Type":"application/json"
+        },
+            
+        }),{
+            pending:"Loading...",
+            success:"Connected",
+            error:"Error"
+        });
+        const result = await resp.json();
+        setvalidateotp(result);
+        console.log(result)
         if(!res.ok){
             return
         }
@@ -430,17 +455,8 @@ const authenticateCard=(e)=>{
             progress: undefined,
             theme: "colored",
             });
-        }else{
-            toast.danger(`Payment Unsuccessful`, {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });}
+            return;
+        }
     
         
 
@@ -669,7 +685,7 @@ useEffect(()=>{
                                 disabled
                                 
                             /></label>
-                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Purchase</Button>}
+                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Verification</Button>}
                     </form>
                 </div>}
 
@@ -805,7 +821,7 @@ useEffect(()=>{
                                 placeholder='399.00'
                                 disabled
                             /></label>
-                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Purchase</Button>}
+                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Verification</Button>}
                     </form>
                 </div>}
                 {paybyqr && <div>
@@ -939,7 +955,7 @@ useEffect(()=>{
                                 placeholder='999.00'
                                 disabled
                             /></label>
-                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Purchase</Button>}
+                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Verification</Button>}
                     </form>
                 </div>}
                 {paybyqr && <div>

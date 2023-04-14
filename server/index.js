@@ -439,7 +439,7 @@ app.post("/sendotp",authorize,async(req,res)=>{
 
         transporter.sendMail(message).then(()=>{
             return res.status(201).json({
-                msg:"Email sent!"
+                genOTP
             });
         }).catch(err=>{
             return res.status(500).json({err})
