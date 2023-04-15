@@ -79,6 +79,12 @@ const handleShowOTP = () => setShowOTP(true);
 const [paybycard,setcard]=useState(true)
 const [paybyqr,setqr] = useState(false)
 
+const card = React.useRef();
+var visaRegEx = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
+var mastercardRegEx = /^(?:5[1-5][0-9]{14})$/;
+var amexpRegEx = /^(?:3[47][0-9]{13})$/;
+var discovRegEx = /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/;
+
 //ref1.current.style.backgroundColor = "lightgreen"
 //ref2.current.style.backgroundColor = "white"
 
@@ -411,12 +417,16 @@ const subscribe = async e =>{
     var isValid = false;
   
     if (visaRegEx.test(cardval)) {
+        
       isValid = true;
     } else if(mastercardRegEx.test(cardval)) {
+       
       isValid = true;
     } else if(amexpRegEx.test(cardval)) {
+        
       isValid = true;
     } else if(discovRegEx.test(cardval)) {
+      
       isValid = true;
     }
   
@@ -642,13 +652,27 @@ useEffect(()=>{
                         /></label>
                         <label>Card Number
                         <div className='carddetails'>
-                            <img src='creditcard.png' width="40px"></img>
+                            <img src='creditcard.png' ref={card} width="40px"></img>
                             <input 
                                 type='number'
                                 value={cardnum}
-                                onChange={(e)=>setcardnum(e.target.value)}
-                                placeholder='Enter your card number'
+                                max="9999999999999999"
+                                min="1000000000000000"
+                                onChange={(e)=>{setcardnum(e.target.value)
+                                    if (visaRegEx.test(e.target.value)) {
+                                        card.current.src="visa.png"
+                                      } else if(mastercardRegEx.test(e.target.value)) {
+                                        card.current.src="mc_symbol.svg"
+                                      } else if(amexpRegEx.test(e.target.value)) {
+                                        card.current.src="ae.png"
+                                      } else if(discovRegEx.test(e.target.value)) {
+                                        card.current.src="discover.png"
+                                      }else{
+                                        card.current.src="creditcard.png"
+                                      }}}
+                                placeholder='1234123412341234'
                             />
+                            
                             
                             </div>
                             </label>
@@ -657,6 +681,8 @@ useEffect(()=>{
                             <input
                                 type='password'
                                 value={cvv}
+                                max="999"
+                                min="100"
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVC'
                             /></label>
@@ -782,12 +808,25 @@ useEffect(()=>{
                         /></label>
                         <label>Card Number
                         <div className='carddetails'>
-                            <img src='creditcard.png' width="40px"></img>
+                            <img src='creditcard.png' ref={card} width="40px"></img>
                             <input 
                                 type='number'
                                 value={cardnum}
-                                onChange={(e)=>setcardnum(e.target.value)}
-                                placeholder='Enter your card number'
+                                max="9999999999999999"
+                                min="1000000000000000"
+                                onChange={(e)=>{setcardnum(e.target.value)
+                                    if (visaRegEx.test(e.target.value)) {
+                                        card.current.src="visa.png"
+                                      } else if(mastercardRegEx.test(e.target.value)) {
+                                        card.current.src="mc_symbol.svg"
+                                      } else if(amexpRegEx.test(e.target.value)) {
+                                        card.current.src="ae.png"
+                                      } else if(discovRegEx.test(e.target.value)) {
+                                        card.current.src="discover.png"
+                                      }else{
+                                        card.current.src="creditcard.png"
+                                      }}}
+                                placeholder='1234123412341234'
                             />
                             
                             </div>
@@ -797,6 +836,8 @@ useEffect(()=>{
                             <input
                                 type='password'
                                 value={cvv}
+                                max="999"
+                                min="100"
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVC'
                             /></label>
@@ -916,12 +957,25 @@ useEffect(()=>{
                         /></label>
                         <label>Card Number
                             <div className='carddetails'>
-                            <img src='creditcard.png' width="40px"></img>
+                            <img src='creditcard.png' ref={card} width="40px"></img>
                             <input 
                                 type='number'
                                 value={cardnum}
-                                onChange={(e)=>setcardnum(e.target.value)}
-                                placeholder='Enter your card number'
+                                max="9999999999999999"
+                                min="1000000000000000"
+                                onChange={(e)=>{setcardnum(e.target.value)
+                                    if (visaRegEx.test(e.target.value)) {
+                                        card.current.src="visa.png"
+                                      } else if(mastercardRegEx.test(e.target.value)) {
+                                        card.current.src="mc_symbol.svg"
+                                      } else if(amexpRegEx.test(e.target.value)) {
+                                        card.current.src="ae.png"
+                                      } else if(discovRegEx.test(e.target.value)) {
+                                        card.current.src="discover.png"
+                                      }else{
+                                        card.current.src="creditcard.png"
+                                      }}}
+                                placeholder='1234123412341234'
                             />
                             
                             </div>
@@ -931,6 +985,8 @@ useEffect(()=>{
                             <input
                                 type='password'
                                 value={cvv}
+                                max="999"
+                                min="100"
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVC'
                             /></label>
