@@ -228,6 +228,7 @@ app.post("/delete",async(req,res)=>{
         }
 
         const response = await pool.query("DELETE FROM AuthenticatedUsers WHERE user_id= $1",[user_id]);
+        const subs = await pool.query("DELETE FROM Subscriptions WHERE user_id= $1",[user_id]);
 
         res.json("Deleted Successfully");
     } catch (error) {
