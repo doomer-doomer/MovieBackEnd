@@ -83,7 +83,7 @@ export default function AdminPage(){
     },
     {
         label: 'Premium',
-        data: [subscribestd],
+        data: [subscribeprem],
         backgroundColor: hexToRGB(col6,0.5),
       },
       {
