@@ -8,6 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useNavigate } from "react-router-dom"
+import Lottie from "lottie-react";
+import notfoundanim from "./notfound.json";
+
 
 export default function PageHeader(){
     
@@ -21,6 +24,16 @@ const handleShow = () => setShow(true);
 const [subscriptionAlert, setsubscriptionAlert] = useState(false);
 const handleClosesubscriptionAlert = () => setsubscriptionAlert(false);
 const handleShowsubscriptionAlert = () => setsubscriptionAlert(true);
+
+const [subscriptionStatus, setsubscriptionStatus] = useState(false);
+const handleClosesubscriptionStatus = () => setsubscriptionStatus(false);
+const handleShowsubscriptionStatus = () => setsubscriptionStatus(true);
+
+const [setsubscription,checksetsubscription]=useState(false);
+const [subscriptionpack,setsubscriptionpack]=useState("")
+const [subscriptionprice,setsubscriptionprice]=useState("")
+const [subscriptionstart,setsubscriptionstart]=useState("")
+const [subscriptionend,setsubscriptionend]=useState("")
 
 const [currentusername,set_user_name] = useState("");
 
@@ -96,6 +109,36 @@ const themes = React.useRef()
         navigate('/subscription');
     }
 
+    const allowances = async event=>{
+        try {
+            const token = localStorage.getItem('jwt_token');
+            if (!token) return;
+            const getSubscriberData = await fetch("http://localhost:5000/subscriberAllData",{
+                method:"POST",
+                headers: { Authorization: `Bearer ${token}`,
+                jwt_token: token
+            },
+            });
+
+            const userData = await getSubscriberData.json();
+
+            setsubscriptionpack(userData.subscription_name)
+            setsubscriptionprice(userData.subscription_price)
+            setsubscriptionstart(userData.subscription_start_date)
+            setsubscriptionend(userData.subscription_end_date)
+
+            if(!getSubscriberData.ok){
+                console.log("No Data found")
+                return;
+            }
+
+            
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     const checkSubscription= async e =>{
         try {
             const token = localStorage.getItem('jwt_token');
@@ -148,6 +191,7 @@ const themes = React.useRef()
                             progress: undefined,
                             theme: "colored",
                             });
+                            checksetsubscription(true)
                     }else{
                         toast.info("Subscription Required", {
                             position: "bottom-left",
@@ -323,7 +367,7 @@ const themes = React.useRef()
 
 
     useEffect(()=>{
-
+        allowances();
         myusername();
         setgreet(greeting);
         getData();
@@ -364,6 +408,7 @@ const themes = React.useRef()
                                 
                                     <Dropdown.Divider />
                                     <Dropdown.Item onClick={handleShow}>Edit Profile</Dropdown.Item>
+                                    <Dropdown.Item onClick={handleShowsubscriptionStatus}>My Subscription</Dropdown.Item>
                                     <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
                                 </DropdownButton>
                                 </Dropdown>
@@ -390,13 +435,42 @@ const themes = React.useRef()
                             <Modal.Title>Hey there!</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <h1>🕒Looks like your time is Over!</h1>
+                            <h1>Looks like your are not Subscribed!</h1>
                             <h4>💥Click below to Check out our awesome plans💥</h4>
                         </Modal.Body>
                         <Modal.Footer>
                         
                         <Button variant="primary" onClick={subscribe}>Subcriptions</Button>
                         </Modal.Footer>
+                    </Modal>
+
+                    <Modal
+                        show={subscriptionStatus}
+                        onHide={handleClosesubscriptionStatus}
+                        backdrop="static"
+                        keyboard={false}
+                        centered
+                        size="lg"
+                    >
+                       <Modal.Header closeButton>
+                            <Modal.Title><h1>Your Subscription</h1></Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            {!setsubscription && <div className="nosubscriptionfound">
+                                
+                                <Lottie animationData={notfoundanim} loop={true} />
+                                No Subscription Found!</div>}
+
+                                {setsubscription && <div className="subscriptionfound">
+                                    <h1>{subscriptionpack}</h1>
+                                    <h3>₹{subscriptionprice}</h3>
+                                    <p>{subscriptionstart} to {subscriptionend}</p>
+                                    </div>}
+                        </Modal.Body>
+                        {!setsubscription && <Modal.Footer>
+                        
+                        <Button variant="primary" onClick={subscribe}>Subcriptions</Button>
+                        </Modal.Footer>}
                     </Modal>
                     
 
