@@ -159,9 +159,10 @@ const verfiyOTP = async event=>{
                     progress: undefined,
                     theme: "colored",
                     });
-                    setdetect(true)
+                    //setdetect(true)
                     setverifylcol("success")
                     setverifylstatus("Verified Successfully✔️")
+                    const dosubscribe = await subscribe();
             }
         
 
@@ -179,8 +180,8 @@ const verfiyOTP = async event=>{
     }
 }
 
-const sendOTP= async e=>{
-    e.preventDefault()
+const sendOTP= async (e)=>{
+    //e.preventDefault()
     try {
         const token = localStorage.getItem('jwt_token');
         if (!token) return;
@@ -252,7 +253,7 @@ const sendOTP= async e=>{
     }
 }
 
-const checkSubscription= async e =>{
+const checkSubscription= async (e)=>{
     try {
         const token = localStorage.getItem('jwt_token');
         const subscriberData = await fetch("http://localhost:5000/subscriberData",{
@@ -336,8 +337,8 @@ const checkSubscription= async e =>{
     }
 }
 
-const subscribe = async e =>{
-    e.preventDefault();
+const subscribe = async (e)=>{
+    //e.preventDefault();
     try {
         const token = localStorage.getItem('jwt_token');
         if (!token) return;
@@ -408,7 +409,7 @@ const subscribe = async e =>{
     }
 }
 
-  function ValidateCreditCardNumber(cardval) {
+  async function ValidateCreditCardNumber(cardval) {
 
     var visaRegEx = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
     var mastercardRegEx = /^(?:5[1-5][0-9]{14})$/;
@@ -434,6 +435,8 @@ const subscribe = async e =>{
        setcarddetails(true)
        setpaysuccesscol("success")
        setpaysuccessstatus("Payment Successful")
+       const send = await sendOTP();
+       console.log(send)
     } else {
         toast.info(`Please provide a valid Visa number!`, {
             position: "bottom-left",
@@ -524,11 +527,11 @@ useEffect(()=>{
                             
                         </Modal.Body>
 
-                        <Modal.Footer>
+                        {/* <Modal.Footer>
                         {detect &&
                                     <Button onClick={subscribe} variant={subscribesuccesscol2}>{subscriptionsuccessstatus}</Button>
                                 }
-                        </Modal.Footer>
+                        </Modal.Footer> */}
 
                     </Modal>
             <h1 className='topsubscribe'>Do you also hate inturrupts? <br></br>
@@ -686,9 +689,8 @@ useEffect(()=>{
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVC'
                             /></label>
-                            <Button type='submit' variant={paysuccesscol}>{paysuccessstatus}</Button>
-                           </form>
-                            <form className='savingform' onSubmit={sendOTP}>
+                            
+                          
                             
                             <h3><br></br>Subscription Details</h3>
                             <br></br>
@@ -711,7 +713,7 @@ useEffect(()=>{
                                 disabled
                                 
                             /></label>
-                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Verification</Button>}
+                            <Button variant={subscribesuccesscol} type='submit'>Pay Now</Button>
                     </form>
                 </div>}
 
@@ -841,9 +843,8 @@ useEffect(()=>{
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVC'
                             /></label>
-                 <Button type='submit' variant={paysuccesscol}>{paysuccessstatus}</Button>
-                            </form>
-                            <form className='savingform' onSubmit={sendOTP}>
+                
+                          
                              <h3><br></br>Subscription Details</h3>
                             <br></br>
                             <label>Subscription Pack
@@ -862,7 +863,7 @@ useEffect(()=>{
                                 placeholder='399.00'
                                 disabled
                             /></label>
-                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Verification</Button>}
+                            <Button variant={subscribesuccesscol} type='submit'>Pay Now</Button>
                     </form>
                 </div>}
                 {paybyqr && <div>
@@ -990,9 +991,8 @@ useEffect(()=>{
                                 onChange={(e)=>setcvv(e.target.value)}
                                 placeholder='CVC'
                             /></label>
-                            <Button type='submit' variant={paysuccesscol}>{paysuccessstatus}</Button>
-                            </form>
-                            <form className='savingform' onSubmit={sendOTP}>
+                            
+                            
                              <h3><br></br>Subscription Details</h3>
                             <br></br>
                             <label>Subscription Pack
@@ -1011,7 +1011,7 @@ useEffect(()=>{
                                 placeholder='999.00'
                                 disabled
                             /></label>
-                            {checkcarddetails && <Button variant={subscribesuccesscol} type='submit'>Verification</Button>}
+                            <Button variant={subscribesuccesscol} type='submit'>Pay Now</Button>
                     </form>
                 </div>}
                 {paybyqr && <div>
